@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+_to_delete/
+_to_delete2/
+_sweep/
+_sweep2/

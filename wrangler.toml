@@ -1,0 +1,12 @@
+# ═══════════════════════════════════════════════════════════════
+# ATEDU 3º ESO · IES Jiménez de Quesada
+# Configuración de Cloudflare Workers Static Assets
+# ═══════════════════════════════════════════════════════════════
+
+name = "atedu3eso-ies-jdq"
+compatibility_date = "2026-09-15"
+
+# Sitio estático público (sin contraseña): servir todos los archivos
+# del repo como assets, igual que cyr1-ies-jdq / tyd3-ies-jdq.
+[assets]
+directory = "./"
