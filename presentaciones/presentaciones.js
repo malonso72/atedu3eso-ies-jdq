@@ -46,5 +46,18 @@
       startAt = parseInt(location.hash.slice(2), 10) - 1;
     }
     show(startAt);
+
+    // "Volver a la web": si venimos de la misma web en esta pestaña, volvemos
+    // a la página de trimestre exacta desde la que se abrió; si no (enlace
+    // directo, pestaña nueva...), usamos el enlace de respaldo a portada.
+    var homeLink = document.querySelector(".home-link");
+    if (homeLink) {
+      homeLink.addEventListener("click", function (e) {
+        if (window.history.length > 1 && document.referrer && document.referrer.indexOf(location.host) !== -1) {
+          e.preventDefault();
+          history.back();
+        }
+      });
+    }
   });
 })();
