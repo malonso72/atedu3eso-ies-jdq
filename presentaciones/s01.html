@@ -3,144 +3,380 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S01 · Presentación del proyecto · ATEDU 3º ESO</title>
+<title>S01 · Los ODS y de dónde salen · ATEDU 3º ESO</title>
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="presentaciones.css">
+<style>
+/* la caja de vídeo, ahora pinchable */
+.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.12); margin:1.5vh 0; border:2px solid transparent;
+  transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+
+/* --- panel de los 17 ODS agrupados en las cinco P --- */
+.pes{display:flex; gap:1.2%; margin-top:1.5vh; align-items:stretch}
+.pe{flex:1; display:flex; flex-direction:column; gap:6px}
+.pe > span{font-family:Georgia,serif; color:var(--p-forest); font-weight:700; font-size:1.15rem; text-align:center; padding-bottom:4px; border-bottom:2px solid rgba(44,95,45,.25)}
+.o{display:flex; align-items:center; gap:8px; padding:6px 9px; border-radius:7px; color:#fff; flex:1;
+   border:none; font-family:inherit; text-align:left; cursor:pointer; position:relative;
+   transition:transform .12s ease, box-shadow .12s ease}
+.o b{font-size:1.25rem; font-family:Georgia,serif; font-variant-numeric:tabular-nums; min-width:1.2em}
+.o i{font-style:normal; font-size:.95rem; line-height:1.15}
+.o:hover,.o:focus-visible{transform:translateY(-2px); box-shadow:0 6px 16px rgba(27,59,28,.3); outline:none}
+.o:focus-visible{box-shadow:0 0 0 3px var(--p-textd), 0 6px 16px rgba(27,59,28,.3)}
+.o::after{content:"?"; margin-left:auto; font-family:Georgia,serif; font-weight:700; opacity:.55; font-size:1rem}
+
+/* tarjeta de explicación de un ODS */
+.telon{position:fixed; inset:0; background:rgba(27,59,28,.55); z-index:30;
+  display:flex; align-items:center; justify-content:center; padding:4vh 5vw}
+.telon[hidden]{display:none}
+.tarjeta{background:var(--p-white); border-radius:16px; max-width:760px; width:100%;
+  box-shadow:0 20px 50px rgba(0,0,0,.35); overflow:hidden}
+.tarjeta .cab{display:flex; align-items:center; gap:.7em; padding:2.2vh 2vw; color:#fff}
+.tarjeta .cab b{font-family:Georgia,serif; font-size:2.6rem; font-variant-numeric:tabular-nums; line-height:1}
+.tarjeta .cab span{font-family:Georgia,serif; font-size:1.7rem; font-weight:700; line-height:1.15}
+.tarjeta .cuerpo{padding:2.4vh 2vw 3vh; color:var(--p-textd); font-size:1.4rem; line-height:1.5}
+.cerrar{position:absolute; top:2.5vh; right:2.5vw; background:rgba(0,0,0,.35); color:#fff; border:none;
+  width:52px; height:52px; border-radius:50%; font-size:1.5rem; cursor:pointer}
+.cerrar:hover{background:rgba(0,0,0,.6)}
+
+/* --- cuestionario final --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.9rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.8vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1.2vh 1.4vw; font-family:inherit; font-size:1.35rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.bien .letra{color:var(--p-forest)}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.opt.mal .letra{color:#B4462F}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.2vh 1.4vw; font-size:1.3rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.7em 1.6em;
+  font-family:Georgia,serif; font-size:1.25rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.15rem; font-variant-numeric:tabular-nums}
+
+
+
+
+@media (max-width: 800px){
+  .cards,.pes{flex-direction:column}
+  .slide h1{font-size:1.8rem}
+  .slide h2{font-size:1.4rem}
+  .slide p{font-size:1.15rem}
+  .numlist .txt,.lugares span,  .pe > span{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){.slide{transition:none}}
+
+</style>
 </head>
 <body>
 <a class="home-link" href="../index.html">← Volver a la web</a>
-<div class="deck">
-<section class="slide dark">
+<div class="deck" id="deck">
+
+  <section class="slide dark">
     <span class="leaf">🌱</span>
-    <h1>Nuestro centro sostenible</h1>
-    <p class="sub">Proyecto anual STEM · ODS · ATEDU 3º ESO</p>
+    <h1>Los ODS y de dónde salen</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
     <div class="hr"></div>
     <p class="kicker">Sesión 1</p>
-    <p style="font-size:1.4rem;font-style:italic">¿Qué son los ODS y cómo puede ayudarnos la tecnología?</p>
-    <p style="margin-top:2em;font-size:.95rem;opacity:.75">Presentación del proyecto anual</p>
+    <p style="font-size:1.4rem;font-style:italic">Diecisiete objetivos firmados por 193 países. ¿De qué problemas salen?</p>
   </section>
-<section class="slide cream">
-    <h2>¿Qué es ATEDU este curso?</h2>
-    
-    <div class="cards"><div class="card">
-      <span class="icon">📋</span>
-      <h3>Trabajo por equipos</h3>
-      <p>Cada equipo investiga, mide y calcula datos reales del centro.</p>
-    </div>
-<div class="card">
-      <span class="icon">📊</span>
-      <h3>Datos y cálculos</h3>
-      <p>Aplicamos lo aprendido en TyD, Matemáticas y Física y Química.</p>
-    </div>
-<div class="card">
-      <span class="icon">💬</span>
-      <h3>Comunicación</h3>
-      <p>Cada reto termina con una exposición: dato, procedimiento y conclusión.</p>
-    </div></div>
-  </section>
-<section class="slide cream">
-    <h2>Desarrollo sostenible: tres pilares</h2>
-    <p class="sub">En 2015, la ONU aprobó la Agenda 2030 con 17 Objetivos de Desarrollo Sostenible (ODS)</p>
-    <div class="cards"><div class="card">
-      <span class="icon">🤝</span>
-      <h3>Social</h3>
-      <p>Que nadie se quede atrás: salud, educación, igualdad.</p>
-    </div>
-<div class="card">
-      <span class="icon">💶</span>
-      <h3>Económico</h3>
-      <p>Un crecimiento que cree trabajo digno para todos.</p>
-    </div>
-<div class="card">
-      <span class="icon">🌍</span>
-      <h3>Medioambiental</h3>
-      <p>Sin agotar los recursos ni el clima del planeta.</p>
-    </div></div>
+
+  <section class="slide cream">
+    <h2>Qué son los ODS</h2>
+    <p>Los <b>Objetivos de Desarrollo Sostenible</b> son una lista de <b>diecisiete objetivos</b> que casi todos los países del mundo firmaron en <b>2015</b>, en la ONU, con el compromiso de haberlos cumplido en <b>2030</b>.</p>
+    <p>Cada objetivo se concreta en metas: en total, <b>169</b>. No son ideas sueltas, son cosas medibles — cuánta gente tiene agua potable, cuántas niñas terminan la escuela, cuánta energía viene de fuentes limpias.</p>
     <div class="infobox">
-      <div class="label">Los ODS no compiten entre sí</div>
-      <p>Los ODS están relacionados: no podemos mejorar uno perjudicando gravemente a los demás.</p>
+      <div class="label">Una cosa importante desde el principio</div>
+      <p>No es una ley: nadie multa a un país que no cumple. Es un acuerdo. Lo que lo mueve o lo frena son decisiones — de los gobiernos, de las empresas y también de cualquiera.</p>
     </div>
   </section>
-<section class="slide cream">
-    <h2>¿Qué son los ODS?</h2>
-    <div class="video-box">
-      <div class="vt">▶ Vídeo pendiente de elegir</div>
-      <div class="vs">El profesor proyectará un vídeo oficial de Naciones Unidas sobre los ODS</div>
-      <div class="vu">un.org/sustainabledevelopment/es/videos</div>
+
+  <section class="slide cream">
+    <h2>Cómo surgen</h2>
+    <p class="sub">No aparecen de la nada en 2015: vienen de bastante antes.</p>
+    <div class="numlist">
+      <div class="row"><span class="num">1945</span><span class="txt">Nace la <b>ONU</b>, al terminar la Segunda Guerra Mundial: casi todos los países del mundo se sientan a acordar cosas.</span></div>
+      <div class="row"><span class="num">1987</span><span class="txt">El <b>Informe Brundtland</b> pone nombre a la idea: <i>desarrollo sostenible</i>.</span></div>
+      <div class="row"><span class="num">2000</span><span class="txt"><b>Objetivos del Milenio</b>: ocho objetivos con fecha en 2015, pensados sobre todo para los países pobres. Se cumplieron a medias.</span></div>
+      <div class="row"><span class="num">2015</span><span class="txt">Al vencer aquel plazo se firma el relevo, la <b>Agenda 2030</b>, con un cambio importante: <b>va con todos los países</b>. España tiene deberes igual que Mali.</span></div>
     </div>
-    <p style="font-weight:700">Después de verlo, comentamos:</p>
-    <ul style="font-size:1.1rem;line-height:1.6"><li>¿Qué significa "desarrollo sostenible" con tus propias palabras?</li>
-<li>De los 17 objetivos, ¿cuáles os han sonado más cercanos al instituto?</li></ul>
   </section>
-<section class="slide cream">
-    <h2>17 objetivos, un compromiso conjunto</h2>
-    <p class="sub">Están relacionados entre sí — este curso trabajamos cuatro a fondo:</p>
-    <div class="cards"><div class="card">
-      <span class="icon">⚡</span>
-      <h3>Reto 1 · ODS 7 · Energía</h3>
-      <p>¿Cuánta energía gastamos sin darnos cuenta?</p>
+
+  <section class="slide cream">
+    <h2>Qué significa «sostenible»</h2>
+    <p class="sub">Informe Brundtland, Naciones Unidas, 1987</p>
+    <p style="font-style:italic;color:var(--p-forest)">«Satisfacer las necesidades del presente sin comprometer las de las generaciones futuras.»</p>
+    <div class="cards">
+      <div class="card"><span class="icon">🤝</span><h3>Social</h3><p>Que nadie se quede sin lo básico: comida, salud, escuela, un techo.</p></div>
+      <div class="card"><span class="icon">💶</span><h3>Económica</h3><p>Que haya trabajo y se pueda vivir de él.</p></div>
+      <div class="card"><span class="icon">🌍</span><h3>Ambiental</h3><p>Que los recursos y el clima aguanten.</p></div>
     </div>
-<div class="card">
-      <span class="icon">♻️</span>
-      <h3>Reto 2 · ODS 12 · Residuos</h3>
-      <p>Lo que compramos y desechamos.</p>
+    <div class="infobox">
+      <div class="label">Las tres, a la vez</div>
+      <p>Una fábrica que da mucho empleo y envenena el río falla. Un parque natural perfecto en un pueblo donde nadie encuentra trabajo también falla.</p>
     </div>
-<div class="card">
-      <span class="icon">☁️</span>
-      <h3>Reto 3 · ODS 13 · Clima</h3>
-      <p>Nuestro impacto climático.</p>
-    </div>
-<div class="card">
-      <span class="icon">🏢</span>
-      <h3>Reto 4 · ODS 11 · Espacios</h3>
-      <p>Un instituto y un entorno mejores.</p>
-    </div></div>
   </section>
-<section class="slide cream">
-    <h2>Cómo vamos a trabajar todo el curso</h2>
-    <p class="sub">Cada reto sigue el mismo proceso, con datos reales del centro:</p>
-    <div class="numlist"><div class="row"><span class="num">1</span><span class="txt">Investigamos el problema y planteamos qué vamos a medir.</span></div>
-<div class="row"><span class="num">2</span><span class="txt">Tomamos datos reales del centro (medición u observación).</span></div>
-<div class="row"><span class="num">3</span><span class="txt">Calculamos: aplicamos fórmulas, hojas de cálculo, gráficos.</span></div>
-<div class="row"><span class="num">4</span><span class="txt">Proponemos una mejora con su impacto calculado, no solo una idea.</span></div>
-<div class="row"><span class="num">5</span><span class="txt">Comunicamos: cada reto termina con una exposición de 2-3 minutos.</span></div></div>
-    <div class="callout">Los cuatro retos terminan en la Feria de retos ODS (S26), donde presentáis todo el trabajo del curso.</div>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" href="https://www.youtube.com/watch?v=MCKH5xk8X-g" target="_blank" rel="noopener">
+      <div class="vt">▶ Los Objetivos de Desarrollo Sostenible: qué son y cómo alcanzarlos</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos objetivos</b> que os llamen la atención.<br>· <b>Uno</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
   </section>
-<section class="slide cream">
-    <h2>Formamos los equipos</h2>
-    <p class="sub">Cuatro roles, un equipo. Cada persona tiene una función clara.</p>
-    <div class="cards"><div class="card">
-      <span class="icon">🧑‍💼</span>
-      <h3>Coordinador/a</h3>
-      <p>Organiza el tiempo y reparte las tareas del equipo.</p>
+
+  <section class="slide cream">
+    <h2>Los diecisiete, ordenados</h2>
+    <p class="sub">No es una lista suelta: la ONU los agrupa en cinco bloques, las cinco P.</p>
+    <div class="pes">
+      <div class="pe">
+        <span>Personas</span>
+        <button class="o" style="background:#E5243B" data-n="1"><b>1</b><i>Fin de la pobreza</i></button>
+        <button class="o" style="background:#DDA63A" data-n="2"><b>2</b><i>Hambre cero</i></button>
+        <button class="o" style="background:#4C9F38" data-n="3"><b>3</b><i>Salud y bienestar</i></button>
+        <button class="o" style="background:#C5192D" data-n="4"><b>4</b><i>Educación de calidad</i></button>
+        <button class="o" style="background:#FF3A21" data-n="5"><b>5</b><i>Igualdad de género</i></button>
+      </div>
+      <div class="pe">
+        <span>Planeta</span>
+        <button class="o" style="background:#26BDE2" data-n="6"><b>6</b><i>Agua limpia y saneamiento</i></button>
+        <button class="o" style="background:#BF8B2E" data-n="12"><b>12</b><i>Producción y consumo responsables</i></button>
+        <button class="o" style="background:#3F7E44" data-n="13"><b>13</b><i>Acción por el clima</i></button>
+        <button class="o" style="background:#0A97D9" data-n="14"><b>14</b><i>Vida submarina</i></button>
+        <button class="o" style="background:#56C02B" data-n="15"><b>15</b><i>Vida de ecosistemas terrestres</i></button>
+      </div>
+      <div class="pe">
+        <span>Prosperidad</span>
+        <button class="o" style="background:#FCC30B" data-n="7"><b>7</b><i>Energía asequible y no contaminante</i></button>
+        <button class="o" style="background:#A21942" data-n="8"><b>8</b><i>Trabajo decente y crecimiento</i></button>
+        <button class="o" style="background:#FD6925" data-n="9"><b>9</b><i>Industria, innovación e infraestructura</i></button>
+        <button class="o" style="background:#DD1367" data-n="10"><b>10</b><i>Reducción de las desigualdades</i></button>
+        <button class="o" style="background:#FD9D24" data-n="11"><b>11</b><i>Ciudades y comunidades sostenibles</i></button>
+      </div>
+      <div class="pe">
+        <span>Paz</span>
+        <button class="o" style="background:#00689D" data-n="16"><b>16</b><i>Paz, justicia e instituciones sólidas</i></button>
+      </div>
+      <div class="pe">
+        <span>Alianzas</span>
+        <button class="o" style="background:#19486A" data-n="17"><b>17</b><i>Alianzas para lograr los objetivos</i></button>
+      </div>
     </div>
-<div class="card">
-      <span class="icon">✒️</span>
-      <h3>Secretario/a</h3>
-      <p>Anota los datos y rellena la ficha del equipo.</p>
-    </div>
-<div class="card">
-      <span class="icon">📣</span>
-      <h3>Portavoz</h3>
-      <p>Presenta las conclusiones del equipo al grupo.</p>
-    </div>
-<div class="card">
-      <span class="icon">📦</span>
-      <h3>Resp. de materiales</h3>
-      <p>Reparte y recoge el material necesario en cada sesión.</p>
-    </div></div>
+    <div class="callout">Pincha en cualquiera de los diecisiete para ver de qué va.</div>
   </section>
-<section class="slide dark">
+
+  <section class="slide cream">
+    <h2 id="q-tit">Lo comprobamos</h2>
+    <p class="sub">Diez preguntas, en voz alta y entre todos. Antes de contestar, que alguien explique por qué.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 10</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide dark">
     <span class="leaf">🌱</span>
-    <h2>Para hoy</h2>
-    <ul style="font-size:1.2rem;line-height:1.7"><li>Formar el equipo y repartir los cuatro roles en la ficha.</li>
-<li>Completar el "Plan inicial" de la ficha de equipo.</li>
-<li>Traer calculadora para la próxima sesión (S02).</li></ul>
+    <h2>Están enganchados entre sí</h2>
+    <p>No se acaba con el hambre sin agua limpia. No hay salud sin agua limpia. No hay trabajo digno sin educación.</p>
+    <p class="sub">Por eso son diecisiete y no uno solo, y por eso ninguno se resuelve por separado.</p>
     <div class="hr"></div>
-    <p class="kicker">Próxima sesión · S02</p>
-    <p style="font-style:italic;font-size:1.1rem">Reto 1 · ODS 7 — ¿cuánta energía gastamos sin darnos cuenta?</p>
+    <p class="kicker">A partir de aquí</p>
+    <p style="font-size:1.3rem;font-style:italic">Los iremos viendo uno a uno, con datos, y veremos qué se decide con ellos.</p>
   </section>
+
 </div>
+
+<div class="telon" id="telon" hidden>
+  <button class="cerrar" id="cerrar" aria-label="Cerrar">✕</button>
+  <div class="tarjeta" role="dialog" aria-modal="true" aria-labelledby="t-nom">
+    <div class="cab" id="t-cab"><b id="t-num">1</b><span id="t-nom">—</span></div>
+    <div class="cuerpo" id="t-txt">—</div>
+  </div>
+</div>
+
+
+<script>
+(function(){
+
+  /* --- explicación de cada ODS --- */
+  var TXT = {
+    1:"Que nadie se quede sin lo mínimo para vivir: comida, una casa digna, salud, escuela. No va solo de dinero, va de no poder llegar a lo básico. Y no pasa solo lejos: aquí también hay pobreza, con otra cara.",
+    2:"Que todo el mundo coma, y coma bien. Hay dos problemas a la vez: gente que no tiene qué comer y comida que se tira. También va de producir alimento sin agotar la tierra.",
+    3:"Que haya médicos, vacunas y medicinas para todos, y que no dependa de lo que puedas pagar. Incluye la salud mental y cosas tan cotidianas como el aire que respiras.",
+    4:"Que todos los chavales del mundo terminen la escuela, y que lo que aprendan sirva de algo. No basta con ir a clase: hace falta que la enseñanza sea buena y gratuita.",
+    5:"Que ser mujer no te cierre puertas: en los estudios, en el trabajo, en el sueldo o en la calle. Sigue habiendo países donde las niñas dejan de estudiar antes que los niños.",
+    6:"Que todo el mundo tenga agua potable en el grifo y un saneamiento decente. Que salga agua buena al abrirlo no pasa en todas partes — y donde pasa, hay que no malgastarla.",
+    7:"Que haya luz y energía para todos, a un precio que se pueda pagar y sin quemar el planeta. Aquí entran las renovables, y también el problema de quien no puede pagar la factura.",
+    8:"Que haya trabajo, y que sea digno: con contrato, con horarios y con un sueldo del que se pueda vivir. Una economía que crece sin eso no cuenta como desarrollo.",
+    9:"Que existan carreteras, puentes, agua corriente, internet, fábricas — lo que hace falta para que un sitio funcione. Y que esa industria sea lo más limpia posible.",
+    10:"Que la distancia entre los que más tienen y los que menos no siga creciendo. Dentro de cada país y también entre países ricos y países pobres.",
+    11:"Que los pueblos y las ciudades sean sitios donde se pueda vivir: vivienda que se pueda pagar, transporte, zonas verdes, aire limpio y calles seguras.",
+    12:"Hacer más con menos: fabricar sin desperdiciar, comprar lo que hace falta, reparar antes que tirar y reciclar lo que ya no sirve. Vale para las empresas y para cada uno.",
+    13:"Frenar el calentamiento del planeta reduciendo las emisiones, y a la vez prepararse para lo que ya está pasando: sequías, olas de calor y lluvias torrenciales.",
+    14:"Cuidar los mares: no llenarlos de plásticos ni de vertidos, y no pescar más de lo que el mar es capaz de reponer.",
+    15:"Cuidar los bosques, los montes, los ríos y el suelo. Frenar la desertificación y evitar que desaparezcan especies de animales y plantas.",
+    16:"Que no haya guerras ni violencia, que la justicia funcione igual para todos y que las instituciones sean honradas y no corruptas.",
+    17:"Los dieciséis anteriores no los saca adelante ningún país por su cuenta. Hace falta que los países, las empresas y la gente cooperen y pongan dinero y medios."
+  };
+  var telon = document.getElementById('telon');
+  var cab = document.getElementById('t-cab');
+  var num = document.getElementById('t-num');
+  var nom = document.getElementById('t-nom');
+  var txt = document.getElementById('t-txt');
+  var ultimo = null;
+
+  /* texto oscuro sobre los colores claros (amarillos y naranjas) */
+  function claro(css){
+    var m = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/.exec(css);
+    if(!m) return false;
+    var l = (0.299*m[1] + 0.587*m[2] + 0.114*m[3]) / 255;
+    return l > 0.62;
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.o'), function(b){
+    if(claro(getComputedStyle(b).backgroundColor)){ b.style.color = '#2E2718'; }
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      var n = b.getAttribute('data-n');
+      ultimo = b;
+      cab.style.background = b.style.background || b.style.backgroundColor;
+      cab.style.color = claro(getComputedStyle(b).backgroundColor) ? '#2E2718' : '#fff';
+      num.textContent = n;
+      nom.textContent = b.querySelector('i').textContent;
+      txt.textContent = TXT[n] || '';
+      telon.hidden = false;
+      document.getElementById('cerrar').focus();
+    });
+  });
+  function cierra(){
+    telon.hidden = true;
+    if(ultimo){ ultimo.focus(); }
+  }
+  document.getElementById('cerrar').addEventListener('click', function(ev){ ev.stopPropagation(); cierra(); });
+  telon.addEventListener('click', function(e){ e.stopPropagation(); if(e.target === telon){ cierra(); } });
+
+  /* --- cuestionario final --- */
+  var PREGUNTAS = [
+    { p:"¿Cuántos Objetivos de Desarrollo Sostenible hay?",
+      o:["Ocho","Diecisiete","Ciento sesenta y nueve"], c:1,
+      e:"Diecisiete objetivos. Las 169 son las metas en que se dividen, y ocho eran los Objetivos del Milenio, los anteriores." },
+    { p:"¿Quién los aprobó, y en qué año?",
+      o:["La Unión Europea, en el año 2000","La ONU, en 2015","El Gobierno de España, en 2030"], c:1,
+      e:"La ONU, en septiembre de 2015. 2030 no es cuando se firmaron: es la fecha límite para cumplirlos." },
+    { p:"Entonces, ¿qué son las 169?",
+      o:["Los países que firmaron","Las metas concretas en que se dividen los objetivos","Los millones de personas a los que afecta"], c:1,
+      e:"Las metas. Cada uno de los diecisiete objetivos se concreta en varias metas medibles: así se puede comprobar si se avanza o no." },
+    { p:"Si un país no los cumple, ¿qué le pasa?",
+      o:["Le ponen una multa","Le expulsan de la ONU","Nada: es un acuerdo, no una ley"], c:2,
+      e:"Nada. Por eso dependen de decisiones y no de castigos — es la idea que va a recorrer todo el curso." },
+    { p:"¿En qué se diferenciaban los Objetivos del Milenio de la Agenda 2030?",
+      o:["Iban dirigidos sobre todo a los países pobres","Eran diecisiete también","No tenían fecha de cumplimiento"], c:0,
+      e:"Los del Milenio miraban sobre todo a los países pobres. El cambio grande de 2015 es que la Agenda 2030 va con todos: España tiene deberes igual que Mali." },
+    { p:"Según el Informe Brundtland, el desarrollo sostenible es el que…",
+      o:["No contamina nada en absoluto","Satisface las necesidades del presente sin comprometer las de las generaciones futuras","Hace crecer la economía todo lo posible"], c:1,
+      e:"Esa es la definición de 1987, y sigue siendo la que se usa. No dice «no contaminar nada»: dice no dejar el sitio vacío al que venga detrás." },
+    { p:"Una fábrica da mucho empleo en el pueblo, pero vierte al río. ¿Es sostenible?",
+      o:["Sí, porque crea trabajo","No: cumple la parte económica pero falla la ambiental","Sí, si paga sus impuestos"], c:1,
+      e:"Las tres patas tienen que ir juntas. Con una sola no basta, y por eso el ejemplo contrario también falla: un paraje perfecto en un pueblo sin trabajo tampoco se sostiene." },
+    { p:"¿Cuál es el ODS 7?",
+      o:["Agua limpia y saneamiento","Energía asequible y no contaminante","Ciudades y comunidades sostenibles"], c:1,
+      e:"El 7 es el de la energía. El agua es el 6 y las ciudades el 11 — los tres se tocan entre sí, como casi todos." },
+    { p:"«Los ODS son cosa de los países pobres». Esta frase es…",
+      o:["Verdadera","Falsa: la Agenda 2030 va con todos los países"], c:1,
+      e:"Falsa, y es el error más repetido. Precisamente eso es lo que cambió en 2015 respecto a los Objetivos del Milenio." },
+    { p:"¿Por qué hay diecisiete y no uno solo?",
+      o:["Porque cada país eligió el suyo","Porque los problemas están enganchados y hay que atacarlos a la vez","Porque no hubo forma de ponerse de acuerdo"], c:1,
+      e:"Porque van juntos: no se acaba con el hambre sin agua limpia, ni hay trabajo digno sin educación. Tirar de uno solo no funciona." }
+  ];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta');
+  var qPreg = document.getElementById('q-preg');
+  var qOpts = document.getElementById('q-opts');
+  var qExp = document.getElementById('q-exp');
+  var qSig = document.getElementById('q-sig');
+  var qMarc = document.getElementById('q-marcador');
+
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi];
+    contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p;
+    qExp.hidden = true;
+    qSig.hidden = true;
+    qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+
+  function responde(n){
+    if(contestada) return;
+    contestada = true;
+    var q = PREGUNTAS[qi];
+    if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien');
+      else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e;
+    qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    if(qi < PREGUNTAS.length - 1){
+      qSig.textContent = 'Siguiente pregunta →';
+      qSig.hidden = false;
+    } else {
+      qSig.textContent = 'Empezar otra vez';
+      qSig.hidden = false;
+    }
+  }
+
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; }
+    else { qi = 0; aciertos = 0; }
+    pintaPregunta();
+    qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+  document.addEventListener('keydown', function(e){
+    if(!telon.hidden && e.key === 'Escape'){ cierra(); e.stopImmediatePropagation(); e.preventDefault(); }
+    else if(!telon.hidden){ e.stopImmediatePropagation(); }
+  });
+})();
+</script>
 <script src="presentaciones.js"></script>
 </body>
 </html>

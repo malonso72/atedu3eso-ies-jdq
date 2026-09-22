@@ -10,8 +10,14 @@ Santa Fe (Granada).
 
 Es un sitio de asignatura como CyR, TyD o TECI: **público, sin contraseña**
 (a diferencia del sitio de Tutoría del mismo grupo, que sí está protegido).
-Recoge el proyecto anual "Nuestro centro sostenible" (retos STEM ligados a
-los ODS) y las actividades de cada sesión, por trimestre.
+Recoge "Decisiones para un mundo sostenible": sesiones semanales
+independientes en torno a los ODS, con una presentación por sesión, ordenadas
+por trimestre.
+
+El planteamiento anterior (proyecto anual "Nuestro centro sostenible", con
+cuatro retos STEM por equipos y feria final) se retiró del sitio en septiembre
+de 2026; sus 26 sesiones y sus presentaciones siguen en el historial de git
+por si hiciera falta recuperarlas.
 
 **Regla dura: cero datos personales, cero nombres de alumnado, en ningún
 archivo, en ningún momento** — más importante aún al ser un sitio público sin

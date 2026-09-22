@@ -1,8 +1,9 @@
 # ATEDU 3º ESO · IES Jiménez de Quesada
 
-Sitio de la materia de Atención Educativa (ATEDU) de 3º ESO: el proyecto
-anual "Nuestro centro sostenible" (retos STEM ligados a los ODS). Sitio
-público, sin contraseña — a diferencia del sitio de Tutoría del mismo grupo.
+Sitio de la materia de Atención Educativa (ATEDU) de 3º ESO: "Decisiones para
+un mundo sostenible", sesiones semanales independientes en torno a los ODS.
+Sitio público, sin contraseña — a diferencia del sitio de Tutoría del mismo
+grupo.
 
 ## Añadir una sesión nueva
 
@@ -27,10 +28,11 @@ npx wrangler deploy
 ## Estructura
 
 ```
-index.html          → portada: proyecto, los 4 retos, metodología, evaluación
+index.html          → portada: qué es la materia, cómo funciona, evaluación
 trimestre-1.html     → sesiones del 1er trimestre
 trimestre-2.html     → sesiones del 2º trimestre
 trimestre-3.html     → sesiones del 3er trimestre
+presentaciones/     → una presentación HTML por sesión (sXX.html) + su CSS y JS
 assets/css/common.css → estilos comunes de todo el sitio
 favicon.svg
 wrangler.toml
