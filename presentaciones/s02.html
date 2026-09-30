@@ -33,6 +33,18 @@
 .leyenda i{width:16px; height:16px; border-radius:4px; display:block}
 .fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
 
+/* --- barra apilada de la energía total --- */
+.stack{display:flex; gap:2px; height:44px; border-radius:6px; overflow:hidden; margin-top:1vh}
+.stack .seg{display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.05rem;
+  font-weight:700; white-space:nowrap; overflow:hidden; min-width:0; padding:0 .4em}
+.stack .seg.destaca{color:#2E2718; outline:3px solid var(--p-forest); outline-offset:-3px}
+.pie-stack{font-size:1rem !important; color:var(--p-textm); margin:.5vh 0 0 0 !important}
+.zoom{font-family:Georgia,serif; color:var(--p-forest); font-weight:700; font-size:1.2rem !important; margin:1.4vh 0 .2vh 0 !important}
+.mix.compacta{gap:.4vh; margin-top:.4vh}
+.mix.compacta .barra .pista{height:18px}
+.mix.compacta .barra .fuente{font-size:1.02rem}
+.mix.compacta .barra .pct{font-size:1.1rem}
+
 /* --- tabla de datos --- */
 .tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
   overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
@@ -153,7 +165,7 @@ a.video-box[href=""]{display:none}
     <h2>Qué pide el ODS 7</h2>
     <p class="sub">«Energía asequible y no contaminante». Son cuatro cosas distintas, no una.</p>
     <div class="metas">
-      <div class="meta"><b>Que llegue</b><span>Que todo el mundo tenga electricidad. Hoy hay cientos de millones de personas que no.</span></div>
+      <div class="meta"><b>Que llegue</b><span>655 millones de personas no tienen electricidad, y 2.000 millones cocinan aún con leña, carbón o queroseno.</span></div>
       <div class="meta"><b>Que se pueda pagar</b><span>Tener enchufe no basta si la factura no se puede afrontar.</span></div>
       <div class="meta"><b>Que sea limpia</b><span>Cada vez más renovable y menos quemada.</span></div>
       <div class="meta foco"><b>Que se gaste menos</b><span>Hacer lo mismo con menos energía. Esta es la que tenemos a mano aquí.</span></div>
@@ -190,56 +202,40 @@ a.video-box[href=""]{display:none}
   </section>
 
   <section class="slide cream">
-    <h2>¿De dónde sale la luz que gastamos?</h2>
-    <p class="sub">Toda la electricidad generada en España durante 2025, por su origen.</p>
-    <div class="mix">
-      <div class="barra">
-        <span class="fuente">Eólica</span>
-        <span class="pista"><span class="relleno" style="width:100%;background:#2F7D32"></span></span>
-        <span class="pct">21,6 %</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Nuclear</span>
-        <span class="pista"><span class="relleno" style="width:88%;background:#2D6CA6"></span></span>
-        <span class="pct">19,0 %</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Solar fotovoltaica</span>
-        <span class="pista"><span class="relleno" style="width:85%;background:#2F7D32"></span></span>
-        <span class="pct">18,4 %</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Ciclo combinado (gas)</span>
-        <span class="pista"><span class="relleno" style="width:78%;background:#C05621"></span></span>
-        <span class="pct">16,8 %</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Otras fuentes</span>
-        <span class="pista"><span class="relleno" style="width:59%;background:#8C8578"></span></span>
-        <span class="pct">12,8 %</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Hidráulica</span>
-        <span class="pista"><span class="relleno" style="width:57%;background:#2F7D32"></span></span>
-        <span class="pct">12,4 %</span>
-      </div>
+    <h2>¿De dónde sale la energía que usamos?</h2>
+    <p class="sub">Toda la energía que se consumió en España en 2024, por tipo.</p>
+    <div class="stack" role="img" aria-label="Petróleo 53,9 %, electricidad 22,3 %, gas natural 15,7 %, renovables usadas directamente 7,3 %">
+      <span class="seg" style="flex:53.9;background:#5B4636">Petróleo · 54 %</span>
+      <span class="seg destaca" style="flex:22.3;background:#D4A72C">Electricidad · 22 %</span>
+      <span class="seg" style="flex:15.7;background:#C05621">Gas · 16 %</span>
+      <span class="seg" style="flex:7.3;background:#2F7D32">7 %</span>
+    </div>
+    <p class="pie-stack">El 7 % verde son renovables usadas directamente: leña, biomasa, solar térmica… El petróleo es, sobre todo, gasolina y gasóleo del transporte.</p>
+    <p class="zoom">Y dentro de ese 22 % de electricidad, así se generó en 2025:</p>
+    <div class="mix compacta">
+      <div class="barra"><span class="fuente">Eólica</span><span class="pista"><span class="relleno" style="width:100%;background:#2F7D32"></span></span><span class="pct">21,6 %</span></div>
+      <div class="barra"><span class="fuente">Nuclear</span><span class="pista"><span class="relleno" style="width:88%;background:#2D6CA6"></span></span><span class="pct">19,0 %</span></div>
+      <div class="barra"><span class="fuente">Solar fotovoltaica</span><span class="pista"><span class="relleno" style="width:85%;background:#2F7D32"></span></span><span class="pct">18,4 %</span></div>
+      <div class="barra"><span class="fuente">Ciclo combinado (gas)</span><span class="pista"><span class="relleno" style="width:78%;background:#C05621"></span></span><span class="pct">16,8 %</span></div>
+      <div class="barra"><span class="fuente">Otras fuentes</span><span class="pista"><span class="relleno" style="width:59%;background:#8C8578"></span></span><span class="pct">12,8 %</span></div>
+      <div class="barra"><span class="fuente">Hidráulica</span><span class="pista"><span class="relleno" style="width:57%;background:#2F7D32"></span></span><span class="pct">12,4 %</span></div>
     </div>
     <div class="leyenda">
       <span><i style="background:#2F7D32"></i> Renovable</span>
-      <span><i style="background:#2D6CA6"></i> Nuclear: no es renovable, pero no emite CO₂</span>
-      <span><i style="background:#C05621"></i> Se quema gas: sí emite</span>
+      <span><i style="background:#2D6CA6"></i> Nuclear: no renovable, pero sin CO₂</span>
+      <span><i style="background:#C05621"></i> Gas: emite</span>
       <span><i style="background:#8C8578"></i> Otras (cogeneración, solar térmica, carbón…)</span>
     </div>
     <div class="infobox">
-      <div class="label">Los dos números que importan</div>
-      <p>El 55,5 % de la electricidad fue renovable, y el 75,5 % se generó sin emitir CO₂. Cada kWh que no gastamos es sobre todo un kWh de gas que no hace falta quemar.</p>
+      <div class="label">La luz es la parte más limpia… y la más pequeña</div>
+      <p>El 55,5 % de la electricidad fue renovable, pero la electricidad es solo una cuarta parte de la energía que usamos. El grueso sigue siendo petróleo, y casi todo va al transporte.</p>
     </div>
-    <p class="fuente-dato">Datos: Red Eléctrica, «Informe del Sistema Eléctrico Español 2025» (generación sin autoconsumo).</p>
+    <p class="fuente-dato">Datos: MITECO, Balance energético de España 2024 (consumo de energía final); Red Eléctrica, Informe del Sistema Eléctrico 2025 (generación sin autoconsumo).</p>
   </section>
 
   <section class="slide cream">
     <h2>El caso: los tubos de esta clase</h2>
-    <p class="sub">Los fluorescentes se pueden cambiar por tubos LED que dan la misma luz. La pregunta no es si gastan menos —eso ya lo sabemos—, sino si <b>compensa</b> cambiarlos.</p>
+    <p class="sub">Hoy medimos la parte que tenemos a mano: la electricidad del aula. Los fluorescentes se pueden cambiar por tubos LED que dan la misma luz. La pregunta no es si gastan menos —eso ya lo sabemos—, sino si <b>compensa</b> cambiarlos.</p>
     <table class="tabla">
       <thead>
         <tr><th>Tipo de tubo</th><th>Potencia</th><th>Horas al año</th><th>Energía al año</th><th>Coste al año</th></tr>
@@ -450,15 +446,15 @@ a.video-box[href=""]{display:none}
     { p:"Una bombilla de 20 W encendida 50 horas, ¿cuánta energía gasta?",
       o:["1.000 Wh, o sea 1 kWh","70 Wh","20 kWh"], c:0,
       e:"E = P · t = 20 × 50 = 1.000 Wh = 1 kWh. Se multiplica, no se suma." },
-    { p:"De cada 100 kWh generados en España en 2025, ¿cuántos vinieron de fuentes renovables?",
+    { p:"De cada 100 kWh de electricidad generados en España en 2025, ¿cuántos vinieron de fuentes renovables?",
       o:["Unos 25","Unos 55","Unos 90"], c:1,
       e:"El 55,5 %, según Red Eléctrica: algo más de la mitad. Y el 75,5 % se generó sin emitir CO₂, porque a las renovables se les suma la nuclear." },
     { p:"La energía nuclear, ¿es renovable?",
       o:["Sí, porque no contamina","No es renovable, pero al generar no emite CO₂","No es renovable y además es la que más CO₂ emite"], c:1,
       e:"Son dos cosas distintas y conviene no mezclarlas: renovable quiere decir que no se agota, y la nuclear usa uranio, que se acaba. Lo que sí es cierto es que no emite CO₂ al generar electricidad." },
-    { p:"El fluorescente gasta 5,91 € al año y el LED 2,36 €. ¿Cuánto ahorra un tubo?",
-      o:["8,27 € al año","3,55 € al año","2,36 € al año"], c:1,
-      e:"5,91 − 2,36 = 3,55 € por tubo y año. Poco; lo que cambia la cosa es multiplicarlo por todos los tubos del centro." },
+    { p:"¿Qué parte de toda la energía que se consume en España es electricidad?",
+      o:["Casi toda, un 90 %","Más o menos una cuarta parte","Un 2 %"], c:1,
+      e:"El 22 % en 2024. Más de la mitad es petróleo, sobre todo para el transporte. Por eso el 55 % renovable de la luz no quiere decir que más de la mitad de nuestra energía sea renovable." },
     { p:"Si cambiar 80 tubos cuesta 800 € y se ahorran 284 € al año, ¿en cuánto se paga?",
       o:["En 2,8 años","En 284 años","No llega a pagarse nunca"], c:0,
       e:"800 ÷ 284 = 2,8 años. Y como el tubo dura unos diez, los siete siguientes son ahorro limpio." },
