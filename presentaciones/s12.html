@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S12 · Desigualdades · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>Desigualdades</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 12 · ODS 10</p>
+    <p style="font-size:1.4rem;font-style:italic">Si el mundo fuera esta clase, ¿cuántos caramelos te tocarían?</p>
+  </section>
+  <section class="slide cream">
+    <h2>Qué pide el ODS 10</h2>
+    <p class="sub">«Reducción de las desigualdades». Dentro de cada país y entre países.</p>
+    <div class="metas">
+      <div class="meta foco" style="border-top-color:var(--p-forest)"><b>Que los de abajo crezcan más</b><span>Que los ingresos del 40 % más pobre suban más rápido que la media.</span></div>
+      <div class="meta" style="border-top-color:#DD1367"><b>Nadie excluido</b><span>Por edad, sexo, discapacidad, origen o religión.</span></div>
+      <div class="meta" style="border-top-color:#DD1367"><b>Leyes justas</b><span>Impuestos y ayudas que reduzcan la distancia.</span></div>
+      <div class="meta" style="border-top-color:#DD1367"><b>Migrar con seguridad</b><span>Que moverse de país no sea un peligro.</span></div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=ojI69FKxqdE" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 10 | Reducción de las desigualdades</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+
+  <section class="slide cream">
+    <h2>¿Cómo se reparte el mundo?</h2>
+    <p class="sub">Parte de la riqueza y de los ingresos del mundo que tiene cada grupo.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Riqueza del 10 % más rico</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#8E0F4A"></span></span>
+        <span class="pct">75 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Ingresos del 10 % más rico</span>
+        <span class="pista"><span class="relleno" style="width:71%;background:#8E0F4A"></span></span>
+        <span class="pct">53 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Ingresos del 50 % más pobre</span>
+        <span class="pista"><span class="relleno" style="width:11%;background:#6E6E6E"></span></span>
+        <span class="pct">8 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Riqueza del 50 % más pobre</span>
+        <span class="pista"><span class="relleno" style="width:3%;background:#6E6E6E"></span></span>
+        <span class="pct">2 %</span>
+      </div>
+    </div>
+    <div class="leyenda">
+      <span><i style="background:#8E0F4A"></i> El 10 % más rico</span>
+      <span><i style="background:#6E6E6E"></i> La mitad más pobre</span>
+    </div>
+    <div class="infobox">
+      <div class="label">Diez contra cincuenta</div>
+      <p>Una décima parte de la población tiene tres cuartas partes de la riqueza. La mitad de la humanidad junta, el 2 %.</p>
+    </div>
+    <p class="fuente-dato">Datos: Informe sobre la Desigualdad Mundial 2026 (World Inequality Lab).</p>
+  </section>
+  <section class="slide cream">
+    <h2>Y en España</h2>
+    <div class="dato-grande">
+      <div><b>15.620 €</b><span>de renta media por persona en 2024</span></div>
+      <div><b>30,8</b><span>de índice de Gini (0 = todos igual, 100 = uno lo tiene todo)</span></div>
+      <div><b>5,2 veces</b><span>ingresa el 20 % más rico lo que el 20 % más pobre</span></div>
+    </div>
+    <div class="infobox">
+      <div class="label">Algo mejor que antes</div>
+      <p>La desigualdad en España ha bajado un poco en los últimos años: el Gini era 31,2 en la encuesta anterior.</p>
+    </div>
+    <p class="fuente-dato">Datos: INE, Encuesta de Condiciones de Vida 2025 (ingresos de 2024).</p>
+  </section>
+  <section class="slide cream">
+    <h2>Reparte 100 caramelos como el mundo</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="gen">Personas en la clase</label><input id="gen" type="number" value="20" min="0" step="1"><span class="ud">personas</span></div>
+        <div class="mando"><label for="tot">Caramelos</label><input id="tot" type="number" value="100" min="0" step="10"><span class="ud">caramelos</span></div>
+        <div class="mando"><label for="ric">Parte para el 10 % más rico</label><input id="ric" type="number" value="75" min="0" step="1"><span class="ud">%</span></div>
+        <div class="mando"><label for="pob">Parte para el 50 % más pobre</label><input id="pob" type="number" value="2" min="0" step="1"><span class="ud">%</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="ric:53,pob:8">Repartir los ingresos, no la riqueza</button>
+          <button class="pista-btn" data-set="ric:10,pob:50">Reparto a partes iguales</button>
+          <button class="pista-btn" data-set="gen:20,tot:100,ric:75,pob:2">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">Cada uno del 10 % más rico</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">Cada uno del 40 % de en medio</span><span class="vl" id="t2">—</span></div>
+          <div class="tile"><span class="et">Cada uno del 50 % más pobre</span><span class="vl" id="t3">—</span></div>
+          <div class="tile clave"><span class="et">El más rico tiene</span><span class="vl" id="t4">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">Los repartos son los del Informe sobre la Desigualdad Mundial 2026: riqueza (75 % y 2 %) e ingresos (53 % y 8 %). Riqueza es lo que se tiene; ingresos, lo que se gana cada año.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Ver cómo se reparte el mundo, con caramelos para que se entienda lo que dicen los porcentajes.</p>
+    <p class="sub">La semana que viene, antes de Navidad, repasamos todo el trimestre.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S13 · Lo que hemos aprendido: repaso del trimestre.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["gen", "tot", "ric", "pob"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var nr = Math.max(1, Math.round(v.gen * 0.1));
+      var np = Math.max(1, Math.round(v.gen * 0.5));
+      var nm = Math.max(1, v.gen - nr - np);
+      var cr = v.tot * v.ric / 100, cp = v.tot * v.pob / 100, cm = Math.max(0, v.tot - cr - cp);
+      var r = cr / nr, m = cm / nm, p = cp / np;
+      var veces = p > 0 ? r / p : 0;
+      return { t:{ t1: n1(r), t2: n1(m), t3: n1(p), t4: n0(veces) + ' veces más' }, ok: veces <= 5,
+        msg: 'De ' + n0(v.gen) + ' personas, ' + n0(nr) + ' se quedan con ' + n0(cr) + ' caramelos y ' + n0(np) + ' se reparten ' + n0(cp) + '. Cada uno de los más ricos tiene ' + n0(veces) + ' veces más que cada uno de los más pobres.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "En el mundo, ¿qué parte de la riqueza tiene el 10 % más rico?", "o": ["Un 10 %", "Un 30 %", "Un 75 %"], "c": 2, "e": "El 75 %, según el Informe sobre la Desigualdad Mundial 2026. La mitad más pobre, el 2 %."}, {"p": "¿Qué diferencia hay entre riqueza e ingresos?", "o": ["Ninguna", "La riqueza es lo que tienes acumulado; los ingresos, lo que ganas cada año", "Los ingresos son solo el sueldo del padre"], "c": 1, "e": "Por eso la riqueza está aún más concentrada: se acumula y se hereda."}, {"p": "¿Qué mide el índice de Gini?", "o": ["La inflación", "Lo desigual que es el reparto de ingresos, de 0 (todos igual) a 100 (uno lo tiene todo)", "El paro"], "c": 1, "e": "España tiene un Gini de 30,8 en la última encuesta del INE."}, {"p": "El indicador S80/S20 de España es 5,2. ¿Qué significa?", "o": ["Que el 20 % más rico ingresa 5,2 veces lo que el 20 % más pobre", "Que hay 5,2 millones de ricos", "Que la desigualdad ha subido un 5,2 %"], "c": 0, "e": "Compara lo que ingresa la quinta parte más rica con la quinta parte más pobre."}, {"p": "¿Cuál fue la renta media por persona en España en 2024?", "o": ["Unos 1.500 €", "Unos 15.620 €", "Unos 156.000 €"], "c": 1, "e": "15.620 € por persona y año, según el INE: un 5,5 % más que el año anterior."}, {"p": "Si en una clase de 20 personas se reparten 100 caramelos como la riqueza del mundo, ¿cuántos le tocan a cada uno de los 10 más pobres?", "o": ["0,2", "5", "10"], "c": 0, "e": "Los 10 más pobres se reparten 2 caramelos: 0,2 cada uno. Los 2 más ricos, 37,5 cada uno."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

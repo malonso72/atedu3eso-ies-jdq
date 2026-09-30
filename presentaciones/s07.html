@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S07 · La comida que tiramos · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>La comida que tiramos</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 7 · ODS 2</p>
+    <p style="font-size:1.4rem;font-style:italic">Mientras 645 millones de personas pasan hambre, en cada casa de España se tira comida cada semana.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Qué pide el ODS 2</h2>
+    <p class="sub">«Hambre cero». No es solo producir más: es que llegue y que no se pierda.</p>
+    <div class="metas">
+      <div class="meta" style="border-top-color:#DDA63A"><b>Que nadie pase hambre</b><span>Comida suficiente y segura todo el año.</span></div>
+      <div class="meta" style="border-top-color:#DDA63A"><b>Comer bien</b><span>Acabar con la malnutrición, también la de comer mal.</span></div>
+      <div class="meta" style="border-top-color:#DDA63A"><b>Agricultura que dure</b><span>Producir sin agotar la tierra ni el agua.</span></div>
+      <div class="meta foco" style="border-top-color:var(--p-forest)"><b>No desperdiciar</b><span>Que la comida producida acabe comida.</span></div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=IpeFw9AcBPg" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 2 – Hambre cero</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Dos datos que no cuadran</h2>
+    <div class="dato-grande">
+      <div><b>645 mill.</b><span>de personas pasaron hambre en el mundo en 2025 (el 7,8 %)</span></div>
+      <div><b>19 %</b><span>de la comida que llega a tiendas, bares y casas se desperdicia</span></div>
+      <div><b>24,3 kg</b><span>de comida tiró cada persona en su casa en España en 2025</span></div>
+    </div>
+    <div class="infobox">
+      <div class="label">No falta comida: falla el reparto</div>
+      <p>El mundo produce comida de sobra para todos. El hambre tiene más que ver con la pobreza, las guerras y el reparto que con la cantidad.</p>
+    </div>
+    <p class="fuente-dato">Datos: FAO, SOFI 2026; PNUMA, Food Waste Index 2024; MAPA, informe del desperdicio alimentario en los hogares 2025.</p>
+  </section>
+  <section class="slide cream">
+    <h2>¿Qué tiramos sin haberlo usado?</h2>
+    <p class="sub">Parte de lo que se tira en los hogares españoles sin haberlo tocado, por tipo de alimento.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Fruta</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#B8860B"></span></span>
+        <span class="pct">32,4 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Verduras y hortalizas</span>
+        <span class="pista"><span class="relleno" style="width:43%;background:#B8860B"></span></span>
+        <span class="pct">13,8 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Derivados lácteos</span>
+        <span class="pista"><span class="relleno" style="width:21%;background:#B8860B"></span></span>
+        <span class="pct">6,9 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Leche</span>
+        <span class="pista"><span class="relleno" style="width:16%;background:#B8860B"></span></span>
+        <span class="pct">5,2 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Pan fresco</span>
+        <span class="pista"><span class="relleno" style="width:15%;background:#B8860B"></span></span>
+        <span class="pct">4,8 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Embutidos</span>
+        <span class="pista"><span class="relleno" style="width:9%;background:#B8860B"></span></span>
+        <span class="pct">2,9 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Carne fresca</span>
+        <span class="pista"><span class="relleno" style="width:8%;background:#B8860B"></span></span>
+        <span class="pct">2,6 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Pescado</span>
+        <span class="pista"><span class="relleno" style="width:7%;background:#B8860B"></span></span>
+        <span class="pct">2,2 %</span>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="label">Lo que se pudre en la nevera</div>
+      <p>Tres de cada cuatro kilos que se tiran son comida que ni se llegó a usar. Casi siempre, fruta y verdura que se compró de más.</p>
+    </div>
+    <p class="fuente-dato">Datos: MAPA, informe del desperdicio alimentario en los hogares 2024 (último con desglose por alimentos).</p>
+  </section>
+  <section class="slide cream">
+    <h2>La comida que se tira en casa</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="kgp">Comida tirada por persona al año</label><input id="kgp" type="number" value="24.3" min="0" step="0.1"><span class="ud">kg</span></div>
+        <div class="mando"><label for="per">Personas en casa</label><input id="per" type="number" value="4" min="0" step="1"><span class="ud">personas</span></div>
+        <div class="mando"><label for="pr">Precio medio de lo que se tira</label><input id="pr" type="number" value="3" min="0" step="0.5"><span class="ud">€/kg</span></div>
+        <div class="mando"><label for="ev">Parte que se podría evitar</label><input id="ev" type="number" value="50" min="0" step="5"><span class="ud">%</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="ev:90">¿Y si evitáramos casi todo?</button>
+          <button class="pista-btn" data-set="pr:6">¿Y si fuera comida más cara, 6 €/kg?</button>
+          <button class="pista-btn" data-set="kgp:24.3,per:4,pr:3,ev:50">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">Comida tirada en casa al año</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">Dinero tirado al año</span><span class="vl" id="t2">—</span></div>
+          <div class="tile clave"><span class="et">Dinero que se podría ahorrar</span><span class="vl" id="t3">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">Los 24,3 kg son la media real de 2025 (MAPA). El precio medio por kilo y la parte evitable son estimaciones nuestras: cambiadlas y discutid cuál os parece más creíble.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Ver que el hambre y el desperdicio conviven, y calcular cuánto dinero y comida se van a la basura en una casa normal.</p>
+    <p class="sub">Y enlazar con el ODS 12: tirar comida también es consumir mal.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S08 · Dormir, moverse, pantallas: ODS 3.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["kgp", "per", "pr", "ev"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var kg = v.kgp * v.per;
+      var eur = kg * v.pr;
+      var ahorro = eur * v.ev / 100;
+      return { t:{ t1: n1(kg) + ' kg', t2: eu0(eur), t3: eu0(ahorro) }, ok:true,
+        msg: 'Una casa de ' + n0(v.per) + ' tira unos ' + n0(kg) + ' kg de comida al año. Planificar la compra y aprovechar las sobras podría ahorrar unos ' + eu0(ahorro) + ' al año.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "¿Cuántas personas pasaron hambre en el mundo en 2025?", "o": ["Unos 6 millones", "Unos 645 millones", "Unos 6.450 millones"], "c": 1, "e": "645 millones, el 7,8 % de la población mundial, según el último informe de la FAO. Bajando, pero lejos del objetivo."}, {"p": "¿Cuánta comida tiró cada persona en España en su casa en 2025?", "o": ["Unos 2,4 kg", "Unos 24 kg", "Unos 240 kg"], "c": 1, "e": "24,3 kg por persona, según el Ministerio de Agricultura. Unos 1.100 millones de kilos en total."}, {"p": "¿Qué es lo que más se tira sin haberlo usado?", "o": ["La fruta", "El pescado", "Las legumbres"], "c": 0, "e": "La fruta: casi un tercio de lo que se tira sin usar. Luego las verduras."}, {"p": "Del total de comida que llega a tiendas, restaurantes y casas en el mundo, ¿cuánta se desperdicia?", "o": ["Casi una quinta parte, el 19 %", "El 1 %", "La mitad"], "c": 0, "e": "El 19 %, según Naciones Unidas: más de mil millones de toneladas al año."}, {"p": "¿Por qué el desperdicio de comida aparece también en el ODS 12?", "o": ["Por error", "Porque tirar comida es consumir mal: se gasta agua, energía y tierra en producir algo que no se come", "Porque la comida es un envase"], "c": 1, "e": "Cada kilo tirado arrastra el agua, la energía y el transporte que costó producirlo. Hambre y consumo van juntos."}, {"p": "Si en una casa de 4 se tiran 24,3 kg por persona a 3 €/kg, ¿cuánto dinero es?", "o": ["Unos 73 €", "Unos 292 €", "Unos 2.916 €"], "c": 1, "e": "24,3 × 4 = 97,2 kg; por 3 €, unos 292 € al año."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

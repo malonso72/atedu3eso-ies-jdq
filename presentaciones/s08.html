@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S08 · Dormir, moverse, pantallas · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>Dormir, moverse, pantallas</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 8 · ODS 3</p>
+    <p style="font-size:1.4rem;font-style:italic">La salud no empieza en el médico: empieza en cómo reparte cada uno sus 24 horas.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Qué pide el ODS 3</h2>
+    <p class="sub">«Salud y bienestar». Para todas las edades, y no solo cuando uno está enfermo.</p>
+    <div class="metas">
+      <div class="meta" style="border-top-color:#4C9F38"><b>Vivir más</b><span>Que no muera nadie de lo que se puede curar o prevenir.</span></div>
+      <div class="meta" style="border-top-color:#4C9F38"><b>Menos accidentes</b><span>Reducir los muertos y heridos en las carreteras.</span></div>
+      <div class="meta" style="border-top-color:#4C9F38"><b>Salud mental</b><span>Cuidarla y prevenir lo que la daña.</span></div>
+      <div class="meta foco" style="border-top-color:var(--p-forest)"><b>Hábitos sanos</b><span>Prevenir con cómo vivimos: comer, moverse, descansar.</span></div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=GdySQGTtNL4" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 3 | Salud y bienestar</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Dónde naces cuenta</h2>
+    <div class="dato-grande">
+      <div><b>84,0 años</b><span>de esperanza de vida en España (2024)</span></div>
+      <div><b>55,2 años</b><span>en Chad, uno de los países con menos</span></div>
+      <div><b>81 %</b><span>de los adolescentes del mundo no llega a la actividad física recomendada</span></div>
+    </div>
+    <div class="infobox">
+      <div class="label">Casi treinta años de diferencia</div>
+      <p>Entre España y Chad hay casi tres décadas de vida. Vacunas, agua potable, hospitales y comida explican la mayor parte.</p>
+    </div>
+    <p class="fuente-dato">Datos: INE, 2024; Banco Mundial, 2024; OMS, estudio sobre actividad física en adolescentes.</p>
+  </section>
+  <section class="slide cream">
+    <h2>¿Cumplimos lo que recomiendan?</h2>
+    <p class="sub">Porcentaje de adolescentes españoles que llegan a lo recomendado.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Duermen lo necesario, a los 11-12 años</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#2F7D32"></span></span>
+        <span class="pct">44,1 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Chicos con 60 min de actividad diaria</span>
+        <span class="pista"><span class="relleno" style="width:56%;background:#2F7D32"></span></span>
+        <span class="pct">24,5 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Duermen lo necesario, a los 17-18 años</span>
+        <span class="pista"><span class="relleno" style="width:53%;background:#2F7D32"></span></span>
+        <span class="pct">23,4 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Chicas con 60 min de actividad diaria</span>
+        <span class="pista"><span class="relleno" style="width:27%;background:#2F7D32"></span></span>
+        <span class="pct">11,9 %</span>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="label">Lo normal es no llegar</div>
+      <p>Tres de cada cuatro chicos y casi nueve de cada diez chicas no hacen la actividad recomendada. Y el sueño empeora cada año que pasa.</p>
+    </div>
+    <p class="fuente-dato">Datos: Ministerio de Sanidad, estudio HBSC España 2022 (33.630 alumnos de 11 a 18 años).</p>
+  </section>
+  <section class="slide cream">
+    <h2>Tu día tiene 24 horas</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="sue">Horas de sueño</label><input id="sue" type="number" value="7" min="0" step="0.5"><span class="ud">h</span></div>
+        <div class="mando"><label for="cla">Clase, deberes y trayectos</label><input id="cla" type="number" value="8" min="0" step="0.5"><span class="ud">h</span></div>
+        <div class="mando"><label for="pan">Pantallas por ocio</label><input id="pan" type="number" value="4" min="0" step="0.5"><span class="ud">h</span></div>
+        <div class="mando"><label for="act">Actividad física</label><input id="act" type="number" value="30" min="0" step="5"><span class="ud">min</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="sue:9">¿Y durmiendo 9 horas?</button>
+          <button class="pista-btn" data-set="pan:3">¿Y con una hora menos de pantalla?</button>
+          <button class="pista-btn" data-set="sue:7,cla:8,pan:4,act:30">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">Horas que quedan para todo lo demás</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">Sueño frente a lo recomendado</span><span class="vl" id="t2">—</span></div>
+          <div class="tile clave"><span class="et">Actividad frente a lo recomendado</span><span class="vl" id="t3">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">Esto es para ti: nadie tiene que decir sus números en voz alta. Recomendaciones: Academia Americana de Medicina del Sueño (8-10 h entre 13 y 18 años) y OMS (60 min diarios).</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Mirar cómo repartimos el día y compararlo con lo que dicen los datos de salud. Sin juzgar a nadie: solo con números.</p>
+    <p class="sub">Aquí la decisión es de cada uno, y la calculadora solo enseña lo que cuesta cada hora.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S09 · Para qué sirve terminar: ODS 4.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["sue", "cla", "pan", "act"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var libre = 24 - v.sue - v.cla - v.pan - v.act / 60;
+      var faltaSueno = Math.max(0, 8 - v.sue);
+      var faltaAct = Math.max(0, 60 - v.act);
+      var ok = faltaSueno === 0 && faltaAct === 0;
+      var partes = [];
+      if(faltaSueno > 0) partes.push('te faltan ' + n1(faltaSueno) + ' h de sueño');
+      if(faltaAct > 0) partes.push('te faltan ' + n0(faltaAct) + ' min de actividad');
+      return { t:{ t1: libre < 0 ? 'no te llega el día' : n1(libre) + ' h',
+                   t2: v.sue >= 8 ? 'bien (8-10 h)' : 'faltan ' + n1(faltaSueno) + ' h',
+                   t3: v.act >= 60 ? 'bien (60 min)' : 'faltan ' + n0(faltaAct) + ' min' },
+        ok: ok,
+        msg: ok ? 'Tu día cumple lo que recomiendan los médicos para tu edad. Y aún te quedan ' + n1(Math.max(libre,0)) + ' horas.'
+                : 'Para tu edad se recomiendan de 8 a 10 horas de sueño y 60 minutos de actividad al día: ' + partes.join(' y ') + '. La pregunta es de dónde las sacas sin que falte nada importante.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "¿Cuánta actividad física diaria recomienda la OMS entre los 5 y los 17 años?", "o": ["10 minutos", "60 minutos", "3 horas"], "c": 1, "e": "Una media de 60 minutos al día de actividad moderada o intensa."}, {"p": "En España, ¿qué parte de las chicas adolescentes llega a esos 60 minutos diarios?", "o": ["Casi todas", "La mitad", "Una de cada diez, más o menos"], "c": 2, "e": "El 11,9 %, según el estudio HBSC 2022 del Ministerio de Sanidad. En los chicos, el 24,5 %."}, {"p": "¿Cuántas horas de sueño se recomiendan entre los 13 y los 18 años?", "o": ["Entre 5 y 6", "Entre 8 y 10", "Más de 12"], "c": 1, "e": "De 8 a 10 horas, según la Academia Americana de Medicina del Sueño."}, {"p": "¿Qué pasa con el sueño a medida que los adolescentes crecen?", "o": ["Duermen cada vez mejor", "Cada vez menos duermen lo recomendado", "No cambia nada"], "c": 1, "e": "A los 11-12 años duerme lo óptimo el 44 %; a los 17-18, solo el 23 %."}, {"p": "La esperanza de vida en España es de 84 años. ¿Y en Chad?", "o": ["Unos 80 años", "Unos 55 años", "Unos 30 años"], "c": 1, "e": "55,2 años: casi treinta menos. Donde naces decide buena parte de cuánto vives."}, {"p": "¿Por qué el sueño y el ejercicio están en un objetivo de la ONU?", "o": ["No lo están, es un tema personal", "Porque la salud también se construye con hábitos, no solo con hospitales", "Porque lo piden los médicos americanos"], "c": 1, "e": "El ODS 3 habla de salud y bienestar, no solo de curar. Muchos de los problemas de salud que más crecen tienen que ver con cómo vivimos."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

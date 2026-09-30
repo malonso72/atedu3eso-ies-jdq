@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03 · Lo que tiramos · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>Lo que tiramos</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 3 · ODS 12</p>
+    <p style="font-size:1.4rem;font-style:italic">Cada uno de nosotros genera más de un kilo de basura al día. Hoy vemos adónde va.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Qué pide el ODS 12</h2>
+    <p class="sub">«Producción y consumo responsables». Dicho sin rodeos: hacer lo mismo gastando menos y tirando menos.</p>
+    <div class="metas">
+      <div class="meta" style="border-top-color:#BF8B2E"><b>Usar menos</b><span>Sacar más provecho de los recursos, sin malgastarlos.</span></div>
+      <div class="meta" style="border-top-color:#BF8B2E"><b>Tirar menos comida</b><span>Reducir a la mitad el desperdicio de alimentos.</span></div>
+      <div class="meta foco" style="border-top-color:var(--p-forest)"><b>Reducir, reutilizar, reciclar</b><span>Que se genere menos basura y que la que se genere vuelva a servir.</span></div>
+      <div class="meta" style="border-top-color:#BF8B2E"><b>Saber lo que se compra</b><span>Que la gente tenga información para elegir mejor.</span></div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=qtXuRvKNm3s" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 12 | Producción y consumo responsable</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+
+  <section class="slide cream">
+    <h2>¿Cuánto tira cada uno?</h2>
+    <p class="sub">Kilos por persona en un año, en España, según el contenedor al que van.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Resto (mezclado)</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#6E6E6E"></span></span>
+        <span class="pct">353,1 kg</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Papel y cartón</span>
+        <span class="pista"><span class="relleno" style="width:9%;background:#2D6CA6"></span></span>
+        <span class="pct">31,8 kg</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Envases (amarillo)</span>
+        <span class="pista"><span class="relleno" style="width:6%;background:#B8860B"></span></span>
+        <span class="pct">21,3 kg</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Vidrio</span>
+        <span class="pista"><span class="relleno" style="width:5%;background:#2F7D32"></span></span>
+        <span class="pct">19,3 kg</span>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="label">Tres de cada cuatro kilos, al gris</div>
+      <p>De los 464 kg que genera cada persona al año, 353 acaban mezclados en el contenedor de resto, y casi todo lo que va ahí ya no se recicla.</p>
+    </div>
+    <p class="fuente-dato">Datos: INE, Estadística de recogida de residuos 2023 (resto, papel y vidrio); Ecoembes, resultados 2024 (envases).</p>
+  </section>
+  <section class="slide cream">
+    <h2>Recoger no es reciclar</h2>
+    <p>Tirar una botella al amarillo es el primer paso, no el último: después hay que separarla, limpiarla y convertirla en materia prima. Por eso hay dos cifras distintas.</p>
+    <div class="dato-grande">
+      <div><b>39 %</b><span>de los residuos municipales se reciclaba en España en 2022</span></div>
+      <div><b>55 %</b><span>es lo que pedía la Unión Europea para 2025</span></div>
+      <div><b>76 %</b><span>de los envases domésticos se reciclaron en 2024</span></div>
+    </div>
+    <div class="infobox">
+      <div class="label">Lo que se hace bien y lo que no</div>
+      <p>Los envases funcionan porque tienen su propio sistema. El problema está en todo lo que se tira mezclado: una vez en el contenedor de resto, ya casi no hay vuelta atrás.</p>
+    </div>
+    <p class="fuente-dato">Datos: Agencia Europea de Medio Ambiente, perfil de residuos de España 2025; Ecoembes, 2024.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Los datos de esta clase</h2>
+    <p class="sub">Antes de calcular, hay que mirar. Nada de abrir bolsas: se pesa la bolsa cerrada.</p>
+    <div class="tarea">
+      <div class="paso">
+        <span class="n">1</span>
+        <b>Pesad la papelera</b>
+        <span>Al terminar el día, con la bolsa cerrada. Una báscula de cocina basta.</span>
+      </div>
+      <div class="paso">
+        <span class="n">2</span>
+        <b>Mirad por encima</b>
+        <span>Sin tocar nada: ¿qué parte parece papel, envases o restos de comida?</span>
+      </div>
+      <div class="paso">
+        <span class="n">3</span>
+        <b>Estimad</b>
+        <span>¿Qué porcentaje podría haber ido a otro contenedor? Es una estimación y hay que decirlo.</span>
+      </div>
+      <div class="paso">
+        <span class="n">4</span>
+        <b>A la calculadora</b>
+        <span>En la diapositiva siguiente. Con vuestros números, no con los míos.</span>
+      </div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>¿Cuánto se nos escapa?</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="kg">Basura del aula en un día</label><input id="kg" type="number" value="0.8" min="0" step="0.1"><span class="ud">kg</span></div>
+        <div class="mando"><label for="dias">Días de clase al año</label><input id="dias" type="number" value="175" min="0" step="1"><span class="ud">días</span></div>
+        <div class="mando"><label for="rec">Parte que se podría reciclar</label><input id="rec" type="number" value="60" min="0" step="5"><span class="ud">%</span></div>
+        <div class="mando"><label for="sep">Parte que ya separamos bien</label><input id="sep" type="number" value="20" min="0" step="5"><span class="ud">%</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="sep:90">¿Y si separásemos casi todo?</button>
+          <button class="pista-btn" data-set="kg:1.5">¿Y si fuera kilo y medio al día?</button>
+          <button class="pista-btn" data-set="kg:0.8,dias:175,rec:60,sep:20">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">Basura del aula al año</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">De eso, reciclable</span><span class="vl" id="t2">—</span></div>
+          <div class="tile clave"><span class="et">Reciclable que acaba en el resto</span><span class="vl" id="t3">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">La basura del aula y el porcentaje reciclable son estimaciones: pesad la bolsa de la papelera al final de un día y cambiad el primer dato por el vuestro.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Ver adónde va lo que tiramos y calcular cuánto se pierde por no separarlo. Una papelera más en el aula es una decisión pequeña; la cuenta dice si vale la pena.</p>
+    <p class="sub">Y un matiz que conviene no olvidar: lo mejor no es reciclar más, sino tirar menos.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S04 · El agua del grifo: ODS 6.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["kg", "dias", "rec", "sep"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var total = v.kg * v.dias;
+      var recic = total * v.rec / 100;
+      var perdido = recic * (1 - v.sep / 100);
+      return { t:{ t1: n0(total) + ' kg', t2: n0(recic) + ' kg', t3: n0(perdido) + ' kg' },
+        ok: v.sep >= 80,
+        msg: v.sep >= 80
+          ? 'Con ese nivel de separación casi todo lo reciclable llega a su contenedor. Aquí la decisión ya está bien tomada.'
+          : 'Cada curso, unos ' + n0(perdido) + ' kg que podrían reciclarse acaban en el contenedor de resto. Poner en el aula una papelera para papel y otra para envases es barato; la cuenta dice si merece la pena el esfuerzo.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "¿Cuántos kilos de residuos municipales generó cada habitante de España en 2023?", "o": ["Unos 46 kg", "Unos 464 kg", "Unos 4.640 kg"], "c": 1, "e": "464,3 kg por persona y año, según el INE: más de un kilo y cuarto al día por cabeza."}, {"p": "De esos 464 kg, ¿cuántos fueron al contenedor de resto, mezclados?", "o": ["Menos de la cuarta parte", "Más o menos la mitad", "Unos 353 kg, tres de cada cuatro"], "c": 2, "e": "353,1 kg acabaron mezclados. Solo 111,2 kg se recogieron por separado."}, {"p": "¿Qué porcentaje de los residuos municipales se reciclaba en España en 2022?", "o": ["El 39 %", "El 76 %", "El 95 %"], "c": 0, "e": "El 39 %, según la Agencia Europea de Medio Ambiente. La Unión Europea pedía el 55 % para 2025, y España va con retraso."}, {"p": "Los envases domésticos que se recuperan en España llegan al 76 %. ¿Cómo encaja eso con el 39 % general?", "o": ["Una de las dos cifras está mal", "Son cosas distintas: los envases se reciclan mucho mejor que el resto de la basura", "Es el mismo dato medido en años distintos"], "c": 1, "e": "Son medidas distintas. Los envases tienen su propio sistema y funcionan bien; el problema está en todo lo que acaba mezclado en el contenedor de resto."}, {"p": "¿Qué significa «recoger por separado»?", "o": ["Que ya está reciclado", "Que se ha tirado en el contenedor adecuado, que es el primer paso para poder reciclarlo", "Que se ha quemado"], "c": 1, "e": "Recoger por separado no es reciclar: es la condición para que se pueda reciclar. Por eso las dos cifras no coinciden."}, {"p": "Si en el aula se tiran 0,8 kg al día durante 175 días, ¿cuánta basura sale al año?", "o": ["140 kg", "14 kg", "1.400 kg"], "c": 0, "e": "0,8 × 175 = 140 kg. Un aula sola; multiplicad por las del instituto y la cifra ya no es pequeña."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

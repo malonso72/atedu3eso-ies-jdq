@@ -37,3 +37,39 @@ automática configurada todavía).
 - Commit de los cambios sin esperar a que se pida explícitamente (según avanza
   el trabajo), nunca `git push` sin confirmación expresa.
 - Ver `README.md` para cómo añadir sesiones.
+
+## PLAN DE SESIONES (acordado el 29/09/2026)
+
+Una sesión semanal e independiente por ODS. No se sigue el orden de la ONU
+sino el de lo que se puede medir: primero lo que los alumnos miden en el aula,
+después lo que se mide fuera, y los ODS más sociales al final, cuando ya
+tengan el hábito de preguntar «¿y eso con qué número lo sabes?».
+
+ATEDU es los miércoles. Calendario del 1.er trimestre (calendario escolar
+provincial de Granada 2026-27; ningún festivo cae en miércoles; faltan por
+comprobar los festivos locales de Santa Fe):
+
+- S01 · 23 sep · Qué son los ODS y de dónde salen (dada; fue bien).
+- S02 · 30 sep · ODS 7 Energía: potencia/energía, mix REE 2025, tubos LED.
+- S03 · 7 oct · ODS 12 Lo que tiramos.
+- S04 · 14 oct · ODS 6 El agua del grifo.
+- S05 · 21 oct · ODS 13 El clima ya ha cambiado.
+- S06 · 28 oct · ODS 11 Cómo venimos al instituto.
+- S07 · 4 nov · ODS 2 La comida que tiramos.
+- S08 · 11 nov · ODS 3 Dormir, moverse, pantallas.
+- S09 · 18 nov · ODS 4 Para qué sirve terminar.
+- S10 · 25 nov · ODS 5 Igualdad, con números (coincide con el 25N).
+- S11 · 2 dic · ODS 8 Un trabajo digno.
+- S12 · 9 dic · ODS 10 Desigualdades.
+- S13 · 16 dic · Repaso del trimestre.
+- 2.º trimestre: ODS 1 (pobreza), 9, 14, 15, 16 y 17.
+
+Criterios que se mantienen en todas:
+- Datos reales con fuente citada en la diapositiva; lo que sea estimación,
+  marcado como estimación.
+- Presentación en `presentaciones/sXX.html` con el sistema del sitio
+  (presentaciones.css + presentaciones.js); los clics en elementos
+  interactivos llevan stopPropagation para no pasar de diapositiva.
+- Cuestionario final para resolver en voz alta entre todos.
+- ODS 1 (pobreza): cuidado con que puede haber alumnos del grupo en esa
+  situación; diseñarla con datos agregados, nunca personales.

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S06 · Cómo venimos al instituto · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>Cómo venimos al instituto</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 6 · ODS 11</p>
+    <p style="font-size:1.4rem;font-style:italic">Una decisión que se toma cada mañana y que casi nadie hace con números.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Qué pide el ODS 11</h2>
+    <p class="sub">«Ciudades y comunidades sostenibles». Que los pueblos sean sitios buenos para vivir.</p>
+    <div class="metas">
+      <div class="meta" style="border-top-color:#FD9D24"><b>Vivienda</b><span>Que se pueda pagar un sitio digno donde vivir.</span></div>
+      <div class="meta foco" style="border-top-color:var(--p-forest)"><b>Transporte</b><span>Seguro, accesible y que no dependa del coche.</span></div>
+      <div class="meta" style="border-top-color:#FD9D24"><b>Aire limpio</b><span>Menos contaminación en las calles.</span></div>
+      <div class="meta" style="border-top-color:#FD9D24"><b>Espacios para todos</b><span>Zonas verdes y calles seguras.</span></div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=Xp4LMbRV8_0" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 11 | Ciudades y asentamientos sostenibles</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+
+  <section class="slide cream">
+    <h2>¿Cuánto CO₂ por kilómetro?</h2>
+    <p class="sub">Gramos de CO₂ por kilómetro y por pasajero, según cómo viajes.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Coche de gasolina</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#C05621"></span></span>
+        <span class="pct">164,5 g</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Coche diésel</span>
+        <span class="pista"><span class="relleno" style="width:88%;background:#C05621"></span></span>
+        <span class="pct">145,2 g</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Autobús poco lleno</span>
+        <span class="pista"><span class="relleno" style="width:76%;background:#6E6E6E"></span></span>
+        <span class="pct">125,3 g</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Moto</span>
+        <span class="pista"><span class="relleno" style="width:69%;background:#6E6E6E"></span></span>
+        <span class="pct">113,7 g</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Autobús bien lleno</span>
+        <span class="pista"><span class="relleno" style="width:42%;background:#2F7D32"></span></span>
+        <span class="pct">68,8 g</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Andando o en bici</span>
+        <span class="pista"><span class="relleno" style="width:1%;background:#2F7D32"></span></span>
+        <span class="pct">0 g</span>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="label">Lo que cuenta es cuántos vais</div>
+      <p>Un autobús lleno reparte sus emisiones entre muchos pasajeros; uno casi vacío, entre pocos. Y el coche con una sola persona es lo peor por kilómetro.</p>
+    </div>
+    <p class="fuente-dato">Datos: Gobierno del Reino Unido (DESNZ), factores de conversión de emisiones 2024-2025, para un pasajero medio.</p>
+  </section>
+  <section class="slide cream">
+    <h2>La encuesta de esta clase</h2>
+    <p class="sub">A mano alzada, y apuntando en la pizarra.</p>
+    <div class="tarea">
+      <div class="paso">
+        <span class="n">1</span>
+        <b>¿Cómo has venido hoy?</b>
+        <span>Andando, bici, coche, autobús o moto.</span>
+      </div>
+      <div class="paso">
+        <span class="n">2</span>
+        <b>¿Desde qué distancia?</b>
+        <span>Aproximada: el centro de Santa Fe, un anejo, Granada… Santa Fe está a unos 11 km de Granada.</span>
+      </div>
+      <div class="paso">
+        <span class="n">3</span>
+        <b>¿Podrías venir de otra forma?</b>
+        <span>Sin juzgar a nadie: hay quien no puede.</span>
+      </div>
+      <div class="paso">
+        <span class="n">4</span>
+        <b>A la calculadora</b>
+        <span>Con los números de la pizarra.</span>
+      </div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>Si algunos dejaran el coche</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="al">Alumnos que vienen en coche</label><input id="al" type="number" value="8" min="0" step="1"><span class="ud">alumnos</span></div>
+        <div class="mando"><label for="km">Kilómetros de un trayecto</label><input id="km" type="number" value="2" min="0" step="0.5"><span class="ud">km</span></div>
+        <div class="mando"><label for="d">Días de clase al año</label><input id="d" type="number" value="175" min="0" step="1"><span class="ud">días</span></div>
+        <div class="mando"><label for="g">CO₂ de un coche de gasolina</label><input id="g" type="number" value="164.5" min="0" step="0.5"><span class="ud">g/km</span></div>
+        <div class="mando"><label for="cam">Cuántos cambiarían a andar o bici</label><input id="cam" type="number" value="4" min="0" step="1"><span class="ud">alumnos</span></div>
+        <div class="mando"><label for="vel">Velocidad andando</label><input id="vel" type="number" value="5" min="0" step="0.5"><span class="ud">km/h</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="cam:8">¿Y si cambiaran todos?</button>
+          <button class="pista-btn" data-set="km:1">¿Y si vivieran a 1 km?</button>
+          <button class="pista-btn" data-set="al:8,km:2,d:175,g:164.5,cam:4,vel:5">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">CO₂ de esos coches al año</span><span class="vl" id="t1">—</span></div>
+          <div class="tile clave"><span class="et">CO₂ que se ahorraría</span><span class="vl" id="t2">—</span></div>
+          <div class="tile"><span class="et">Actividad ganada por alumno</span><span class="vl" id="t3">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">Cuenta ida y vuelta de cada alumno; si el coche vuelve vacío a casa después de dejarle, las emisiones reales son todavía más. El factor del coche es el de un turismo de gasolina medio.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Medir cómo nos movemos y calcular qué cambiaría si algunos dejaran el coche: menos CO₂ y, de regalo, casi una hora de actividad al día.</p>
+    <p class="sub">Con esto cerramos el bloque de los datos que producimos nosotros. A partir de ahora, los datos vienen de fuera.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S07 · La comida que tiramos: ODS 2.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["al", "km", "d", "g", "cam", "vel"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var kmAnio = v.al * v.km * 2 * v.d;
+      var kg = kmAnio * v.g / 1000;
+      var ahorro = Math.min(v.cam, v.al) * v.km * 2 * v.d * v.g / 1000;
+      var minutos = v.vel > 0 ? v.km * 2 / v.vel * 60 : 0;
+      var pct = minutos / 60 * 100;
+      return { t:{ t1: n0(kg) + ' kg', t2: n0(ahorro) + ' kg', t3: n0(minutos) + ' min/día' },
+        ok: minutos >= 30,
+        msg: 'Cada uno que cambie gana ' + n0(minutos) + ' minutos de actividad al día, el ' + n0(Math.min(pct,100)) + ' % de los 60 que recomienda la OMS, sin apuntarse a nada. Y entre todos se evitan ' + n0(ahorro) + ' kg de CO₂ al año.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "¿Qué recomienda la OMS de actividad física para adolescentes?", "o": ["20 minutos a la semana", "60 minutos al día", "3 horas al día"], "c": 1, "e": "Una media de 60 minutos al día de actividad moderada o intensa. Ir andando al instituto cuenta."}, {"p": "¿Qué emite más CO₂ por kilómetro y persona?", "o": ["Un coche de gasolina con una sola persona", "Un autobús lleno", "Una bici"], "c": 0, "e": "El coche con una persona: unos 165 g por km. Un autobús bien lleno, menos de la mitad por pasajero. La bici, nada."}, {"p": "¿Por qué un autobús casi vacío puede contaminar por persona casi tanto como un coche?", "o": ["Porque los autobuses son peores", "Porque sus emisiones se reparten entre pocos pasajeros", "No es verdad"], "c": 1, "e": "Lo que cuenta es cuánto emite dividido entre cuántos van dentro. Un autobús lleno es de lo mejor; uno vacío, no tanto."}, {"p": "Según un estudio de la Universidad de Granada, ¿cuántos jóvenes españoles van al centro de forma activa, andando o en bici?", "o": ["Uno de cada diez", "Unos seis de cada diez", "Nueve de cada diez"], "c": 1, "e": "Alrededor del 60 %, y se ha mantenido estable entre 2010 y 2017."}, {"p": "Ir y volver andando 2 km a 5 km/h, ¿cuántos minutos son?", "o": ["24 minutos", "48 minutos", "2 horas"], "c": 1, "e": "4 km a 5 km/h son 0,8 horas, 48 minutos: casi toda la actividad diaria recomendada."}, {"p": "¿Qué parte de las emisiones de España viene del transporte?", "o": ["Un 3 %", "Un tercio, el 34 %", "Tres cuartas partes"], "c": 1, "e": "El 34,2 % en 2025. Por eso cómo nos movemos es la mayor decisión climática que toma cada uno."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

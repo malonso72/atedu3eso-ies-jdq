@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S04 · El agua del grifo · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>El agua del grifo</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 4 · ODS 6</p>
+    <p style="font-size:1.4rem;font-style:italic">Abrimos el grifo y sale agua potable. Una de cada cuatro personas del mundo no puede decir lo mismo.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Qué pide el ODS 6</h2>
+    <p class="sub">«Agua limpia y saneamiento». Cuatro cosas, y solo una depende de lo que hagamos en casa.</p>
+    <div class="metas">
+      <div class="meta" style="border-top-color:#26BDE2"><b>Agua potable</b><span>Que todo el mundo tenga agua segura para beber.</span></div>
+      <div class="meta" style="border-top-color:#26BDE2"><b>Saneamiento</b><span>Aseos dignos y aguas residuales depuradas.</span></div>
+      <div class="meta foco" style="border-top-color:var(--p-forest)"><b>Usarla bien</b><span>Gastar menos agua para hacer lo mismo.</span></div>
+      <div class="meta" style="border-top-color:#26BDE2"><b>Cuidar ríos y acuíferos</b><span>Que no se contaminen ni se sequen.</span></div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=6kke9YIohQQ" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 6 | Agua limpia y saneamiento</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+
+  <section class="slide cream">
+    <h2>¿Cuánta agua gasta cada gesto?</h2>
+    <p class="sub">Litros, según cómo lo hagamos.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Ducha de 5 min, rociador tradicional</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#1B7FA6"></span></span>
+        <span class="pct">60 L</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Ducha de 5 min, rociador eficiente</span>
+        <span class="pista"><span class="relleno" style="width:50%;background:#1B7FA6"></span></span>
+        <span class="pct">30 L</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Cisterna antigua</span>
+        <span class="pista"><span class="relleno" style="width:17%;background:#1B7FA6"></span></span>
+        <span class="pct">10 L</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Dientes con el grifo abierto</span>
+        <span class="pista"><span class="relleno" style="width:13%;background:#1B7FA6"></span></span>
+        <span class="pct">8 L</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Cisterna, descarga corta</span>
+        <span class="pista"><span class="relleno" style="width:5%;background:#1B7FA6"></span></span>
+        <span class="pct">3 L</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Dientes con un vaso</span>
+        <span class="pista"><span class="relleno" style="width:1%;background:#1B7FA6"></span></span>
+        <span class="pct">0,5 L</span>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="label">La misma tarea, el doble o la mitad</div>
+      <p>La ducha es lo que más pesa, y ahí el rociador marca la diferencia: 12 a 15 litros por minuto uno tradicional, 6 o 7 uno eficiente.</p>
+    </div>
+    <p class="fuente-dato">Datos: MITECO/CENEAM, Hogares Verdes (ducha); Confederación Hidrográfica del Júcar (cisterna y dientes); Etiqueta Ecológica UE (descarga corta).</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo que gastamos y lo que cuesta</h2>
+    <div class="dato-grande">
+      <div><b>128 L</b><span>de agua por persona y día en los hogares de España (130 en Andalucía)</span></div>
+      <div><b>1,62 €</b><span>cuesta un metro cúbico, mil litros, en Andalucía</span></div>
+      <div><b>2.100 mill.</b><span>de personas en el mundo sin agua potable segura</span></div>
+    </div>
+    <div class="infobox">
+      <div class="label">Barata no quiere decir abundante</div>
+      <p>Mil litros por un euro y medio: el agua es de lo más barato que pagamos. Pero en una tierra de sequías, que sea barata no significa que sobre.</p>
+    </div>
+    <p class="fuente-dato">Datos: INE, Estadística del suministro y saneamiento del agua 2024; OMS/UNICEF, JMP 2025.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Tu cuenta, en tu cabeza</h2>
+    <p class="sub">No hace falta decirlo en voz alta: son datos de tu casa.</p>
+    <div class="tarea">
+      <div class="paso">
+        <span class="n">1</span>
+        <b>Cronometra la ducha</b>
+        <span>Mañana, mira el reloj al entrar y al salir. Hoy, estímalo.</span>
+      </div>
+      <div class="paso">
+        <span class="n">2</span>
+        <b>Mide el caudal</b>
+        <span>Con un cubo de 10 litros y un reloj: cuántos segundos tarda en llenarse.</span>
+      </div>
+      <div class="paso">
+        <span class="n">3</span>
+        <b>Cuenta la casa</b>
+        <span>¿Cuántos sois y cuántas duchas a la semana?</span>
+      </div>
+      <div class="paso">
+        <span class="n">4</span>
+        <b>A la calculadora</b>
+        <span>En la diapositiva siguiente.</span>
+      </div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>¿Compensa cambiar el rociador de la ducha?</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="min">Minutos de ducha</label><input id="min" type="number" value="5" min="0" step="1"><span class="ud">min</span></div>
+        <div class="mando"><label for="cau">Caudal del rociador de casa</label><input id="cau" type="number" value="12" min="0" step="1"><span class="ud">L/min</span></div>
+        <div class="mando"><label for="eco">Caudal de un rociador eficiente</label><input id="eco" type="number" value="6" min="0" step="1"><span class="ud">L/min</span></div>
+        <div class="mando"><label for="dus">Duchas por persona a la semana</label><input id="dus" type="number" value="7" min="0" step="1"><span class="ud">duchas</span></div>
+        <div class="mando"><label for="per">Personas en casa</label><input id="per" type="number" value="4" min="0" step="1"><span class="ud">personas</span></div>
+        <div class="mando"><label for="pre">Precio del agua</label><input id="pre" type="number" value="1.62" min="0" step="0.01"><span class="ud">€/m³</span></div>
+        <div class="mando"><label for="cab">Precio del rociador eficiente</label><input id="cab" type="number" value="15" min="0" step="1"><span class="ud">€</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="min:10">¿Y con duchas de 10 minutos?</button>
+          <button class="pista-btn" data-set="pre:2.02">¿Y si el agua costara 2,02 €?</button>
+          <button class="pista-btn" data-set="min:5,cau:12,eco:6,dus:7,per:4,pre:1.62,cab:15">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">Agua de la ducha al año</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">Con rociador eficiente</span><span class="vl" id="t2">—</span></div>
+          <div class="tile"><span class="et">Ahorro al año</span><span class="vl" id="t3">—</span></div>
+          <div class="tile clave"><span class="et">Se paga en</span><span class="vl" id="t4">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">El precio del agua es la media de Andalucía en 2024 (INE). El precio del rociador es una estimación nuestra. No incluye el gas o la luz para calentar el agua, que es un ahorro aún mayor.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>La misma cuenta que con los tubos LED, con otro recurso: cuánto se gasta, cuánto cuesta el cambio y cuándo se paga solo.</p>
+    <p class="sub">Y un descubrimiento: en la ducha, lo caro no es el agua, es calentarla. El agua y la energía van juntas.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S05 · El clima ya ha cambiado: ODS 13.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["min", "cau", "eco", "dus", "per", "pre", "cab"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var semanas = 52;
+      var l1 = v.min * v.cau * v.dus * semanas * v.per;
+      var l2 = v.min * v.eco * v.dus * semanas * v.per;
+      var ahorroL = l1 - l2;
+      var ahorroE = ahorroL / 1000 * v.pre;
+      if(ahorroE <= 0){
+        return { t:{ t1: n0(l1) + ' L', t2: n0(l2) + ' L', t3: '0 €', t4: 'nunca' }, ok:false,
+          msg:'Con estos datos el rociador nuevo no ahorra agua: no hay nada que pagar con el ahorro.' };
+      }
+      var anios = v.cab / ahorroE;
+      var meses = anios * 12;
+      return { t:{ t1: n0(l1) + ' L', t2: n0(l2) + ' L', t3: n0(ahorroL) + ' L · ' + eu(ahorroE),
+                   t4: meses < 24 ? n1(meses) + ' meses' : n1(anios) + ' años' },
+        ok: anios <= 5,
+        msg: anios <= 5
+          ? 'Compensa: se paga en ' + (meses < 24 ? n1(meses) + ' meses' : n1(anios) + ' años') + ' solo con el agua, y ni siquiera hemos contado la energía de calentarla.'
+          : 'Con estos datos tarda mucho en pagarse. Aun así, recuerda que no hemos contado la energía de calentar el agua.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "¿Cuánta agua gasta de media cada persona en su casa al día en España?", "o": ["Unos 12 litros", "Unos 128 litros", "Unos 1.280 litros"], "c": 1, "e": "128 litros por habitante y día en 2024, según el INE. En Andalucía, 130."}, {"p": "Una ducha de 5 minutos con un rociador tradicional de 12 litros por minuto gasta…", "o": ["17 litros", "60 litros", "600 litros"], "c": 1, "e": "5 × 12 = 60 litros. Con un rociador eficiente de 6 L/min, la mitad."}, {"p": "Lavarte los dientes con el grifo abierto gasta unos 8 litros. ¿Y con un vaso?", "o": ["Medio litro", "4 litros", "Lo mismo, 8 litros"], "c": 0, "e": "Medio litro. Dieciséis veces menos por hacer lo mismo."}, {"p": "Un metro cúbico de agua son…", "o": ["100 litros", "1.000 litros", "10.000 litros"], "c": 1, "e": "1 m³ = 1.000 L. Por eso el agua parece barata: 1,62 € por mil litros son 0,16 céntimos el litro."}, {"p": "¿Cuántas personas en el mundo no tienen acceso a agua potable gestionada de forma segura?", "o": ["Unos 21 millones", "Unos 210 millones", "Unos 2.100 millones, una de cada cuatro"], "c": 2, "e": "2.100 millones, según la OMS y UNICEF: una de cada cuatro personas del planeta."}, {"p": "Si el agua es tan barata, ¿por qué merece la pena ahorrarla?", "o": ["No merece la pena", "Porque es un recurso escaso, sobre todo aquí, y porque calentarla cuesta mucho más que el agua misma", "Porque lo dice la ley"], "c": 1, "e": "En una zona con sequías como la nuestra, el agua es escasa aunque sea barata. Y el agua caliente de la ducha cuesta sobre todo en energía."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

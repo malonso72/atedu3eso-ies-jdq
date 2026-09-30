@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02 · La energía que gastamos · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>La energía que gastamos</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 2 · ODS 7</p>
+    <p style="font-size:1.4rem;font-style:italic">Hoy no opinamos sobre si hay que ahorrar energía. Hoy lo calculamos.</p>
+  </section>
+
+  <section class="slide cream">
+    <h2>Qué pide el ODS 7</h2>
+    <p class="sub">«Energía asequible y no contaminante». Son cuatro cosas distintas, no una.</p>
+    <div class="metas">
+      <div class="meta"><b>Que llegue</b><span>Que todo el mundo tenga electricidad. Hoy hay cientos de millones de personas que no.</span></div>
+      <div class="meta"><b>Que se pueda pagar</b><span>Tener enchufe no basta si la factura no se puede afrontar.</span></div>
+      <div class="meta"><b>Que sea limpia</b><span>Cada vez más renovable y menos quemada.</span></div>
+      <div class="meta foco"><b>Que se gaste menos</b><span>Hacer lo mismo con menos energía. Esta es la que tenemos a mano aquí.</span></div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=G0dpNpq_YcE" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 7 – Energía asequible y no contaminante</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+
+
+  <section class="slide cream">
+    <h2>Potencia no es energía</h2>
+    <p>La <b>potencia</b> dice lo rápido que un aparato consume, y se mide en vatios (W). La <b>energía</b> es lo que ha consumido en total, y depende de cuánto tiempo haya estado encendido.</p>
+    <div class="formula">E = P · t
+      <small>energía (Wh) = potencia (W) × tiempo (h) &nbsp;·&nbsp; 1 kWh = 1.000 Wh</small>
+    </div>
+    <div class="infobox">
+      <div class="label">Lo que se paga es la energía</div>
+      <p>Una bombilla de 10 W encendida 100 horas gasta 1.000 Wh, o sea 1 kWh: unos 15 céntimos. En la factura no pagas vatios, pagas kilovatios-hora.</p>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>¿De dónde sale la luz que gastamos?</h2>
+    <p class="sub">Toda la electricidad generada en España durante 2025, por su origen.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Eólica</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#2F7D32"></span></span>
+        <span class="pct">21,6 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Nuclear</span>
+        <span class="pista"><span class="relleno" style="width:88%;background:#2D6CA6"></span></span>
+        <span class="pct">19,0 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Solar fotovoltaica</span>
+        <span class="pista"><span class="relleno" style="width:85%;background:#2F7D32"></span></span>
+        <span class="pct">18,4 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Ciclo combinado (gas)</span>
+        <span class="pista"><span class="relleno" style="width:78%;background:#C05621"></span></span>
+        <span class="pct">16,8 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Otras fuentes</span>
+        <span class="pista"><span class="relleno" style="width:59%;background:#8C8578"></span></span>
+        <span class="pct">12,8 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Hidráulica</span>
+        <span class="pista"><span class="relleno" style="width:57%;background:#2F7D32"></span></span>
+        <span class="pct">12,4 %</span>
+      </div>
+    </div>
+    <div class="leyenda">
+      <span><i style="background:#2F7D32"></i> Renovable</span>
+      <span><i style="background:#2D6CA6"></i> Nuclear: no es renovable, pero no emite CO₂</span>
+      <span><i style="background:#C05621"></i> Se quema gas: sí emite</span>
+      <span><i style="background:#8C8578"></i> Otras (cogeneración, solar térmica, carbón…)</span>
+    </div>
+    <div class="infobox">
+      <div class="label">Los dos números que importan</div>
+      <p>El 55,5 % de la electricidad fue renovable, y el 75,5 % se generó sin emitir CO₂. Cada kWh que no gastamos es sobre todo un kWh de gas que no hace falta quemar.</p>
+    </div>
+    <p class="fuente-dato">Datos: Red Eléctrica, «Informe del Sistema Eléctrico Español 2025» (generación sin autoconsumo).</p>
+  </section>
+
+  <section class="slide cream">
+    <h2>El caso: los tubos de esta clase</h2>
+    <p class="sub">Los fluorescentes se pueden cambiar por tubos LED que dan la misma luz. La pregunta no es si gastan menos —eso ya lo sabemos—, sino si <b>compensa</b> cambiarlos.</p>
+    <table class="tabla">
+      <thead>
+        <tr><th>Tipo de tubo</th><th>Potencia</th><th>Horas al año</th><th>Energía al año</th><th>Coste al año</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Fluorescente de 36 W (+ reactancia)</td><td>45 W</td><td>875 h</td><td>39,4 kWh</td><td>5,91 €</td></tr>
+        <tr><td>Tubo LED equivalente</td><td>18 W</td><td>875 h</td><td>15,8 kWh</td><td>2,36 €</td></tr>
+        <tr><td class="destaca">Diferencia, por cada tubo</td><td class="destaca">27 W</td><td>—</td><td class="destaca">23,6 kWh</td><td class="destaca">3,55 €</td></tr>
+      </tbody>
+    </table>
+    <p class="nota">875 h = 5 horas al día × 175 días de clase. Las potencias son las reales de estos tubos; el precio de la luz (0,15 €/kWh) y las horas de uso son estimaciones nuestras, y ahora las vais a sustituir por las vuestras.</p>
+  </section>
+
+  <section class="slide cream">
+    <h2>Ahora, los datos de verdad</h2>
+    <p class="sub">Antes de calcular nada, hay que salir a mirar. Cinco minutos, entre todos.</p>
+    <div class="tarea">
+      <div class="paso">
+        <span class="n">1</span>
+        <b>Contad los tubos</b>
+        <span>Los de esta clase, uno a uno. Y mirad si en alguno pone la potencia.</span>
+      </div>
+      <div class="paso">
+        <span class="n">2</span>
+        <b>Estimad las horas</b>
+        <span>¿Cuántas horas al día están encendidos de verdad? ¿Se encienden en junio a las diez de la mañana?</span>
+      </div>
+      <div class="paso">
+        <span class="n">3</span>
+        <b>Multiplicad por las aulas</b>
+        <span>Si en el centro hay aulas parecidas, ¿cuántos tubos salen en total? Es una estimación, y hay que decirlo.</span>
+      </div>
+      <div class="paso">
+        <span class="n">4</span>
+        <b>Metedlo en la calculadora</b>
+        <span>Está en la diapositiva siguiente. A ver qué sale con vuestros números, no con los míos.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <h2>La cuenta, paso a paso</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="pf">Potencia del fluorescente</label><input id="pf" type="number" value="45" min="1" step="1"><span class="ud">W</span></div>
+        <div class="mando"><label for="pl">Potencia del LED</label><input id="pl" type="number" value="18" min="1" step="1"><span class="ud">W</span></div>
+        <div class="mando"><label for="hd">Horas de uso al día</label><input id="hd" type="number" value="5" min="1" step="0.5"><span class="ud">h</span></div>
+        <div class="mando"><label for="dc">Días de clase al año</label><input id="dc" type="number" value="175" min="1" step="1"><span class="ud">días</span></div>
+        <div class="mando"><label for="pk">Precio de la electricidad</label><input id="pk" type="number" value="0.15" min="0.01" step="0.01"><span class="ud">€/kWh</span></div>
+        <div class="mando"><label for="nt">Tubos que hay que cambiar</label><input id="nt" type="number" value="80" min="1" step="1"><span class="ud">tubos</span></div>
+        <div class="mando"><label for="ct">Precio de cada tubo LED</label><input id="ct" type="number" value="10" min="0.5" step="0.5"><span class="ud">€</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="pk:0.25">¿Y si la luz sube a 0,25 €?</button>
+          <button class="pista-btn" data-set="hd:8">¿Y si están 8 h encendidos?</button>
+          <button class="pista-btn" data-set="ct:25">¿Y si el LED costara 25 €?</button>
+          <button class="pista-btn" data-set="pf:45,pl:18,hd:5,dc:175,pk:0.15,nt:80,ct:10">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="resumen">
+          <div class="tile"><span class="et">Ahorro al año</span><span class="vl" id="t-ahorro">—</span></div>
+          <div class="tile clave"><span class="et">Se paga en</span><span class="vl" id="t-anios">—</span></div>
+        </div>
+        <button class="avanza" id="avanza">Ver el primer paso →</button>
+        <div class="lineas">
+          <div class="linea" id="l1" hidden><b>1</b><span></span></div>
+          <div class="linea" id="l2" hidden><b>2</b><span></span></div>
+          <div class="linea" id="l3" hidden><b>3</b><span></span></div>
+          <div class="linea" id="l4" hidden><b>4</b><span></span></div>
+          <div class="linea final" id="l5" hidden><b>5</b><span></span></div>
+        </div>
+        <div class="veredicto si" id="vered" hidden>—</div>
+      </div>
+    </div>
+    <p class="nota">Cambia cualquier dato y la cuenta se rehace sola: es la misma operación con otros números.</p>
+  </section>
+
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">Ocho preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 8</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Mirar, medir, calcular y <b>entonces</b> decidir. En ese orden. Nadie ha dicho «hay que ahorrar energía»: lo ha dicho el número.</p>
+    <p class="sub">Y cuando el dato cambia —la luz sube, los tubos están más horas encendidos— la decisión cambia con él. Por eso hay que saber rehacer la cuenta.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión · S03</p>
+    <p style="font-size:1.2rem;font-style:italic">Lo que compramos y lo que tiramos: ODS 12.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora con revelado paso a paso ---------- */
+  var campos = ['pf','pl','hd','dc','pk','nt','ct'];
+  var el = {};
+  campos.forEach(function(k){ el[k] = document.getElementById(k); });
+  var lineas = [1,2,3,4,5].map(function(n){ return document.getElementById('l' + n); });
+  var vered = document.getElementById('vered');
+  var avanza = document.getElementById('avanza');
+  var visibles = 0;
+
+  function num(k, porDefecto){
+    var v = parseFloat(String(el[k].value).replace(',', '.'));
+    return (isFinite(v) && v > 0) ? v : porDefecto;
+  }
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+
+  function calcula(){
+    var pf = num('pf',45), pl = num('pl',18), hd = num('hd',5), dc = num('dc',175),
+        pk = num('pk',0.15), nt = num('nt',80), ct = num('ct',10);
+    var horas = hd * dc;
+    var kwhF = pf * horas / 1000, kwhL = pl * horas / 1000;
+    var cF = kwhF * pk, cL = kwhL * pk;
+    var ahorroTubo = cF - cL;
+    var ahorro = ahorroTubo * nt;
+    var inversion = ct * nt;
+
+    lineas[0].lastChild.textContent =
+      'Cada tubo está encendido ' + n0(hd) + ' h × ' + n0(dc) + ' días = ' + n0(horas) + ' horas al año.';
+    lineas[1].lastChild.textContent =
+      'El fluorescente: ' + n0(pf) + ' W × ' + n0(horas) + ' h = ' + n1(kwhF) + ' kWh, que a ' +
+      pk.toLocaleString('es-ES', {minimumFractionDigits:2}) + ' €/kWh son ' + eu(cF) + ' al año.';
+    lineas[2].lastChild.textContent =
+      'El LED: ' + n0(pl) + ' W × ' + n0(horas) + ' h = ' + n1(kwhL) + ' kWh, o sea ' + eu(cL) +
+      '. Ahorro por tubo: ' + eu(ahorroTubo) + '.';
+    lineas[3].lastChild.textContent =
+      'En los ' + n0(nt) + ' tubos: ' + eu(ahorroTubo) + ' × ' + n0(nt) + ' = ' + eu(ahorro) +
+      ' al año. Cambiarlos cuesta ' + n0(nt) + ' × ' + eu(ct) + ' = ' + eu(inversion) + '.';
+
+    document.getElementById('t-ahorro').textContent = eu(ahorro);
+
+    if(ahorro <= 0){
+      document.getElementById('t-anios').textContent = 'nunca';
+      lineas[4].lastChild.textContent = 'Con estos datos el LED no ahorra nada: el cambio no llega a pagarse nunca.';
+      vered.className = 'veredicto no';
+      vered.textContent = 'Habría que justificar el cambio por otra razón, porque por dinero no sale.';
+    } else {
+      var anios = inversion / ahorro;
+      document.getElementById('t-anios').textContent = n1(anios) + ' años';
+      lineas[4].lastChild.textContent =
+        eu(inversion) + ' ÷ ' + eu(ahorro) + ' al año = se paga solo en ' + n1(anios) + ' años.';
+      if(anios <= 10){
+        vered.className = 'veredicto si';
+        vered.textContent = 'Compensa: el tubo dura unos diez años, así que durante ' + n1(10 - anios) +
+                            ' años más el ahorro ya es limpio.';
+      } else {
+        vered.className = 'veredicto no';
+        vered.textContent = 'No compensa: tarda más en pagarse que lo que dura el propio tubo, unos diez años.';
+      }
+    }
+  }
+
+  function pinta(){
+    lineas.forEach(function(l, i){ l.hidden = i >= visibles; });
+    vered.hidden = visibles < 5;
+    if(visibles === 0){ avanza.textContent = 'Ver el primer paso →'; avanza.hidden = false; }
+    else if(visibles < 5){ avanza.textContent = 'Siguiente paso →'; avanza.hidden = false; }
+    else { avanza.textContent = 'Empezar de nuevo'; avanza.hidden = false; }
+  }
+
+  avanza.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    visibles = (visibles >= 5) ? 0 : visibles + 1;
+    calcula();
+    pinta();
+  });
+
+  campos.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':');
+        if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+  pinta();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [
+    { p:"¿En qué unidad se paga la electricidad en la factura?",
+      o:["En vatios (W)","En kilovatios-hora (kWh)","En euros por aparato"], c:1,
+      e:"En kWh, que es energía. Los vatios solo dicen lo deprisa que consume un aparato, no cuánto ha consumido." },
+    { p:"Una bombilla de 20 W encendida 50 horas, ¿cuánta energía gasta?",
+      o:["1.000 Wh, o sea 1 kWh","70 Wh","20 kWh"], c:0,
+      e:"E = P · t = 20 × 50 = 1.000 Wh = 1 kWh. Se multiplica, no se suma." },
+    { p:"De cada 100 kWh generados en España en 2025, ¿cuántos vinieron de fuentes renovables?",
+      o:["Unos 25","Unos 55","Unos 90"], c:1,
+      e:"El 55,5 %, según Red Eléctrica: algo más de la mitad. Y el 75,5 % se generó sin emitir CO₂, porque a las renovables se les suma la nuclear." },
+    { p:"La energía nuclear, ¿es renovable?",
+      o:["Sí, porque no contamina","No es renovable, pero al generar no emite CO₂","No es renovable y además es la que más CO₂ emite"], c:1,
+      e:"Son dos cosas distintas y conviene no mezclarlas: renovable quiere decir que no se agota, y la nuclear usa uranio, que se acaba. Lo que sí es cierto es que no emite CO₂ al generar electricidad." },
+    { p:"El fluorescente gasta 5,91 € al año y el LED 2,36 €. ¿Cuánto ahorra un tubo?",
+      o:["8,27 € al año","3,55 € al año","2,36 € al año"], c:1,
+      e:"5,91 − 2,36 = 3,55 € por tubo y año. Poco; lo que cambia la cosa es multiplicarlo por todos los tubos del centro." },
+    { p:"Si cambiar 80 tubos cuesta 800 € y se ahorran 284 € al año, ¿en cuánto se paga?",
+      o:["En 2,8 años","En 284 años","No llega a pagarse nunca"], c:0,
+      e:"800 ÷ 284 = 2,8 años. Y como el tubo dura unos diez, los siete siguientes son ahorro limpio." },
+    { p:"Si la electricidad subiera a 0,25 €/kWh, ¿qué pasaría con el cambio a LED?",
+      o:["Tardaría más en pagarse","Se pagaría antes","Daría exactamente igual"], c:1,
+      e:"Cuanto más cara es la luz, más vale cada kWh ahorrado: el cambio se paga en menos de dos años. El mismo cálculo con otro dato da otra decisión." },
+    { p:"¿Cuál de estas tres frases es la única que hemos podido demostrar hoy?",
+      o:["«Hay que ahorrar energía porque es lo correcto»","«Cambiar los tubos del centro se paga solo en menos de tres años»","«El LED es mejor que el fluorescente en todo»"], c:1,
+      e:"Solo la segunda sale de los números que hemos manejado. Las otras dos pueden ser razonables, pero hoy no las hemos calculado — y eso es justo lo que separa una opinión de una decisión con datos." }
+  ];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta');
+  var qPreg = document.getElementById('q-preg');
+  var qOpts = document.getElementById('q-opts');
+  var qExp = document.getElementById('q-exp');
+  var qSig = document.getElementById('q-sig');
+  var qMarc = document.getElementById('q-marcador');
+
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi];
+    contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p;
+    qExp.hidden = true;
+    qSig.hidden = true;
+    qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+
+  function responde(n){
+    if(contestada) return;
+    contestada = true;
+    var q = PREGUNTAS[qi];
+    if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien');
+      else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e;
+    qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta();
+    qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>
