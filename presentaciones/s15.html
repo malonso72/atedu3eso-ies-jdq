@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S15 · Lo que hay detrás de un enchufe · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.slide .fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.slide .nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+/* --- rejilla de tarjetas --- */
+.rejilla{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1vh 1.2vw; margin-top:1.4vh}
+.rejilla > div{background:var(--p-white); border-radius:12px; padding:1.3vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08)}
+.rejilla b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem; margin-bottom:.2em}
+.rejilla span{font-size:1.02rem; color:var(--p-textm); line-height:1.35}
+.rejilla i{display:block; font-style:normal; font-size:.92rem; color:var(--p-ocre); margin-top:.3em}
+/* --- tabla genérica --- */
+.tabla2{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px; overflow:hidden;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.4vh}
+.tabla2 th,.tabla2 td{padding:1vh 1vw; text-align:left; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.05rem; vertical-align:top}
+.tabla2 thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest)}
+.tabla2 tbody tr:last-child td{border-bottom:0}
+.tabla2 td:first-child{font-weight:700; color:var(--p-forest)}
+/* --- gráfico con eje trampa --- */
+.ejes{display:flex; gap:3%; margin-top:1.4vh; align-items:flex-end}
+.ejes .caja{flex:1; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw; box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.ejes .caja h3{margin:0 0 .6em 0; font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.ejes svg{width:100%; height:auto; display:block}
+.conmuta{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em; font-family:Georgia,serif; font-size:1.1rem; font-weight:700; cursor:pointer; margin-top:1.2vh}
+.conmuta:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+/* --- temporizador --- */
+.reloj{font-family:Georgia,serif; font-size:7rem; color:var(--p-forest); font-variant-numeric:tabular-nums; text-align:center; line-height:1; margin:2vh 0}
+.reloj.fin{color:#B4462F}
+.botones{display:flex; gap:1em; justify-content:center; flex-wrap:wrap}
+.botones button{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.7em 1.6em; font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.botones button.sec{background:var(--p-ocre)}
+.botones button:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>Lo que hay detrás de un enchufe</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 15 · ODS 9</p>
+    <p style="font-size:1.4rem;font-style:italic">Carreteras, fibra, fábricas y laboratorios: lo que no se ve y hace que todo funcione.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Qué pide el ODS 9</h2>
+    <p class="sub">«Industria, innovación e infraestructura».</p>
+    <div class="metas">
+      <div class="meta" style="border-top-color:#FD6925"><b>Infraestructuras</b><span>Fiables y para todos: carreteras, agua, energía, internet.</span></div>
+      <div class="meta" style="border-top-color:#FD6925"><b>Industria</b><span>Que crezca y sea más limpia.</span></div>
+      <div class="meta foco" style="border-top-color:var(--p-forest)"><b>Investigar más</b><span>Más dinero y más gente dedicada a la I+D.</span></div>
+      <div class="meta" style="border-top-color:#FD6925"><b>Conectar a todos</b><span>Internet asequible en los países que menos tienen.</span></div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>Vídeo</h2>
+    <a class="video-box" id="video-serie" href="https://www.youtube.com/watch?v=2xparLO41zQ" target="_blank" rel="noopener">
+      <div class="vt">▶ ODS 9 | Industria, innovación e infraestructura</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <!-- Segundo vídeo opcional: pon el enlace en href y aparecerá. Vacío, no se ve. -->
+    <a class="video-box" id="video-extra" href="" target="_blank" rel="noopener">
+      <div class="vt">▶ Otro vídeo</div>
+      <div class="vs">Se abre en una pestaña nueva</div>
+    </a>
+    <p style="font-weight:700">Mientras lo veis, en el cuaderno:</p>
+    <p>· <b>Dos cosas</b> que os llamen la atención.<br>· <b>Una</b> que no entendáis.</p>
+    <div class="callout">Al terminar, los «no lo entiendo» en voz alta. Esos son los que aclaramos.</div>
+  </section>
+  <section class="slide cream">
+    <h2>Conectados y desconectados</h2>
+    <div class="dato-grande">
+      <div><b>97,4 %</b><span>de los hogares de España tienen banda ancha (2025)</span></div>
+      <div><b>2.200 mill.</b><span>de personas en el mundo siguen sin internet</span></div>
+      <div><b>1.260 mill.</b><span>de móviles se vendieron en el mundo en 2025</span></div>
+    </div>
+    <div class="infobox">
+      <div class="label">Lo que para nosotros es normal</div>
+      <p>Para uno de cada cuatro habitantes del planeta, conectarse todavía no es posible. Y cada móvil nuevo lleva detrás minas, fábricas y transporte: lo veremos en el tercer trimestre.</p>
+    </div>
+    <p class="fuente-dato">Datos: INE, TIC en los hogares 2025; UIT, Facts and Figures 2025; IDC, a través de GSMArena.</p>
+  </section>
+  <section class="slide cream">
+    <h2>¿Cuánto se invierte en investigar?</h2>
+    <p class="sub">Gasto en I+D como porcentaje del PIB, 2024.</p>
+    <div class="mix">
+      <div class="barra">
+        <span class="fuente">Unión Europea</span>
+        <span class="pista"><span class="relleno" style="width:100%;background:#6E6E6E"></span></span>
+        <span class="pct">2,20 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">España</span>
+        <span class="pista"><span class="relleno" style="width:68%;background:#D35400"></span></span>
+        <span class="pct">1,50 %</span>
+      </div>
+      <div class="barra">
+        <span class="fuente">Andalucía</span>
+        <span class="pista"><span class="relleno" style="width:50%;background:#D35400"></span></span>
+        <span class="pct">1,09 %</span>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="label">Por debajo de la media</div>
+      <p>España invierte en investigación dos tercios de lo que invierte la media europea, y Andalucía todavía menos.</p>
+    </div>
+    <p class="fuente-dato">Datos: INE, Estadística de I+D 2024; Eurostat.</p>
+  </section>
+  <section class="slide cream">
+    <h2>¿Y si invirtiéramos como Europa?</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="gasto">Gasto en I+D de España, 2024</label><input id="gasto" type="number" value="23931" min="0" step="100"><span class="ud">M€</span></div>
+        <div class="mando"><label for="pct">Parte del PIB que es</label><input id="pct" type="number" value="1.50" min="0" step="0.05"><span class="ud">%</span></div>
+        <div class="mando"><label for="obj">Parte del PIB en la UE</label><input id="obj" type="number" value="2.2" min="0" step="0.1"><span class="ud">%</span></div>
+        <div class="mando"><label for="hab">Habitantes de España</label><input id="hab" type="number" value="49" min="0" step="0.5"><span class="ud">millones</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="obj:3">¿Y al 3 %, el objetivo europeo?</button>
+          <button class="pista-btn" data-set="gasto:23931,pct:1.50,obj:2.2,hab:49">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">PIB de España</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">Gasto con el % europeo</span><span class="vl" id="t2">—</span></div>
+          <div class="tile clave"><span class="et">Diferencia al año</span><span class="vl" id="t3">—</span></div>
+          <div class="tile"><span class="et">Por habitante</span><span class="vl" id="t4">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">El PIB sale de dividir el gasto entre su porcentaje. Los 49 millones de habitantes son una cifra redondeada. El 3 % es el objetivo que se marcó la Unión Europea.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Mirar lo que no se ve: las redes, las fábricas y la investigación que sostienen todo lo demás.</p>
+    <p class="sub">Y calcular cuánto costaría ponerse a la altura de Europa en investigación.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S16 · Convivir en paz: ODS 16.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["gasto", "pct", "obj", "hab"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var pib = v.pct > 0 ? v.gasto / (v.pct/100) : 0;
+      var nuevo = pib * v.obj / 100;
+      var dif = nuevo - v.gasto;
+      var ph = v.hab > 0 ? dif / v.hab : 0;
+      return { t:{ t1: n0(pib/1000) + ' mil M€', t2: n0(nuevo) + ' M€', t3: n0(dif) + ' M€', t4: eu0(ph) }, ok: dif <= 0,
+        msg: 'Para invertir en investigación como la media europea, España tendría que poner unos ' + n0(dif) + ' millones más al año: unos ' + eu0(ph) + ' por habitante.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "¿Qué parte de su PIB dedicó España a investigación y desarrollo en 2024?", "o": ["El 0,1 %", "El 1,50 %", "El 15 %"], "c": 1, "e": "23.931 millones de euros, el 1,50 % del PIB, según el INE."}, {"p": "¿Y la media de la Unión Europea?", "o": ["El 2,2 %", "El 0,5 %", "El 10 %"], "c": 0, "e": "El 2,2 %. España está bastante por debajo."}, {"p": "¿Qué parte de los hogares españoles tiene acceso a internet por banda ancha?", "o": ["El 57 %", "El 97,4 %", "El 100 %"], "c": 1, "e": "El 97,4 % en 2025. La fibra llega a casi el 96 % de los hogares."}, {"p": "¿Cuántas personas del mundo siguen sin conectarse a internet?", "o": ["Unos 22 millones", "Unos 2.200 millones", "Nadie"], "c": 1, "e": "2.200 millones, según la Unión Internacional de Telecomunicaciones."}, {"p": "¿Cuántos móviles se vendieron en el mundo en 2025?", "o": ["Unos 12 millones", "Unos 1.260 millones", "Unos 126.000 millones"], "c": 1, "e": "Unos 1.260 millones, según la consultora IDC."}, {"p": "¿Qué es una infraestructura?", "o": ["Solo las fábricas", "Lo que hace falta para que un sitio funcione: carreteras, redes eléctricas, agua, internet", "Un tipo de industria"], "c": 1, "e": "Las infraestructuras son la base de todo lo demás. Sin ellas no hay industria ni innovación."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

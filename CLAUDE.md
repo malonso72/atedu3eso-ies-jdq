@@ -62,7 +62,42 @@ comprobar los festivos locales de Santa Fe):
 - S11 · 2 dic · ODS 8 Un trabajo digno.
 - S12 · 9 dic · ODS 10 Desigualdades.
 - S13 · 16 dic · Repaso del trimestre.
-- 2.º trimestre: ODS 1 (pobreza), 9, 14, 15, 16 y 17.
+
+Calendario del 2.º trimestre (hechas el 30/09/2026; vuelta el jueves 7 de enero,
+no lectivos 26 feb y 1 mar, que no caen en miércoles):
+
+- S14 · 13 ene · ODS 1 Pobreza: lejos y cerca (umbral con escala OCDE modificada).
+- S15 · 20 ene · ODS 9 Lo que hay detrás de un enchufe.
+- S16 · 27 ene · ODS 16 Convivir en paz (semana del 30 de enero, DENIP).
+- S17 · 3 feb · ODS 15 Bosques, humedales y linces.
+- S18 · 10 feb · ODS 14 Pescar sin vaciar el mar (simulador de caladero).
+- S19 · 17 feb · ODS 17 Nadie lo consigue solo (AOD y 0,7 %).
+- S20 · 24 feb · ¿Te fías de este dato? (eje trampa, puntos vs por ciento).
+- S21 · 3 mar · Tu decisión con datos (1): la pregunta y el dato.
+- S22 · 10 mar · Tu decisión con datos (2): la cuenta y la diapositiva.
+- S23 · 17 mar · Presentaciones (2 minutos, temporizador en la diapositiva).
+
+Calendario del 3.er trimestre (Semana Santa 22-28 mar; no lectivo 28 may, viernes):
+
+- S24 · 31 mar · El móvil que llevas en el bolsillo.
+- S25 · 7 abr · Lo que comemos.
+- S26 · 14 abr · La ropa.
+- S27 · 21 abr · Placas solares en el tejado (víspera del Día de la Tierra).
+- S28 · 28 abr · ¿Coche eléctrico?
+- S29 · 5 may · El agua de Granada.
+- S30 · 12 may · La factura de la luz.
+- S31 · 19 may · ¿Cuánto cuesta vivir solo?
+- S32 · 26 may · Una botella de plástico.
+- S33 · 2 jun · El calor en el aula.
+- S34 · 9 jun · Repaso del curso.
+- S35 · 16 jun · Tu decisión del curso.
+
+Vídeos: S01-S19 llevan diapositiva de vídeo (serie común + hueco oculto
+#video-extra). S20-S23 y todo el 3.er trimestre van sin vídeo, a propósito;
+se puede añadir con la misma diapositiva si Manuel encuentra uno.
+Datos a revisar antes de dar cada sesión del 3.er trimestre: embalses (S29),
+precios de la luz (S30), alquiler (S31) y producción solar (S27, estimación
+de 1.600 kWh/kWp al año, sin comprobar con PVGIS).
 
 Criterios que se mantienen en todas:
 - Datos reales con fuente citada en la diapositiva; lo que sea estimación,

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S23 · Presentaciones · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.slide .fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.slide .nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+/* --- rejilla de tarjetas --- */
+.rejilla{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1vh 1.2vw; margin-top:1.4vh}
+.rejilla > div{background:var(--p-white); border-radius:12px; padding:1.3vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08)}
+.rejilla b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem; margin-bottom:.2em}
+.rejilla span{font-size:1.02rem; color:var(--p-textm); line-height:1.35}
+.rejilla i{display:block; font-style:normal; font-size:.92rem; color:var(--p-ocre); margin-top:.3em}
+/* --- tabla genérica --- */
+.tabla2{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px; overflow:hidden;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.4vh}
+.tabla2 th,.tabla2 td{padding:1vh 1vw; text-align:left; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.05rem; vertical-align:top}
+.tabla2 thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest)}
+.tabla2 tbody tr:last-child td{border-bottom:0}
+.tabla2 td:first-child{font-weight:700; color:var(--p-forest)}
+/* --- gráfico con eje trampa --- */
+.ejes{display:flex; gap:3%; margin-top:1.4vh; align-items:flex-end}
+.ejes .caja{flex:1; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw; box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.ejes .caja h3{margin:0 0 .6em 0; font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.ejes svg{width:100%; height:auto; display:block}
+.conmuta{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em; font-family:Georgia,serif; font-size:1.1rem; font-weight:700; cursor:pointer; margin-top:1.2vh}
+.conmuta:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+/* --- temporizador --- */
+.reloj{font-family:Georgia,serif; font-size:7rem; color:var(--p-forest); font-variant-numeric:tabular-nums; text-align:center; line-height:1; margin:2vh 0}
+.reloj.fin{color:#B4462F}
+.botones{display:flex; gap:1em; justify-content:center; flex-wrap:wrap}
+.botones button{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.7em 1.6em; font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.botones button.sec{background:var(--p-ocre)}
+.botones button:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>Presentaciones</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 23 · Proyecto</p>
+    <p style="font-size:1.4rem;font-style:italic">Cada uno, su pregunta, su dato y su decisión. Dos minutos.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Las normas</h2>
+    <p class="sub">Iguales para todos.</p>
+    <div class="rejilla">
+      <div><b>Una diapositiva</b><span>La de la sesión pasada: pregunta, dato, cuenta y decisión.</span></div>
+      <div><b>Dos minutos</b><span>Con el reloj de la diapositiva siguiente, a la vista de todos.</span></div>
+      <div><b>Una pregunta del público</b><span>Sobre el dato o la cuenta. Las tres de la S20 valen.</span></div>
+      <div><b>El público también cuenta</b><span>Escuchar y preguntar bien es parte de la nota de todos.</span></div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>Dos minutos</h2>
+    <div class="reloj" id="reloj" aria-live="polite">2:00</div>
+    <div class="botones">
+      <button id="r-go">Empezar</button>
+      <button class="sec" id="r-reset">Reiniciar</button>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:2vh">Al llegar a cero, se termina la frase y se acabó. Después, una pregunta del público.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Cómo se evalúa</h2>
+    <p class="sub">La misma rúbrica de la S22.</p>
+    <table class="tabla2">
+      <thead><tr><th>Criterio</th><th>Bien</th><th>Regular</th><th>Falta</th></tr></thead>
+      <tbody>
+        <tr><td>Pregunta</td><td>Clara y con respuesta numérica</td><td>Se entiende, pero es vaga</td><td>No se sabe qué se pregunta</td></tr>
+        <tr><td>Dato</td><td>Con fuente y fecha, o medido y explicado</td><td>Con fuente pero sin fecha</td><td>Sin fuente</td></tr>
+        <tr><td>Cuenta</td><td>Correcta y con unidades</td><td>Con algún error pequeño</td><td>Sin cuenta o incorrecta</td></tr>
+        <tr><td>Decisión</td><td>Sale de la cuenta y dice qué la cambiaría</td><td>Sale de la cuenta</td><td>Es una opinión</td></tr>
+        <tr><td>Presentación</td><td>Dos minutos, se entiende</td><td>Se pasa o se queda corto</td><td>No se entiende</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Fin del segundo trimestre</h2>
+    <p>Diecisiete ODS vistos y una decisión con datos tomada por cada uno.</p>
+    <p class="sub">En el tercer trimestre, las decisiones de todos los días: el móvil, la comida, la ropa, la luz de casa.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S24 · El móvil que llevas en el bolsillo, a la vuelta de Semana Santa.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- temporizador ---------- */
+  var DUR = 120, resto = DUR, tic = null;
+  var rel = document.getElementById('reloj'), go = document.getElementById('r-go');
+  function pintaReloj(){
+    var m = Math.floor(resto / 60), s = resto % 60;
+    rel.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    rel.classList.toggle('fin', resto === 0);
+  }
+  go.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(tic){ clearInterval(tic); tic = null; go.textContent = 'Seguir'; return; }
+    if(resto === 0) resto = DUR;
+    go.textContent = 'Pausa';
+    tic = setInterval(function(){ resto = Math.max(0, resto - 1); pintaReloj();
+      if(resto === 0){ clearInterval(tic); tic = null; go.textContent = 'Empezar'; } }, 1000);
+  });
+  document.getElementById('r-reset').addEventListener('click', function(ev){
+    ev.stopPropagation(); if(tic){ clearInterval(tic); tic = null; } resto = DUR; go.textContent = 'Empezar'; pintaReloj(); });
+  pintaReloj();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>

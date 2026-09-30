@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S27 · Placas solares en el tejado · ATEDU 3º ESO</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="presentaciones.css">
+<style>
+
+/* --- metas del ODS 7 --- */
+.metas{display:flex; gap:2%; margin-top:2vh; align-items:stretch}
+.meta{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); border-top:5px solid #FCC30B}
+.meta b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem; margin-bottom:.3em}
+.meta span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+.meta.foco{border-top-color:var(--p-forest); background:#EAF3E7}
+
+/* --- formula --- */
+.formula{background:var(--p-forest); color:#fff; border-radius:12px; padding:2vh 2vw;
+  font-family:Georgia,serif; font-size:2.2rem; text-align:center; margin:1.5vh 0}
+.formula small{display:block; font-size:1.1rem; opacity:.85; margin-top:.5em; font-family:Calibri,sans-serif}
+
+/* --- gráfico del mix eléctrico --- */
+.mix{display:flex; flex-direction:column; gap:.9vh; margin-top:1.5vh}
+.barra{display:grid; grid-template-columns:11.5em 1fr 4.2em; align-items:center; gap:.9em}
+.barra .fuente{font-size:1.2rem; color:var(--p-textd); line-height:1.2}
+.barra .pista{display:block; background:rgba(44,95,45,.08); border-radius:4px; height:28px; position:relative; overflow:hidden}
+.barra .relleno{display:block; height:100%; border-radius:0 4px 4px 0}
+.barra .pct{font-family:Georgia,serif; font-size:1.3rem; color:var(--p-textd);
+  font-variant-numeric:tabular-nums; text-align:right}
+.leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
+.leyenda span{display:flex; align-items:center; gap:.5em}
+.leyenda i{width:16px; height:16px; border-radius:4px; display:block}
+.slide .fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+
+/* --- tabla de datos --- */
+.tabla{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px;
+  overflow:hidden; box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.5vh; font-variant-numeric:tabular-nums}
+.tabla th,.tabla td{padding:1.1vh 1.2vw; text-align:right; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.3rem}
+.tabla th:first-child,.tabla td:first-child{text-align:left}
+.tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.tabla tbody tr:last-child td{border-bottom:0}
+.tabla .destaca{color:var(--p-forest); font-weight:700}
+.slide .nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+
+/* --- actividad de recuento --- */
+.tarea{display:flex; gap:2%; margin-top:1.5vh}
+.tarea .paso{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.5em}
+.tarea .n{width:40px; height:40px; border-radius:50%; background:var(--p-ocre); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:Georgia,serif; font-size:1.3rem; font-weight:700}
+.tarea b{font-family:Georgia,serif; color:var(--p-forest); font-size:1.25rem}
+.tarea span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+
+/* --- calculadora --- */
+.calc{display:flex; gap:2.5%; margin-top:1.2vh; align-items:stretch}
+.mandos{flex:1.05; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); display:flex; flex-direction:column; gap:.75vh}
+.mando{display:flex; align-items:center; gap:.7em; justify-content:space-between}
+.mando label{font-size:1.1rem; color:var(--p-textd); flex:1}
+.mando input{width:5.8em; padding:.3em .5em; font-family:Calibri,sans-serif; font-size:1.15rem;
+  text-align:right; border:2px solid rgba(44,95,45,.25); border-radius:8px; background:var(--p-cream-bg);
+  color:var(--p-textd); font-variant-numeric:tabular-nums}
+.mando input:focus{outline:none; border-color:var(--p-ocre)}
+.mando .ud{font-size:1rem; color:var(--p-textm); min-width:3.4em}
+.pistas{display:flex; flex-wrap:wrap; gap:.6em; margin-top:.8vh}
+.pista-btn{background:var(--p-cream-bg); border:2px solid rgba(44,95,45,.2); border-radius:999px;
+  padding:.42em 1em; font-family:inherit; font-size:1.02rem; color:var(--p-textd); cursor:pointer}
+.pista-btn:hover{border-color:var(--p-moss)}
+.pista-btn:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+.result{flex:1; display:flex; flex-direction:column; gap:.75vh}
+.resumen{display:flex; gap:.7em}
+.tile{flex:1; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.8rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.lineas{display:flex; flex-direction:column; gap:.75vh}
+.linea{background:var(--p-white); border-radius:10px; padding:1vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08);
+  font-size:1.15rem; font-variant-numeric:tabular-nums; display:flex; gap:.8em; align-items:baseline}
+.linea b{font-family:Georgia,serif; color:var(--p-ocre); min-width:1.3em}
+.linea[hidden]{display:none}
+.linea.final{background:var(--p-forest); color:#fff}
+.linea.final b{color:var(--p-ocre-l)}
+.veredicto{border-radius:10px; padding:1vh 1.1vw; font-size:1.1rem; line-height:1.35}
+.veredicto[hidden]{display:none}
+.veredicto.si{background:#EAF3E7; color:#24501f; border-left:5px solid var(--p-forest)}
+.veredicto.no{background:#F7E9E5; color:#8A2E1B; border-left:5px solid #B4462F}
+.avanza{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em;
+  font-family:Georgia,serif; font-size:1.15rem; font-weight:700; cursor:pointer; align-self:flex-start}
+.avanza:hover{background:#8d6609}
+.avanza:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+
+/* --- cuestionario --- */
+.quiz{margin-top:1.5vh; display:flex; flex-direction:column; gap:1.4vh}
+.quiz .cuenta{color:var(--p-ocre); font-weight:700; font-size:1.15rem; font-family:Georgia,serif}
+.quiz .preg{font-size:1.85rem; font-family:Georgia,serif; color:var(--p-forest); font-weight:700; line-height:1.25; margin:0}
+.opts{display:flex; flex-direction:column; gap:.7vh}
+.opt{display:flex; align-items:flex-start; gap:.8em; background:var(--p-white); border:2px solid rgba(44,95,45,.18);
+  border-radius:12px; padding:1vh 1.3vw; font-family:inherit; font-size:1.3rem; color:var(--p-textd);
+  text-align:left; cursor:pointer; line-height:1.35; box-shadow:0 4px 12px rgba(27,59,28,.07)}
+.opt .letra{font-family:Georgia,serif; font-weight:700; color:var(--p-ocre); min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--p-moss)}
+.opt:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+.opt:disabled{cursor:default}
+.opt.bien{border-color:var(--p-forest); background:#EAF3E7}
+.opt.mal{border-color:#B4462F; background:#F7E9E5; opacity:.85}
+.explica{background:var(--p-white); border-left:5px solid var(--p-forest); border-radius:0 10px 10px 0;
+  padding:1.1vh 1.3vw; font-size:1.25rem; line-height:1.4}
+.explica[hidden]{display:none}
+.quiz-pie{display:flex; align-items:center; gap:1em}
+.sigp{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.65em 1.5em;
+  font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.sigp:hover{background:#24501f}
+.sigp[hidden]{display:none}
+.marcador{color:var(--p-textm); font-size:1.1rem; font-variant-numeric:tabular-nums}
+
+@media (max-width: 900px){
+  .metas,.calc,.tarea{flex-direction:column}
+  .tabla th,.tabla td{font-size:1rem; padding:.8vh 2vw}
+  .formula{font-size:1.5rem}
+  .barra{grid-template-columns:8em 1fr 3.4em}
+  .barra .fuente{font-size:1rem}
+}
+
+
+.tiles{display:flex; gap:.7em; flex-wrap:wrap}
+.tile{flex:1 1 40%; background:var(--p-white); border-radius:10px; padding:1vh 1.1vw;
+  box-shadow:0 4px 12px rgba(27,59,28,.08); display:flex; flex-direction:column; gap:.1em}
+.tile .et{font-size:1rem; color:var(--p-textm)}
+.tile .vl{font-family:Georgia,serif; font-size:1.7rem; color:var(--p-forest); font-variant-numeric:tabular-nums}
+.tile.clave{background:var(--p-forest)}
+.tile.clave .et{color:var(--p-cream)}
+.tile.clave .vl{color:#fff}
+.dato-grande{display:flex; gap:2%; margin-top:1.5vh}
+.dato-grande div{flex:1; background:var(--p-white); border-radius:12px; padding:1.8vh 1.2vw;
+  box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.dato-grande b{display:block; font-family:Georgia,serif; font-size:2.4rem; color:var(--p-forest);
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.dato-grande span{font-size:1.1rem; color:var(--p-textm); line-height:1.35}
+@media (max-width:900px){ .dato-grande{flex-direction:column; gap:1vh} }
+
+/* --- diapositiva de vídeo --- */
+a.video-box{display:block; text-decoration:none; background:var(--p-white); border-radius:12px; padding:1.8vh 1.6vw; margin:1.2vh 0; box-shadow:0 6px 18px rgba(27,59,28,.12); border:2px solid transparent; transition:border-color .12s ease, transform .12s ease}
+a.video-box:hover,a.video-box:focus-visible{border-color:var(--p-moss); transform:translateY(-2px); outline:none}
+a.video-box:focus-visible{border-color:var(--p-ocre)}
+a.video-box[href=""]{display:none}
+.video-box .vt{font-family:Georgia,serif; color:var(--p-ocre); font-size:1.5rem; font-weight:700}
+.video-box .vs{color:var(--p-textm); font-style:italic; font-size:1.15rem}
+/* --- rejilla de tarjetas --- */
+.rejilla{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1vh 1.2vw; margin-top:1.4vh}
+.rejilla > div{background:var(--p-white); border-radius:12px; padding:1.3vh 1.1vw; box-shadow:0 4px 12px rgba(27,59,28,.08)}
+.rejilla b{display:block; font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem; margin-bottom:.2em}
+.rejilla span{font-size:1.02rem; color:var(--p-textm); line-height:1.35}
+.rejilla i{display:block; font-style:normal; font-size:.92rem; color:var(--p-ocre); margin-top:.3em}
+/* --- tabla genérica --- */
+.tabla2{width:100%; border-collapse:collapse; background:var(--p-white); border-radius:12px; overflow:hidden;
+  box-shadow:0 6px 18px rgba(27,59,28,.1); margin-top:1.4vh}
+.tabla2 th,.tabla2 td{padding:1vh 1vw; text-align:left; border-bottom:1px solid rgba(44,95,45,.12); font-size:1.05rem; vertical-align:top}
+.tabla2 thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest)}
+.tabla2 tbody tr:last-child td{border-bottom:0}
+.tabla2 td:first-child{font-weight:700; color:var(--p-forest)}
+/* --- gráfico con eje trampa --- */
+.ejes{display:flex; gap:3%; margin-top:1.4vh; align-items:flex-end}
+.ejes .caja{flex:1; background:var(--p-white); border-radius:12px; padding:1.4vh 1.2vw; box-shadow:0 6px 18px rgba(27,59,28,.1)}
+.ejes .caja h3{margin:0 0 .6em 0; font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
+.ejes svg{width:100%; height:auto; display:block}
+.conmuta{background:var(--p-ocre); color:#fff; border:none; border-radius:10px; padding:.6em 1.3em; font-family:Georgia,serif; font-size:1.1rem; font-weight:700; cursor:pointer; margin-top:1.2vh}
+.conmuta:focus-visible{outline:3px solid var(--p-forest); outline-offset:2px}
+/* --- temporizador --- */
+.reloj{font-family:Georgia,serif; font-size:7rem; color:var(--p-forest); font-variant-numeric:tabular-nums; text-align:center; line-height:1; margin:2vh 0}
+.reloj.fin{color:#B4462F}
+.botones{display:flex; gap:1em; justify-content:center; flex-wrap:wrap}
+.botones button{background:var(--p-forest); color:#fff; border:none; border-radius:10px; padding:.7em 1.6em; font-family:Georgia,serif; font-size:1.2rem; font-weight:700; cursor:pointer}
+.botones button.sec{background:var(--p-ocre)}
+.botones button:focus-visible{outline:3px solid var(--p-ocre-l); outline-offset:2px}
+
+</style>
+</head>
+<body>
+<a class="home-link" href="../index.html">← Volver a la web</a>
+
+<div class="deck">
+
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h1>Placas solares en el tejado</h1>
+    <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
+    <div class="hr"></div>
+    <p class="kicker">Sesión 27 · ODS 7 · 13</p>
+    <p style="font-size:1.4rem;font-style:italic">22 de abril, Día de la Tierra. ¿Y si el instituto se fabricara su propia luz?</p>
+  </section>
+  <section class="slide cream">
+    <h2>No es una idea nueva</h2>
+    <p>La Junta de Andalucía lleva años poniendo placas en los tejados de los centros educativos. La pregunta es si en el nuestro compensaría, y cuánto.</p>
+    <div class="dato-grande">
+      <div><b>430</b><span>centros educativos en el plan de bioclimatización y renovables</span></div>
+      <div><b>6,45 MW</b><span>de placas fotovoltaicas en ese plan</span></div>
+      <div><b>140 M€</b><span>de presupuesto del plan completo</span></div>
+    </div>
+    <p class="fuente-dato">Datos: Junta de Andalucía, Plan de bioclimatización y energías renovables (2022).</p>
+  </section>
+  <section class="slide cream">
+    <h2>Antes de calcular</h2>
+    <p class="sub">Lo que hay que saber del tejado.</p>
+    <div class="tarea">
+      <div class="paso">
+        <span class="n">1</span>
+        <b>¿Cuánto tejado hay?</b>
+        <span>Estimadlo con un plano o con el mapa del satélite.</span>
+      </div>
+      <div class="paso">
+        <span class="n">2</span>
+        <b>¿Mira al sur?</b>
+        <span>Lo mejor es orientación sur, sin sombras de árboles ni edificios.</span>
+      </div>
+      <div class="paso">
+        <span class="n">3</span>
+        <b>¿Cuántos kWp caben?</b>
+        <span>Hacen falta unos 8 a 10 m² por kWp en una azotea. Es una estimación.</span>
+      </div>
+      <div class="paso">
+        <span class="n">4</span>
+        <b>A la calculadora</b>
+        <span>Con vuestros kWp.</span>
+      </div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>¿Compensa poner placas en el tejado?</h2>
+    <div class="calc">
+      <div class="mandos">
+        <div class="mando"><label for="kwp">Potencia instalada</label><input id="kwp" type="number" value="20" min="0" step="1"><span class="ud">kWp</span></div>
+        <div class="mando"><label for="prod">Producción por kWp al año</label><input id="prod" type="number" value="1600" min="0" step="50"><span class="ud">kWh</span></div>
+        <div class="mando"><label for="auto">Parte que se usa en el propio centro</label><input id="auto" type="number" value="70" min="0" step="5"><span class="ud">%</span></div>
+        <div class="mando"><label for="pr">Precio de la electricidad</label><input id="pr" type="number" value="0.15" min="0" step="0.01"><span class="ud">€/kWh</span></div>
+        <div class="mando"><label for="cos">Coste de la instalación</label><input id="cos" type="number" value="1100" min="0" step="50"><span class="ud">€/kWp</span></div>
+        <div class="pistas">
+          <button class="pista-btn" data-set="cos:800">¿Y si costara 800 €/kWp?</button>
+          <button class="pista-btn" data-set="auto:100">¿Y si se aprovechara todo?</button>
+          <button class="pista-btn" data-set="kwp:20,prod:1600,auto:70,pr:0.15,cos:1100">Volver a los datos de partida</button>
+        </div>
+      </div>
+      <div class="result">
+        <div class="tiles">
+          <div class="tile"><span class="et">Producción al año</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">Ahorro al año</span><span class="vl" id="t2">—</span></div>
+          <div class="tile"><span class="et">Coste total</span><span class="vl" id="t3">—</span></div>
+          <div class="tile clave"><span class="et">Se paga en</span><span class="vl" id="t4">—</span></div>
+        </div>
+        <div class="veredicto si" id="vered">—</div>
+      </div>
+    </div>
+    <p class="nota">Todos son estimaciones: 1.600 kWh por kWp es una cifra razonable para Granada, pero comprobadla en PVGIS, la herramienta de la Comisión Europea. El coste va de unos 700 a 1.600 €/kWp según el tamaño. Los 25 años de vida también son una estimación.</p>
+  </section>
+  <section class="slide cream">
+    <h2>Lo comprobamos</h2>
+    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <div class="quiz">
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <p class="preg" id="q-preg">—</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="explica" id="q-exp" hidden></div>
+      <div class="quiz-pie">
+        <button class="sigp" id="q-sig" hidden>Siguiente pregunta →</button>
+        <span class="marcador" id="q-marcador"></span>
+      </div>
+    </div>
+  </section>
+  <section class="slide dark">
+    <span class="leaf">🌱</span>
+    <h2>Lo que hemos hecho hoy</h2>
+    <p>Calcular si el instituto podría fabricar su propia electricidad y cuándo se pagaría.</p>
+    <p class="sub">Y ver que no basta con producir: importa cuándo se usa.</p>
+    <div class="hr"></div>
+    <p class="kicker">Próxima sesión</p>
+    <p style="font-size:1.2rem;font-style:italic">S28 · ¿Coche eléctrico?</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- calculadora ---------- */
+  var CAMPOS = ["kwp", "prod", "auto", "pr", "cos"];
+  var el = {};
+  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
+  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
+  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
+  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function calcula(){
+    var v = {};
+    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
+    var r = (function(v){
+      var prod = v.kwp * v.prod;
+      var ahorro = prod * v.auto / 100 * v.pr;
+      var coste = v.kwp * v.cos;
+      var co2 = prod * 0.107;
+      if(ahorro <= 0) return { t:{ t1: n0(prod)+' kWh', t2:'0 €', t3: eu0(coste), t4:'nunca' }, ok:false, msg:'Sin ahorro no hay nada que recuperar.' };
+      var anios = coste / ahorro;
+      return { t:{ t1: n0(prod) + ' kWh', t2: eu0(ahorro), t3: eu0(coste), t4: n1(anios) + ' años' }, ok: anios <= 12,
+        msg: 'Se paga en ' + n1(anios) + ' años, y las placas duran unos veinticinco. Además evitaría unos ' + n0(co2) + ' kg de CO₂ al año con el factor de la S05. Pero en julio y agosto el instituto está cerrado: por eso importa tanto qué parte se aprovecha.' };
+    })(v);
+    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
+    var vd = document.getElementById('vered');
+    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
+    vd.textContent = r.msg;
+  }
+  CAMPOS.forEach(function(k){
+    el[k].addEventListener('input', calcula);
+    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      b.getAttribute('data-set').split(',').forEach(function(par){
+        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
+      });
+      calcula();
+    });
+  });
+  calcula();
+
+  /* ---------- cuestionario ---------- */
+  var PREGUNTAS = [{"p": "¿Qué es un kWp?", "o": ["La potencia máxima que dan las placas a pleno sol", "Lo que consume el centro", "Un tipo de placa"], "c": 0, "e": "El kilovatio pico: lo que dan en condiciones ideales. Luego producen menos, según el sol."}, {"p": "¿Cuántos centros educativos incluyó el plan de la Junta de bioclimatización y renovables?", "o": ["Unos 43", "430", "4.300"], "c": 1, "e": "430 centros y 6,45 megavatios de placas, dentro de un plan de 140 millones."}, {"p": "¿Por qué en un instituto no se aprovecha toda la energía de las placas?", "o": ["Porque las placas no funcionan en verano", "Porque en verano y fines de semana, cuando más sol hay, no hay clase", "Porque es ilegal"], "c": 1, "e": "La energía que no se usa se puede verter a la red, pero se paga mucho peor."}, {"p": "Si una instalación de 22.000 € ahorra 3.360 € al año, ¿en cuánto se paga?", "o": ["En unos 6,5 años", "En 22 años", "Nunca"], "c": 0, "e": "22.000 ÷ 3.360 ≈ 6,5 años. La misma cuenta que los tubos LED."}, {"p": "¿Dónde se puede comprobar cuánta energía daría una placa en Santa Fe?", "o": ["En PVGIS, la herramienta de la Comisión Europea", "En un anuncio", "En ningún sitio"], "c": 0, "e": "PVGIS calcula la producción con datos reales de sol de cada sitio."}, {"p": "¿Qué ODS une esta sesión con la S02 y la S05?", "o": ["El 7 y el 13", "El 14", "El 16"], "c": 0, "e": "Energía limpia (7) y clima (13): producir aquí lo que se gasta aquí."}];
+  var LETRAS = ['a','b','c','d'];
+  var qi = 0, aciertos = 0, contestada = false;
+  var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
+      qOpts = document.getElementById('q-opts'), qExp = document.getElementById('q-exp'),
+      qSig = document.getElementById('q-sig'), qMarc = document.getElementById('q-marcador');
+  function pintaPregunta(){
+    var q = PREGUNTAS[qi]; contestada = false;
+    qCuenta.textContent = 'Pregunta ' + (qi + 1) + ' de ' + PREGUNTAS.length;
+    qPreg.textContent = q.p; qExp.hidden = true; qSig.hidden = true; qOpts.innerHTML = '';
+    q.o.forEach(function(texto, n){
+      var b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+      b.innerHTML = '<span class="letra">' + LETRAS[n] + '</span><span></span>';
+      b.lastChild.textContent = texto;
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); responde(n); });
+      qOpts.appendChild(b);
+    });
+    qMarc.textContent = qi === 0 ? '' : ('Aciertos: ' + aciertos + ' de ' + qi);
+  }
+  function responde(n){
+    if(contestada) return; contestada = true;
+    var q = PREGUNTAS[qi]; if(n === q.c) aciertos++;
+    Array.prototype.forEach.call(qOpts.children, function(b, k){
+      b.disabled = true;
+      if(k === q.c) b.classList.add('bien'); else if(k === n) b.classList.add('mal');
+    });
+    qExp.textContent = q.e; qExp.hidden = false;
+    qMarc.textContent = 'Aciertos: ' + aciertos + ' de ' + (qi + 1);
+    qSig.textContent = (qi < PREGUNTAS.length - 1) ? 'Siguiente pregunta →' : 'Empezar otra vez';
+    qSig.hidden = false;
+  }
+  qSig.addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(qi < PREGUNTAS.length - 1){ qi++; } else { qi = 0; aciertos = 0; }
+    pintaPregunta(); qOpts.firstChild.focus();
+  });
+  pintaPregunta();
+
+})();
+</script>
+<script src="presentaciones.js"></script>
+</body>
+</html>
