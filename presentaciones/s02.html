@@ -31,15 +31,15 @@
 .leyenda{display:flex; flex-wrap:wrap; gap:1.4em; margin-top:1.4vh; font-size:1.1rem; color:var(--p-textm)}
 .leyenda span{display:flex; align-items:center; gap:.5em}
 .leyenda i{width:16px; height:16px; border-radius:4px; display:block}
-.fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
+.slide .fuente-dato{font-size:1rem; color:var(--p-textm); font-style:italic; margin-top:1.2vh}
 
 /* --- barra apilada de la energía total --- */
 .stack{display:flex; gap:2px; height:44px; border-radius:6px; overflow:hidden; margin-top:1vh}
 .stack .seg{display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.05rem;
   font-weight:700; white-space:nowrap; overflow:hidden; min-width:0; padding:0 .4em}
 .stack .seg.destaca{color:#2E2718; outline:3px solid var(--p-forest); outline-offset:-3px}
-.pie-stack{font-size:1rem !important; color:var(--p-textm); margin:.5vh 0 0 0 !important}
-.zoom{font-family:Georgia,serif; color:var(--p-forest); font-weight:700; font-size:1.2rem !important; margin:1.4vh 0 .2vh 0 !important}
+.slide .pie-stack{font-size:1rem !important; color:var(--p-textm); margin:.5vh 0 0 0 !important}
+.slide .zoom{font-family:Georgia,serif; color:var(--p-forest); font-weight:700; font-size:1.2rem !important; margin:1.4vh 0 .2vh 0 !important}
 .mix.compacta{gap:.4vh; margin-top:.4vh}
 .mix.compacta .barra .pista{height:18px}
 .mix.compacta .barra .fuente{font-size:1.02rem}
@@ -53,7 +53,7 @@
 .tabla thead th{background:var(--p-cream); font-family:Georgia,serif; color:var(--p-forest); font-size:1.15rem}
 .tabla tbody tr:last-child td{border-bottom:0}
 .tabla .destaca{color:var(--p-forest); font-weight:700}
-.nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
+.slide .nota{font-size:1.05rem; color:var(--p-textm); font-style:italic; margin-top:1vh}
 
 /* --- actividad de recuento --- */
 .tarea{display:flex; gap:2%; margin-top:1.5vh}
@@ -235,7 +235,7 @@ a.video-box[href=""]{display:none}
 
   <section class="slide cream">
     <h2>El caso: los tubos de esta clase</h2>
-    <p class="sub">Hoy medimos la parte que tenemos a mano: la electricidad del aula. Los fluorescentes se pueden cambiar por tubos LED que dan la misma luz. La pregunta no es si gastan menos —eso ya lo sabemos—, sino si <b>compensa</b> cambiarlos.</p>
+    <p class="sub"><b>Por qué este caso.</b> De las cuatro metas del ODS 7, la de gastar menos energía para hacer lo mismo es la única que depende de nosotros. Y en un instituto la luz está encendida todas las horas de clase, todos los días: si hay un sitio donde ahorrar, es aquí. Los fluorescentes se pueden cambiar por tubos LED que dan la misma luz con menos de la mitad de potencia. La pregunta no es si gastan menos, sino <b>si compensa lo que cuesta cambiarlos</b>.</p>
     <table class="tabla">
       <thead>
         <tr><th>Tipo de tubo</th><th>Potencia</th><th>Horas al año</th><th>Energía al año</th><th>Coste al año</th></tr>
