@@ -46,8 +46,8 @@ después lo que se mide fuera, y los ODS más sociales al final, cuando ya
 tengan el hábito de preguntar «¿y eso con qué número lo sabes?».
 
 ATEDU es los miércoles. Calendario del 1.er trimestre (calendario escolar
-provincial de Granada 2026-27; ningún festivo cae en miércoles; faltan por
-comprobar los festivos locales de Santa Fe):
+provincial de Granada 2026-27; ningún festivo cae en miércoles, tampoco
+los locales de Santa Fe, confirmado por Manuel el 30/09/2026):
 
 - S01 · 23 sep · Qué son los ODS y de dónde salen (dada; fue bien).
 - S02 · 30 sep · ODS 7 Energía: potencia/energía, mix REE 2025, tubos LED.
