@@ -26,8 +26,9 @@ alumno concreto, hay que preguntar antes de tocar nada.
 
 Despliegue: Cloudflare Workers Static Assets (sin `worker.js`, sin
 autenticación), sirviendo el repo directamente como en `cyr1-ies-jdq` /
-`tyd3-ies-jdq`. Push a GitHub + `wrangler deploy` manual (no hay integración
-automática configurada todavía).
+`tyd3-ies-jdq`. Integración con GitHub activa en Cloudflare (Settings →
+Builds, rama `main`): cada `git push` despliega solo. No hace falta
+`wrangler deploy` manual.
 
 ## CONVENCIONES
 

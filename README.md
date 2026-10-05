@@ -19,11 +19,9 @@ grupo.
 
 ## Desplegar cambios
 
-Después de hacer `git push`, hay que desplegar manualmente:
-
-```
-npx wrangler deploy
-```
+El Worker está conectado a GitHub en Cloudflare (Settings → Builds): cada
+`git push` a `main` publica el sitio automáticamente en un par de minutos.
+No hace falta lanzar `wrangler deploy` a mano.
 
 ## Estructura
 
