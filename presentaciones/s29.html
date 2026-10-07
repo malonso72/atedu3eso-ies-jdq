@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S29 · El agua de Granada · ATEDU 3º ESO</title>
+<title>S29 · ¿Coche eléctrico? · ATEDU 3º ESO</title>
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="presentaciones.css">
 <style>
@@ -188,76 +188,52 @@ a.video-box[href=""]{display:none}
 
   <section class="slide dark">
     <span class="leaf">🌱</span>
-    <h1>El agua de Granada</h1>
+    <h1>¿Coche eléctrico?</h1>
     <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
     <div class="hr"></div>
-    <p class="kicker">Sesión 29 · ODS 6 · 13 · 15</p>
-    <p style="font-size:1.4rem;font-style:italic">El agua del grifo viene de algún sitio. Y no somos los únicos que la usan.</p>
+    <p class="kicker">Sesión 29 · ODS 7 · 11 · 13</p>
+    <p style="font-size:1.4rem;font-style:italic">Tu familia tiene que cambiar de coche. ¿Qué le dices?</p>
   </section>
   <section class="slide cream">
-    <h2>¿Cómo están los embalses?</h2>
-    <p>Estos datos son de finales de septiembre de 2026. Antes de empezar, mirad en embalses.net cómo están hoy.</p>
+    <h2>Lo que sabemos</h2>
     <div class="dato-grande">
-      <div><b>69,6 %</b><span>cuenca del Guadalquivir (28-9-2026)</span></div>
-      <div><b>82,2 %</b><span>embalse de Canales (30-9-2026)</span></div>
-      <div><b>27,0 %</b><span>embalse de Quéntar (30-9-2026)</span></div>
+      <div><b>-73 %</b><span>de CO₂ del eléctrico frente al de gasolina, en toda su vida</span></div>
+      <div><b>8,85 %</b><span>de los coches vendidos en España en 2025 fueron eléctricos</span></div>
+      <div><b>34 %</b><span>de las emisiones de España sale del transporte</span></div>
     </div>
     <div class="infobox">
-      <div class="label">Llueve poco</div>
-      <p>En el aeropuerto de Granada caen de media unos 365 litros por metro cuadrado al año. Cada año seco se nota enseguida en los embalses.</p>
+      <div class="label">No es solo el tubo de escape</div>
+      <p>Fabricar la batería emite mucho, pero se recupera con los kilómetros. Contando todo, el eléctrico sale muy por delante en Europa.</p>
     </div>
-    <p class="fuente-dato">Datos: embalses.net; SAIH de la Confederación Hidrográfica del Guadalquivir (lecturas automáticas); AEMET, valores normales 1981-2010.</p>
+    <p class="fuente-dato">Datos: ICCT, análisis del ciclo de vida de los coches europeos (2025); ANFAC, 2025; MITECO, avance 2025.</p>
   </section>
   <section class="slide cream">
-    <h2>¿Quién usa el agua?</h2>
-    <p class="sub">Demanda de agua en la cuenca del Guadalquivir.</p>
-    <div class="mix">
-      <div class="barra">
-        <span class="fuente">Regadío</span>
-        <span class="pista"><span class="relleno" style="width:100%;background:#2F7D32"></span></span>
-        <span class="pct">86,1 %</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Ciudades y pueblos</span>
-        <span class="pista"><span class="relleno" style="width:13%;background:#1B7FA6"></span></span>
-        <span class="pct">10,9 %</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Industria</span>
-        <span class="pista"><span class="relleno" style="width:3%;background:#6E6E6E"></span></span>
-        <span class="pct">2,8 %</span>
-      </div>
-    </div>
-    <div class="infobox">
-      <div class="label">La Vega también bebe</div>
-      <p>Casi nueve de cada diez litros van al campo. Es la base de la comida y del trabajo de la zona, y a la vez donde más se puede ahorrar.</p>
-    </div>
-    <p class="fuente-dato">Datos: MITECO y CHG, Plan Hidrológico del Guadalquivir 2022-2027.</p>
-  </section>
-  <section class="slide cream">
-    <h2>¿Dónde está el agua de verdad?</h2>
+    <h2>Gasolina o eléctrico</h2>
     <div class="calc">
       <div class="mandos">
-        <div class="mando"><label for="agr">Ahorro en el regadío</label><input id="agr" type="number" value="5" min="0" step="1"><span class="ud">%</span></div>
-        <div class="mando"><label for="urb">Ahorro en las casas y ciudades</label><input id="urb" type="number" value="20" min="0" step="5"><span class="ud">%</span></div>
-        <div class="mando"><label for="ha">Demanda del regadío en la cuenca</label><input id="ha" type="number" value="3163" min="0" step="10"><span class="ud">hm³</span></div>
-        <div class="mando"><label for="hu">Demanda urbana en la cuenca</label><input id="hu" type="number" value="400" min="0" step="10"><span class="ud">hm³</span></div>
+        <div class="mando"><label for="km">Kilómetros al año</label><input id="km" type="number" value="12000" min="0" step="500"><span class="ud">km</span></div>
+        <div class="mando"><label for="lg">Consumo del de gasolina</label><input id="lg" type="number" value="6.5" min="0" step="0.1"><span class="ud">L/100 km</span></div>
+        <div class="mando"><label for="pg">Precio de la gasolina</label><input id="pg" type="number" value="1.93" min="0" step="0.01"><span class="ud">€/L</span></div>
+        <div class="mando"><label for="ke">Consumo del eléctrico</label><input id="ke" type="number" value="16" min="0" step="0.5"><span class="ud">kWh/100 km</span></div>
+        <div class="mando"><label for="pe">Precio de la luz al cargar en casa</label><input id="pe" type="number" value="0.15" min="0" step="0.01"><span class="ud">€/kWh</span></div>
+        <div class="mando"><label for="dif">Cuánto más cuesta comprar el eléctrico</label><input id="dif" type="number" value="0" min="0" step="500"><span class="ud">€</span></div>
         <div class="pistas">
-          <button class="pista-btn" data-set="agr:0,urb:30">Solo las casas, un 30 %</button>
-          <button class="pista-btn" data-set="agr:10,urb:0">Solo el regadío, un 10 %</button>
-          <button class="pista-btn" data-set="agr:5,urb:20,ha:3163,hu:400">Volver a los datos de partida</button>
+          <button class="pista-btn" data-set="dif:8000">¿Y si el eléctrico costara 8.000 € más?</button>
+          <button class="pista-btn" data-set="km:6000">Solo 6.000 km al año</button>
+          <button class="pista-btn" data-set="km:12000,lg:6.5,pg:1.93,ke:16,pe:0.15,dif:0">Volver a los datos de partida</button>
         </div>
       </div>
       <div class="result">
         <div class="tiles">
-          <div class="tile"><span class="et">Agua ahorrada en el regadío</span><span class="vl" id="t1">—</span></div>
-          <div class="tile"><span class="et">Agua ahorrada en las ciudades</span><span class="vl" id="t2">—</span></div>
-          <div class="tile clave"><span class="et">Personas a las que daría agua un año</span><span class="vl" id="t3">—</span></div>
+          <div class="tile"><span class="et">Gasolina al año</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">Electricidad al año</span><span class="vl" id="t2">—</span></div>
+          <div class="tile"><span class="et">Ahorro al año</span><span class="vl" id="t3">—</span></div>
+          <div class="tile clave"><span class="et">CO₂ evitado al año</span><span class="vl" id="t4">—</span></div>
         </div>
         <div class="veredicto si" id="vered">—</div>
       </div>
     </div>
-    <p class="nota">Un hm³ son mil millones de litros. Personas: a 130 litros al día por persona, el consumo de Andalucía (S04). La demanda urbana es el 10,9 % de 3.674 hm³, redondeado.</p>
+    <p class="nota">CO₂ en todo el ciclo de vida, fabricación de la batería incluida: 235 g/km la gasolina y 63 g/km el eléctrico (ICCT, 2025). Los consumos son estimaciones de un coche compacto. La gasolina, 1,93 €/L a finales de septiembre de 2026.</p>
   </section>
   <section class="slide cream">
     <h2>Lo comprobamos</h2>
@@ -276,13 +252,13 @@ a.video-box[href=""]{display:none}
   <section class="slide dark">
     <span class="leaf">🌱</span>
     <h2>Lo que hemos hecho hoy</h2>
-    <p>Ver de dónde viene el agua, quién la usa y dónde está el margen para ahorrarla.</p>
-    <p class="sub">La pregunta «¿dónde está la parte grande?» vale para casi todo.</p>
+    <p>Comparar dos coches en euros y en CO₂, con los datos de la S02 y la S05.</p>
+    <p class="sub">Y no olvidar la pregunta de la S06: ¿hace falta coger el coche?</p>
     <div class="hr"></div>
     <p class="kicker">Próxima sesión</p>
-    <p style="font-size:1.2rem;font-style:italic">S30 · La factura de la luz.</p>
+    <p style="font-size:1.2rem;font-style:italic">S30 · El agua de Granada.</p>
     <p class="kicker peli" style="margin-top:2.4vh">Si te ha interesado, una película</p>
-    <p style="font-size:1.2rem">🎬 <i>Rango</i></p>
+    <p style="font-size:1.2rem">🎬 <i>¿Quién mató al coche eléctrico?</i></p>
   </section>
 
 </div>
@@ -291,7 +267,7 @@ a.video-box[href=""]{display:none}
 (function(){
 
   /* ---------- calculadora ---------- */
-  var CAMPOS = ["agr", "urb", "ha", "hu"];
+  var CAMPOS = ["km", "lg", "pg", "ke", "pe", "dif"];
   var el = {};
   CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
   function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
@@ -302,10 +278,13 @@ a.video-box[href=""]{display:none}
     var v = {};
     CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
     var r = (function(v){
-      var a = v.ha * v.agr / 100, u = v.hu * v.urb / 100;
-      var personas = (a + u) * 1e9 / (130 * 365);
-      return { t:{ t1: n0(a) + ' hm³', t2: n0(u) + ' hm³', t3: n0(personas) }, ok:true,
-        msg: 'Un ' + n0(v.agr) + ' % en el regadío son ' + n0(a) + ' hm³; un ' + n0(v.urb) + ' % en las casas, ' + n0(u) + ' hm³. Como el regadío se lleva el 86 % del agua, cada punto que se ahorra ahí vale mucho más. Ahorrar en casa sigue importando, pero no es donde está la mayor parte.' };
+      var cg = v.km / 100 * v.lg * v.pg;
+      var ce = v.km / 100 * v.ke * v.pe;
+      var ah = cg - ce;
+      var co2 = v.km * (235 - 63) / 1000;
+      var msg = 'Con ' + n0(v.km) + ' km al año, el eléctrico ahorra ' + eu0(ah) + ' en combustible y evita unos ' + n0(co2) + ' kg de CO₂ contando toda la vida del coche.';
+      if(v.dif > 0 && ah > 0) msg += ' La diferencia de precio se recupera en ' + n1(v.dif / ah) + ' años.';
+      return { t:{ t1: eu0(cg), t2: eu0(ce), t3: eu0(ah), t4: n0(co2) + ' kg' }, ok: ah > 0, msg: msg };
     })(v);
     Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
     var vd = document.getElementById('vered');
@@ -328,7 +307,7 @@ a.video-box[href=""]{display:none}
   calcula();
 
   /* ---------- cuestionario ---------- */
-  var PREGUNTAS = [{"p": "¿Qué parte del agua de la cuenca del Guadalquivir se usa para regar?", "o": ["El 10 %", "El 86 %", "El 50 %"], "c": 1, "e": "El 86,1 %, según el plan hidrológico. Las ciudades, el 10,9 %."}, {"p": "¿Cuánto llueve de media al año en Granada?", "o": ["Unos 365 litros por m²", "Unos 3.650", "Unos 36"], "c": 0, "e": "Unos 365 mm al año en el aeropuerto de Granada (1981-2010). Un milímetro es un litro por metro cuadrado."}, {"p": "¿Cuántos litros son un hectómetro cúbico?", "o": ["Mil", "Un millón", "Mil millones"], "c": 2, "e": "1 hm³ = 1.000.000.000 L."}, {"p": "A finales de septiembre de 2026, el embalse de Quéntar, ¿cómo estaba?", "o": ["Casi lleno", "Al 27 %", "Vacío"], "c": 1, "e": "Al 27 %, mientras Canales estaba al 82 %. Mirad cómo están hoy."}, {"p": "Si el regadío ahorra un 5 % y las casas un 20 %, ¿qué ahorra más agua?", "o": ["Las casas", "El regadío", "Igual"], "c": 1, "e": "5 % de 3.163 son 158 hm³; 20 % de 400, solo 80."}, {"p": "Entonces, ¿da igual ahorrar agua en casa?", "o": ["Sí, no sirve para nada", "No: suma, y en una sequía cuenta todo; pero el gran margen está en el riego", "Solo si es gratis"], "c": 1, "e": "Las dos cosas son verdad a la vez. Los datos ayudan a saber dónde está el margen grande."}];
+  var PREGUNTAS = [{"p": "Contando toda su vida, ¿cuánto menos CO₂ emite un eléctrico que uno de gasolina en Europa?", "o": ["Un 7 %", "Un 73 %", "Lo mismo"], "c": 1, "e": "Un 73 % menos, según el ICCT (2025), incluida la fabricación de la batería."}, {"p": "¿Qué parte de los turismos vendidos en España en 2025 fue 100 % eléctrica?", "o": ["Menos del 9 %", "La mitad", "El 90 %"], "c": 0, "e": "El 8,85 %, según ANFAC."}, {"p": "¿Por qué el eléctrico contamina menos aquí que en otros países?", "o": ["Porque la electricidad española es bastante limpia", "Porque no gasta energía", "Porque las baterías no contaminan"], "c": 0, "e": "Unos 107 g de CO₂ por kWh (S05). En un país con mucho carbón, la ventaja sería menor."}, {"p": "¿Qué parte de las emisiones de España sale del transporte?", "o": ["Un 3 %", "Un 34 %", "Un 90 %"], "c": 1, "e": "El 34,2 % (S05). Por eso esta decisión pesa tanto."}, {"p": "Si un coche gasta 6,5 L/100 km y haces 12.000 km, ¿cuántos litros son?", "o": ["78 litros", "780 litros", "7.800 litros"], "c": 1, "e": "12.000 ÷ 100 × 6,5 = 780 litros al año."}, {"p": "¿Qué contamina todavía menos que un coche eléctrico?", "o": ["Nada", "Ir andando, en bici o en un autobús lleno", "Un coche diésel"], "c": 1, "e": "S06: el mejor coche es el que no hace falta coger."}];
   var LETRAS = ['a','b','c','d'];
   var qi = 0, aciertos = 0, contestada = false;
   var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),

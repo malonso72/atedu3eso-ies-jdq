@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S28 · ¿Coche eléctrico? · ATEDU 3º ESO</title>
+<title>S28 · El niño que domó el viento (2.ª parte) · ATEDU 3º ESO</title>
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="presentaciones.css">
 <style>
@@ -188,58 +188,75 @@ a.video-box[href=""]{display:none}
 
   <section class="slide dark">
     <span class="leaf">🌱</span>
-    <h1>¿Coche eléctrico?</h1>
+    <h1>El niño que domó el viento</h1>
     <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
     <div class="hr"></div>
-    <p class="kicker">Sesión 28 · ODS 7 · 11 · 13</p>
-    <p style="font-size:1.4rem;font-style:italic">Tu familia tiene que cambiar de coche. ¿Qué le dices?</p>
+    <p class="kicker">Sesión 28 · ODS 7 · 2 · 4 · 13</p>
+    <p style="font-size:1.4rem;font-style:italic">Segunda parte. Y al final, diez preguntas.</p>
   </section>
   <section class="slide cream">
-    <h2>Lo que sabemos</h2>
-    <div class="dato-grande">
-      <div><b>-73 %</b><span>de CO₂ del eléctrico frente al de gasolina, en toda su vida</span></div>
-      <div><b>8,85 %</b><span>de los coches vendidos en España en 2025 fueron eléctricos</span></div>
-      <div><b>34 %</b><span>de las emisiones de España sale del transporte</span></div>
+    <h2>Dónde lo dejamos</h2>
+    <p class="sub">Antes de darle al play, entre todos. Si algo todavía no ha salido, no lo contéis.</p>
+    <div class="rejilla">
+      <div><b>¿Dónde pasa?</b><span>Un país, un año y un pueblo.</span></div>
+      <div><b>¿Qué problema tiene el pueblo?</b><span>Lo que pasa con la lluvia y con la cosecha.</span></div>
+      <div><b>¿Qué le pasa a William?</b><span>Con el colegio, y con lo que hace después.</span></div>
+      <div><b>¿Qué idea tiene?</b><span>Y de dónde la ha sacado.</span></div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>Mientras la veis</h2>
+    <p class="sub">En el cuaderno, tres notas cortas.</p>
+    <div class="tarea">
+      <div class="paso">
+        <span class="n">1</span>
+        <b>Qué le falta al pueblo</b>
+        <span>Y si es una sola cosa o varias.</span>
+      </div>
+      <div class="paso">
+        <span class="n">2</span>
+        <b>Cómo funciona el molino</b>
+        <span>Las piezas que usa y para qué sirve cada una.</span>
+      </div>
+      <div class="paso">
+        <span class="n">3</span>
+        <b>Qué cuesta</b>
+        <span>Lo que tiene que dar cada uno para que salga adelante.</span>
+      </div>
+    </div>
+  </section>
+  <section class="slide cream">
+    <h2>La ciencia del molino</h2>
+    <p class="sub">Del viento a la comida, paso a paso.</p>
+    <div class="rejilla">
+      <div><b>1 · El viento</b><span>Aire en movimiento: energía cinética. Gratis, pero no siempre sopla.</span></div>
+      <div><b>2 · Las aspas</b><span>Atrapan el viento y giran. Cuanto más grandes, más energía recogen.</span></div>
+      <div><b>3 · La dinamo</b><span>Convierte el giro en electricidad, como la luz de una bicicleta.</span></div>
+      <div><b>4 · La bomba</b><span>Con esa electricidad sube agua del pozo.</span></div>
+      <div><b>5 · El campo</b><span>Con riego se puede cultivar aunque no llueva.</span></div>
     </div>
     <div class="infobox">
-      <div class="label">No es solo el tubo de escape</div>
-      <p>Fabricar la batería emite mucho, pero se recupera con los kilómetros. Contando todo, el eléctrico sale muy por delante en Europa.</p>
+      <div class="label">La cadena</div>
+      <p>Viento → movimiento → electricidad → agua → comida. Una decisión de energía que acaba siendo una decisión de comida.</p>
     </div>
-    <p class="fuente-dato">Datos: ICCT, análisis del ciclo de vida de los coches europeos (2025); ANFAC, 2025; MITECO, avance 2025.</p>
   </section>
   <section class="slide cream">
-    <h2>Gasolina o eléctrico</h2>
-    <div class="calc">
-      <div class="mandos">
-        <div class="mando"><label for="km">Kilómetros al año</label><input id="km" type="number" value="12000" min="0" step="500"><span class="ud">km</span></div>
-        <div class="mando"><label for="lg">Consumo del de gasolina</label><input id="lg" type="number" value="6.5" min="0" step="0.1"><span class="ud">L/100 km</span></div>
-        <div class="mando"><label for="pg">Precio de la gasolina</label><input id="pg" type="number" value="1.93" min="0" step="0.01"><span class="ud">€/L</span></div>
-        <div class="mando"><label for="ke">Consumo del eléctrico</label><input id="ke" type="number" value="16" min="0" step="0.5"><span class="ud">kWh/100 km</span></div>
-        <div class="mando"><label for="pe">Precio de la luz al cargar en casa</label><input id="pe" type="number" value="0.15" min="0" step="0.01"><span class="ud">€/kWh</span></div>
-        <div class="mando"><label for="dif">Cuánto más cuesta comprar el eléctrico</label><input id="dif" type="number" value="0" min="0" step="500"><span class="ud">€</span></div>
-        <div class="pistas">
-          <button class="pista-btn" data-set="dif:8000">¿Y si el eléctrico costara 8.000 € más?</button>
-          <button class="pista-btn" data-set="km:6000">Solo 6.000 km al año</button>
-          <button class="pista-btn" data-set="km:12000,lg:6.5,pg:1.93,ke:16,pe:0.15,dif:0">Volver a los datos de partida</button>
-        </div>
-      </div>
-      <div class="result">
-        <div class="tiles">
-          <div class="tile"><span class="et">Gasolina al año</span><span class="vl" id="t1">—</span></div>
-          <div class="tile"><span class="et">Electricidad al año</span><span class="vl" id="t2">—</span></div>
-          <div class="tile"><span class="et">Ahorro al año</span><span class="vl" id="t3">—</span></div>
-          <div class="tile clave"><span class="et">CO₂ evitado al año</span><span class="vl" id="t4">—</span></div>
-        </div>
-        <div class="veredicto si" id="vered">—</div>
-      </div>
+    <h2>Los ODS de la película</h2>
+    <p class="sub">Una sola historia y muchos objetivos a la vez. Están enganchados, como vimos en la S01.</p>
+    <div class="rejilla">
+      <div><b>ODS 7 · Energía</b><span>El molino: electricidad del viento, hecha con lo que había.</span></div>
+      <div><b>ODS 2 · Hambre</b><span>La sequía y una cosecha perdida.</span></div>
+      <div><b>ODS 4 · Educación</b><span>Un chico fuera del colegio que sigue aprendiendo en la biblioteca.</span></div>
+      <div><b>ODS 1 · Pobreza</b><span>Una familia que no puede pagar el colegio.</span></div>
+      <div><b>ODS 13 y 15 · Clima y bosques</b><span>Lluvias que fallan y árboles talados.</span></div>
+      <div><b>ODS 6 · Agua</b><span>El pozo y la bomba: el agua es lo que de verdad hacía falta.</span></div>
     </div>
-    <p class="nota">CO₂ en todo el ciclo de vida, fabricación de la batería incluida: 235 g/km la gasolina y 63 g/km el eléctrico (ICCT, 2025). Los consumos son estimaciones de un coche compacto. La gasolina, 1,93 €/L a finales de septiembre de 2026.</p>
   </section>
   <section class="slide cream">
     <h2>Lo comprobamos</h2>
-    <p class="sub">6 preguntas, en voz alta y entre todos.</p>
+    <p class="sub">10 preguntas, en voz alta y entre todos.</p>
     <div class="quiz">
-      <div class="cuenta" id="q-cuenta">Pregunta 1 de 6</div>
+      <div class="cuenta" id="q-cuenta">Pregunta 1 de 10</div>
       <p class="preg" id="q-preg">—</p>
       <div class="opts" id="q-opts"></div>
       <div class="explica" id="q-exp" hidden></div>
@@ -251,14 +268,12 @@ a.video-box[href=""]{display:none}
   </section>
   <section class="slide dark">
     <span class="leaf">🌱</span>
-    <h2>Lo que hemos hecho hoy</h2>
-    <p>Comparar dos coches en euros y en CO₂, con los datos de la S02 y la S05.</p>
-    <p class="sub">Y no olvidar la pregunta de la S06: ¿hace falta coger el coche?</p>
+    <h2>Lo que hemos visto</h2>
+    <p>Un problema real resuelto entendiendo cómo funciona la energía. Es lo mismo que hicimos con los tubos de la S02 y con las placas de la semana pasada.</p>
+    <p class="sub">Y una historia real: William Kamkwamba existe, y su molino también.</p>
     <div class="hr"></div>
     <p class="kicker">Próxima sesión</p>
-    <p style="font-size:1.2rem;font-style:italic">S29 · El agua de Granada.</p>
-    <p class="kicker peli" style="margin-top:2.4vh">Si te ha interesado, una película</p>
-    <p style="font-size:1.2rem">🎬 <i>¿Quién mató al coche eléctrico?</i></p>
+    <p style="font-size:1.2rem;font-style:italic">S29 · ¿Coche eléctrico?</p>
   </section>
 
 </div>
@@ -266,48 +281,8 @@ a.video-box[href=""]{display:none}
 <script>
 (function(){
 
-  /* ---------- calculadora ---------- */
-  var CAMPOS = ["km", "lg", "pg", "ke", "pe", "dif"];
-  var el = {};
-  CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
-  function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
-  function eu0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}) + ' €'; }
-  function n0(x){ return x.toLocaleString('es-ES', {maximumFractionDigits:0}); }
-  function n1(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:1, maximumFractionDigits:1}); }
-  function calcula(){
-    var v = {};
-    CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
-    var r = (function(v){
-      var cg = v.km / 100 * v.lg * v.pg;
-      var ce = v.km / 100 * v.ke * v.pe;
-      var ah = cg - ce;
-      var co2 = v.km * (235 - 63) / 1000;
-      var msg = 'Con ' + n0(v.km) + ' km al año, el eléctrico ahorra ' + eu0(ah) + ' en combustible y evita unos ' + n0(co2) + ' kg de CO₂ contando toda la vida del coche.';
-      if(v.dif > 0 && ah > 0) msg += ' La diferencia de precio se recupera en ' + n1(v.dif / ah) + ' años.';
-      return { t:{ t1: eu0(cg), t2: eu0(ce), t3: eu0(ah), t4: n0(co2) + ' kg' }, ok: ah > 0, msg: msg };
-    })(v);
-    Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
-    var vd = document.getElementById('vered');
-    vd.className = 'veredicto ' + (r.ok ? 'si' : 'no');
-    vd.textContent = r.msg;
-  }
-  CAMPOS.forEach(function(k){
-    el[k].addEventListener('input', calcula);
-    el[k].addEventListener('click', function(ev){ ev.stopPropagation(); });
-  });
-  Array.prototype.forEach.call(document.querySelectorAll('.pista-btn'), function(b){
-    b.addEventListener('click', function(ev){
-      ev.stopPropagation();
-      b.getAttribute('data-set').split(',').forEach(function(par){
-        var t = par.split(':'); if(el[t[0]]) el[t[0]].value = t[1];
-      });
-      calcula();
-    });
-  });
-  calcula();
-
   /* ---------- cuestionario ---------- */
-  var PREGUNTAS = [{"p": "Contando toda su vida, ¿cuánto menos CO₂ emite un eléctrico que uno de gasolina en Europa?", "o": ["Un 7 %", "Un 73 %", "Lo mismo"], "c": 1, "e": "Un 73 % menos, según el ICCT (2025), incluida la fabricación de la batería."}, {"p": "¿Qué parte de los turismos vendidos en España en 2025 fue 100 % eléctrica?", "o": ["Menos del 9 %", "La mitad", "El 90 %"], "c": 0, "e": "El 8,85 %, según ANFAC."}, {"p": "¿Por qué el eléctrico contamina menos aquí que en otros países?", "o": ["Porque la electricidad española es bastante limpia", "Porque no gasta energía", "Porque las baterías no contaminan"], "c": 0, "e": "Unos 107 g de CO₂ por kWh (S05). En un país con mucho carbón, la ventaja sería menor."}, {"p": "¿Qué parte de las emisiones de España sale del transporte?", "o": ["Un 3 %", "Un 34 %", "Un 90 %"], "c": 1, "e": "El 34,2 % (S05). Por eso esta decisión pesa tanto."}, {"p": "Si un coche gasta 6,5 L/100 km y haces 12.000 km, ¿cuántos litros son?", "o": ["78 litros", "780 litros", "7.800 litros"], "c": 1, "e": "12.000 ÷ 100 × 6,5 = 780 litros al año."}, {"p": "¿Qué contamina todavía menos que un coche eléctrico?", "o": ["Nada", "Ir andando, en bici o en un autobús lleno", "Un coche diésel"], "c": 1, "e": "S06: el mejor coche es el que no hace falta coger."}];
+  var PREGUNTAS = [{"p": "¿Por qué tiene que dejar William el colegio?", "o": ["Porque su familia no puede pagarlo", "Porque suspende", "Porque se cambia de pueblo"], "c": 0, "e": "La sequía arruina la cosecha y sin cosecha no hay dinero para pagar el colegio. La pobreza (ODS 1) deja fuera la educación (ODS 4)."}, {"p": "¿Dónde aprende cómo fabricar electricidad con el viento?", "o": ["En un libro de la biblioteca", "En internet", "Se lo enseña su padre"], "c": 0, "e": "Aunque ya no puede ir a clase, sigue yendo a la biblioteca. Sin ese libro no habría molino."}, {"p": "¿Qué hace la dinamo?", "o": ["Convierte el movimiento en electricidad", "Guarda la electricidad", "Hace girar las aspas"], "c": 0, "e": "Es la misma pieza que enciende la luz de una bicicleta: gira y produce corriente."}, {"p": "¿Qué tipo de energía usa el molino?", "o": ["Eólica, renovable", "Fósil", "Nuclear"], "c": 0, "e": "La del viento: no se acaba y no emite CO₂. Pero solo funciona cuando sopla."}, {"p": "¿Para qué sirve sobre todo la electricidad del molino en la película?", "o": ["Para bombear agua y regar", "Para dar luz en casa", "Para cargar teléfonos"], "c": 0, "e": "La electricidad mueve una bomba que sube agua del pozo. Con riego se puede sembrar aunque no llueva."}, {"p": "¿Qué le faltaba al pueblo, energía o comida?", "o": ["Solo comida", "Solo energía", "Las dos, y una ayuda a resolver la otra"], "c": 2, "e": "Viento → electricidad → agua → comida. Por eso el ODS 7 acaba resolviendo parte del ODS 2."}, {"p": "¿Qué pasa cuando se talan los árboles alrededor del pueblo?", "o": ["La lluvia arrastra el suelo y los campos sufren", "Llueve más", "No pasa nada"], "c": 0, "e": "Sin árboles, el suelo queda desprotegido. Es el ODS 15: los bosques también sujetan la comida."}, {"p": "¿Qué tiene que dar el padre para que el molino funcione?", "o": ["Su bicicleta", "Su casa", "Sus tierras"], "c": 0, "e": "La bicicleta es lo más valioso que tiene la familia. Decidirse a desmontarla es la decisión difícil de la película."}, {"p": "¿En qué se parece el molino de William a las placas de la semana pasada?", "o": ["En que se fabrica la energía allí donde se usa", "En nada", "En que los dos queman combustible"], "c": 0, "e": "Producir cerca de donde se consume: lo mismo que preguntábamos con el tejado del instituto."}, {"p": "¿Es una historia real?", "o": ["Sí: William Kamkwamba existe y su molino también", "No, es inventada", "Es un cuento tradicional"], "c": 0, "e": "William Kamkwamba contó su historia en un libro. Después pudo seguir estudiando, y terminó la universidad en Estados Unidos."}];
   var LETRAS = ['a','b','c','d'];
   var qi = 0, aciertos = 0, contestada = false;
   var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),

@@ -84,20 +84,27 @@ Calendario del 3.er trimestre (Semana Santa 22-28 mar; no lectivo 28 may, vierne
 - S25 · 7 abr · Lo que comemos.
 - S26 · 14 abr · La ropa.
 - S27 · 21 abr · Placas solares en el tejado (víspera del Día de la Tierra).
-- S28 · 28 abr · ¿Coche eléctrico?
-- S29 · 5 may · El agua de Granada.
-- S30 · 12 may · La factura de la luz.
-- S31 · 19 may · ¿Cuánto cuesta vivir solo?
-- S32 · 26 may · Una botella de plástico.
-- S33 · 2 jun · El calor en el aula.
-- S34 · 9 jun · Repaso del curso.
-- S35 · 16 jun · Tu decisión del curso.
+  Última diapositiva: si sobra tiempo, empieza «El niño que domó el viento».
+- S28 · 28 abr · El niño que domó el viento, 2.ª parte: se termina y
+  cuestionario de 10 preguntas en la propia presentación (sin vídeo).
+- S29 · 5 may · ¿Coche eléctrico?
+- S30 · 12 may · El agua de Granada.
+- S31 · 19 may · La factura de la luz.
+- S32 · 26 may · ¿Cuánto cuesta vivir solo?
+- S33 · 2 jun · Una botella de plástico.
+- S34 · 9 jun · El calor en el aula.
+- S35 · 16 jun · Repaso y cierre del curso (antes eran dos sesiones:
+  repaso y «Tu decisión del curso»; se juntaron para meter la película).
+
+Película recomendada: la última diapositiva de casi todas las sesiones lleva
+«Si te ha interesado, una película» con el título (solo el nombre, sin
+enlaces). Sin recomendación: S13, S22, S27 y S28 (la película se ve en clase).
 
 Vídeos: S01-S19 llevan diapositiva de vídeo (serie común + hueco oculto
 #video-extra). S20-S23 y todo el 3.er trimestre van sin vídeo, a propósito;
 se puede añadir con la misma diapositiva si Manuel encuentra uno.
-Datos a revisar antes de dar cada sesión del 3.er trimestre: embalses (S29),
-precios de la luz (S30), alquiler (S31) y producción solar (S27, estimación
+Datos a revisar antes de dar cada sesión del 3.er trimestre: embalses (S30),
+precios de la luz (S31), alquiler (S32) y producción solar (S27, estimación
 de 1.600 kWh/kWp al año, sin comprobar con PVGIS).
 
 Criterios que se mantienen en todas:

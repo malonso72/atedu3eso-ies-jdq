@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S31 · ¿Cuánto cuesta vivir solo? · ATEDU 3º ESO</title>
+<title>S31 · La factura de la luz · ATEDU 3º ESO</title>
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="presentaciones.css">
 <style>
@@ -188,71 +188,58 @@ a.video-box[href=""]{display:none}
 
   <section class="slide dark">
     <span class="leaf">🌱</span>
-    <h1>¿Cuánto cuesta vivir solo?</h1>
+    <h1>La factura de la luz</h1>
     <p class="sub">Decisiones para un mundo sostenible · ATEDU 3.º ESO</p>
     <div class="hr"></div>
-    <p class="kicker">Sesión 31 · ODS 11 · 10</p>
-    <p style="font-size:1.4rem;font-style:italic">Dentro de unos años os haréis esta pregunta. Hoy, con números.</p>
+    <p class="kicker">Sesión 31 · ODS 7 · 1</p>
+    <p style="font-size:1.4rem;font-style:italic">Todo el mundo la paga y casi nadie la entiende.</p>
   </section>
   <section class="slide cream">
-    <h2>Irse de casa</h2>
+    <h2>Lo que se paga</h2>
+    <p>La factura tiene dos partes. Una es la <b>potencia contratada</b>: cuántos aparatos puedes tener encendidos a la vez. Se paga la uses o no. La otra es la <b>energía</b>: los kWh que gastas, a un precio que cambia según la hora.</p>
     <div class="dato-grande">
-      <div><b>14,5 %</b><span>de los jóvenes de 16 a 29 años vive fuera de casa de sus padres</span></div>
-      <div><b>30 años</b><span>es la edad media de emancipación en España (26,2 en la UE)</span></div>
-      <div><b>98,7 %</b><span>del salario de un joven haría falta para alquilar solo</span></div>
+      <div><b>≈ 31 €</b><span>por kW contratado al año, solo de potencia (2026, sin impuestos)</span></div>
+      <div><b>≈ 100 €</b><span>al año por tener 3,45 kW contratados, sin gastar nada</span></div>
+      <div><b>15,9 %</b><span>de la población no puede mantener su casa a temperatura adecuada</span></div>
     </div>
-    <p class="fuente-dato">Datos: Consejo de la Juventud de España, Observatorio de Emancipación 2025; Eurostat, 2024.</p>
+    <p class="fuente-dato">Datos: IDAE, Tarifas reguladas de julio de 2026 (suma aproximada de peajes, cargos y comercialización); INE, ECV 2025, citado por la Junta de Extremadura.</p>
   </section>
   <section class="slide cream">
-    <h2>¿Cuánto cuesta el metro cuadrado?</h2>
-    <p class="sub">Alquiler medio por metro cuadrado al mes, agosto de 2026.</p>
-    <div class="mix">
-      <div class="barra">
-        <span class="fuente">España</span>
-        <span class="pista"><span class="relleno" style="width:100%;background:#6E6E6E"></span></span>
-        <span class="pct">15,1 €</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Andalucía</span>
-        <span class="pista"><span class="relleno" style="width:93%;background:#6E6E6E"></span></span>
-        <span class="pct">14 €</span>
-      </div>
-      <div class="barra">
-        <span class="fuente">Granada capital</span>
-        <span class="pista"><span class="relleno" style="width:72%;background:#D35400"></span></span>
-        <span class="pct">10,9 €</span>
-      </div>
-    </div>
-    <div class="infobox">
-      <div class="label">Más barato que la media… y aun así</div>
-      <p>Granada es de las capitales más baratas, y aun así un piso de 60 m² cuesta más de la mitad del salario mínimo.</p>
-    </div>
-    <p class="fuente-dato">Datos: Idealista, informes de precios de alquiler (agosto de 2026). Es un portal inmobiliario, no una estadística oficial.</p>
+    <h2>Las tres franjas</h2>
+    <p class="sub">Tarifa regulada para hogares (2.0TD), de lunes a viernes.</p>
+    <table class="tabla2">
+      <thead><tr><th>Franja</th><th>Horas</th><th>Precio medio, agosto de 2026</th></tr></thead>
+      <tbody>
+        <tr><td>Punta</td><td>De 10 a 14 y de 18 a 22</td><td>0,219 €/kWh</td></tr>
+        <tr><td>Llano</td><td>De 8 a 10, de 14 a 18 y de 22 a 24</td><td>0,144 €/kWh</td></tr>
+        <tr><td>Valle</td><td>De 0 a 8, y fines de semana y festivos todo el día</td><td>0,154 €/kWh</td></tr>
+      </tbody>
+    </table>
+    <p class="nota">Horarios: Circular 3/2020 de la CNMC, citada por Repsol. Precios: OCU. Ojo: ese mes el llano salió más barato que el valle, por el sol de mediodía.</p>
   </section>
   <section class="slide cream">
-    <h2>¿Cuánto cuesta vivir solo?</h2>
+    <h2>¿Cuándo pongo la lavadora?</h2>
     <div class="calc">
       <div class="mandos">
-        <div class="mando"><label for="m2">Metros del piso</label><input id="m2" type="number" value="60" min="0" step="5"><span class="ud">m²</span></div>
-        <div class="mando"><label for="pm">Alquiler por m²</label><input id="pm" type="number" value="10.9" min="0" step="0.1"><span class="ud">€/m²</span></div>
-        <div class="mando"><label for="ing">Ingresos al mes</label><input id="ing" type="number" value="1221" min="0" step="10"><span class="ud">€</span></div>
-        <div class="mando"><label for="per">Personas que comparten el piso</label><input id="per" type="number" value="1" min="0" step="1"><span class="ud">personas</span></div>
+        <div class="mando"><label for="lav">Lavadoras a la semana</label><input id="lav" type="number" value="4" min="0" step="1"><span class="ud">lavados</span></div>
+        <div class="mando"><label for="kwh">Energía por lavado</label><input id="kwh" type="number" value="1" min="0" step="0.1"><span class="ud">kWh</span></div>
+        <div class="mando"><label for="p1">Precio en la franja cara</label><input id="p1" type="number" value="0.219" min="0" step="0.001"><span class="ud">€/kWh</span></div>
+        <div class="mando"><label for="p2">Precio en la franja barata</label><input id="p2" type="number" value="0.144" min="0" step="0.001"><span class="ud">€/kWh</span></div>
         <div class="pistas">
-          <button class="pista-btn" data-set="per:3">Compartir entre tres</button>
-          <button class="pista-btn" data-set="pm:14">Con el precio medio de Andalucía</button>
-          <button class="pista-btn" data-set="m2:60,pm:10.9,ing:1221,per:1">Volver a los datos de partida</button>
+          <button class="pista-btn" data-set="lav:8">Una familia grande, 8 lavados</button>
+          <button class="pista-btn" data-set="lav:4,kwh:1,p1:0.219,p2:0.144">Volver a los datos de partida</button>
         </div>
       </div>
       <div class="result">
         <div class="tiles">
-          <div class="tile"><span class="et">Alquiler al mes</span><span class="vl" id="t1">—</span></div>
-          <div class="tile"><span class="et">Te toca pagar</span><span class="vl" id="t2">—</span></div>
-          <div class="tile clave"><span class="et">Parte de tus ingresos</span><span class="vl" id="t3">—</span></div>
+          <div class="tile"><span class="et">En la franja cara, al año</span><span class="vl" id="t1">—</span></div>
+          <div class="tile"><span class="et">En la barata, al año</span><span class="vl" id="t2">—</span></div>
+          <div class="tile clave"><span class="et">Diferencia al año</span><span class="vl" id="t3">—</span></div>
         </div>
         <div class="veredicto si" id="vered">—</div>
       </div>
     </div>
-    <p class="nota">Alquiler: Idealista, agosto de 2026 (Granada 10,9 €/m²; Andalucía 14,0). Los ingresos de partida son el salario mínimo de 2026 en bruto (S11): lo que llega a la cuenta es algo menos. El 30 % es el límite que usa el Consejo de la Juventud.</p>
+    <p class="nota">Precios medios de agosto de 2026 según la OCU: punta 0,219; llano 0,144; valle 0,154 €/kWh. Una lavadora gasta entre 0,5 y 1,5 kWh por lavado, según el programa (fuente comercial).</p>
   </section>
   <section class="slide cream">
     <h2>Lo comprobamos</h2>
@@ -271,13 +258,13 @@ a.video-box[href=""]{display:none}
   <section class="slide dark">
     <span class="leaf">🌱</span>
     <h2>Lo que hemos hecho hoy</h2>
-    <p>Echar la cuenta de irse de casa y ver por qué en España la gente se emancipa tan tarde.</p>
-    <p class="sub">Un techo también es un ODS.</p>
+    <p>Leer una factura, ver cuánto se ahorra cambiando de hora un aparato y descubrir que las horas baratas son las de sol.</p>
+    <p class="sub">Poco dinero por aparato, pero cuando lo hace mucha gente, la red entera funciona mejor.</p>
     <div class="hr"></div>
     <p class="kicker">Próxima sesión</p>
-    <p style="font-size:1.2rem;font-style:italic">S32 · Una botella de plástico.</p>
+    <p style="font-size:1.2rem;font-style:italic">S32 · ¿Cuánto cuesta vivir solo?</p>
     <p class="kicker peli" style="margin-top:2.4vh">Si te ha interesado, una película</p>
-    <p style="font-size:1.2rem">🎬 <i>El 47</i></p>
+    <p style="font-size:1.2rem">🎬 <i>Solar Mamas</i></p>
   </section>
 
 </div>
@@ -286,7 +273,7 @@ a.video-box[href=""]{display:none}
 (function(){
 
   /* ---------- calculadora ---------- */
-  var CAMPOS = ["m2", "pm", "ing", "per"];
+  var CAMPOS = ["lav", "kwh", "p1", "p2"];
   var el = {};
   CAMPOS.forEach(function(k){ el[k] = document.getElementById(k); });
   function eu(x){ return x.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
@@ -297,11 +284,10 @@ a.video-box[href=""]{display:none}
     var v = {};
     CAMPOS.forEach(function(k){ var x = parseFloat(String(el[k].value).replace(',', '.')); v[k] = isFinite(x) && x >= 0 ? x : 0; });
     var r = (function(v){
-      var alq = v.m2 * v.pm;
-      var tuyo = alq / Math.max(1, v.per);
-      var pct = v.ing > 0 ? tuyo / v.ing * 100 : 0;
-      return { t:{ t1: eu0(alq), t2: eu0(tuyo), t3: n0(pct) + ' %' }, ok: pct <= 30,
-        msg: pct <= 30 ? 'Por debajo del 30 %: se considera asumible.' : 'Más del 30 % de los ingresos: se considera sobreesfuerzo. Por eso compartir piso, o quedarse en casa, es tan habitual.' };
+      var kwh = v.lav * 52 * v.kwh;
+      var c1 = kwh * v.p1, c2 = kwh * v.p2;
+      return { t:{ t1: eu(c1), t2: eu(c2), t3: eu(c1 - c2) }, ok:true,
+        msg: 'Cambiar de hora la lavadora ahorra unos ' + eu0(c1 - c2) + ' al año. Poco dinero; lo interesante es otra cosa: la franja más barata de 14 a 18 h coincide con las horas de más sol, cuando la luz es más renovable.' };
     })(v);
     Object.keys(r.t).forEach(function(id){ document.getElementById(id).textContent = r.t[id]; });
     var vd = document.getElementById('vered');
@@ -324,7 +310,7 @@ a.video-box[href=""]{display:none}
   calcula();
 
   /* ---------- cuestionario ---------- */
-  var PREGUNTAS = [{"p": "¿Qué parte de los jóvenes de 16 a 29 años vive fuera de casa de sus padres en España?", "o": ["El 14,5 %", "El 50 %", "El 90 %"], "c": 0, "e": "El 14,5 %, según el Observatorio de Emancipación del Consejo de la Juventud."}, {"p": "¿A qué edad se van de casa de media los jóvenes españoles?", "o": ["A los 22", "A los 30", "A los 40"], "c": 1, "e": "A los 30, frente a 26,2 de media en la UE (Eurostat, 2024)."}, {"p": "¿Qué parte del salario de un joven se llevaría alquilar un piso solo?", "o": ["El 20 %", "El 98,7 %", "El 50 %"], "c": 1, "e": "Casi todo el sueldo: 98,7 %, según el Consejo de la Juventud."}, {"p": "¿Cuál es el límite a partir del cual se considera que la vivienda te ahoga?", "o": ["El 30 % de los ingresos", "El 80 %", "No hay"], "c": 0, "e": "Pasar del 30 % se considera sobreesfuerzo."}, {"p": "Un piso de 60 m² a 10,9 €/m², ¿cuánto cuesta al mes?", "o": ["Unos 65 €", "Unos 654 €", "Unos 6.540 €"], "c": 1, "e": "60 × 10,9 = 654 € al mes."}, {"p": "¿Con qué ODS tiene que ver la vivienda?", "o": ["Con el 11 y el 10", "Con el 14", "Con ninguno"], "c": 0, "e": "Ciudades habitables (11) y desigualdades (10): quien no puede pagar un techo se queda atrás."}];
+  var PREGUNTAS = [{"p": "¿Qué dos cosas se pagan en la factura de la luz?", "o": ["La energía gastada y la potencia contratada", "Solo los aparatos", "Solo el IVA"], "c": 0, "e": "Los kWh que gastas y los kW que tienes contratados, los uses o no."}, {"p": "¿En qué horas de un día laborable está la franja punta, la más cara?", "o": ["De 0 a 8", "De 10 a 14 y de 18 a 22", "Todo el día"], "c": 1, "e": "De 10 a 14 y de 18 a 22 h. Llano: de 8 a 10, de 14 a 18 y de 22 a 24. Valle: de 0 a 8."}, {"p": "¿Qué pasa los fines de semana?", "o": ["Todo el día es punta", "Todo el día es valle", "No hay luz"], "c": 1, "e": "Sábados, domingos y festivos nacionales, las 24 horas cuentan como valle."}, {"p": "En agosto de 2026 la franja llano salió más barata que la valle. ¿Por qué puede ser?", "o": ["Porque el llano incluye las horas de mediodía, con mucho sol", "Por error", "Porque de noche no hay luz"], "c": 0, "e": "De 14 a 18 h hay mucha producción solar, y eso abarata el precio."}, {"p": "4 lavadoras a la semana de 1 kWh, pasadas de 0,219 a 0,144 €/kWh, ¿cuánto ahorran al año?", "o": ["Unos 16 €", "Unos 160 €", "Unos 1.600 €"], "c": 0, "e": "208 kWh × 0,075 € ≈ 15,6 € al año. Poco, pero suma."}, {"p": "¿Qué parte de la población de España no puede mantener su casa a una temperatura adecuada?", "o": ["Un 1,5 %", "Un 15,9 %", "Un 50 %"], "c": 1, "e": "El 15,9 %, según la ECV (S14). La factura importa mucho más en unas casas que en otras."}];
   var LETRAS = ['a','b','c','d'];
   var qi = 0, aciertos = 0, contestada = false;
   var qCuenta = document.getElementById('q-cuenta'), qPreg = document.getElementById('q-preg'),
