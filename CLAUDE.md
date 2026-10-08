@@ -116,3 +116,10 @@ Criterios que se mantienen en todas:
 - Cuestionario final para resolver en voz alta entre todos.
 - ODS 1 (pobreza): cuidado con que puede haber alumnos del grupo en esa
   situación; diseñarla con datos agregados, nunca personales.
+
+## ENTORNO DE TRABAJO (desde oct-2026)
+
+- **Equipo principal: el portátil de Manuel** (Windows 10). Los repos están en `C:\Users\Manuel\Documents\Webs\<repo>`; desde la terminal de Claude, en `~/mnt/Webs/<repo>`. El PC de casa de sus padres queda de reserva: si se trabaja allí, primero Pull.
+- **Git:** Claude hace el commit (nombre y correo ya configurados en el repo). **El push no**: la terminal no tiene las credenciales de GitHub. Al terminar, avisar a Manuel para que pulse «Push origin» en GitHub Desktop.
+- **Archivos `.lock`:** sin permiso de borrado, Git deja `.lock` y `tmp_obj_*` dentro de `.git/` y luego GitHub Desktop falla. La primera vez, pedir permiso de borrado sobre la carpeta `Webs` y limpiar solo los que haya dejado la propia sesión, nunca uno que pueda estar usando GitHub Desktop.
+- **Hook de pre-push:** este repo no tiene.
